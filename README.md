@@ -42,7 +42,7 @@ enabled = false
 
 这里的“触发”是 Ars 的效果执行入口，正常返回即视为一次付费尝试；原版没有通用成功返回值，所以对不适用目标执行的效果也可能付费。单个效果内部的多目标伤害或自动持续状态不另按每个目标、每 tick 收费；持续载体每次重新执行编排则逐次收费。详见 [配置与计费语义](docs/trigger-billing.md)。
 
-详见 [API 与责任边界](docs/api.md)、[构建说明](docs/building.md) 和 [版本记录](CHANGELOG.md)。
+详见 [API 与责任边界](docs/api.md)、[原生法术接入核对](docs/spell-adapter-checklist.md)、[构建说明](docs/building.md) 和 [版本记录](CHANGELOG.md)。
 
 ## 版本策略
 
