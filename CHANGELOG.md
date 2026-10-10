@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6
+
+- 弹射物转换入口在读取 Ars 解析器或施法者之前检查服务端世界，客户端网络实体按原样加入，不发起原生替换或计费。
+- 修复客户端弹射物上下文调用 `getUnwrappedCaster()` 时将 `ClientLevel` 强转为 `ServerLevel` 的同类异常；原始用户报告来自 Iron & Nouveau 0.16.2。
+
 ## 0.1.5
 
 - 新增公共 `ResolverExtension` / `ResolverContexts`，让入口来源语义随解析器派生、共享轨迹碰撞包装和原生报价继续传递；不覆盖提供者自定义解析器行为。

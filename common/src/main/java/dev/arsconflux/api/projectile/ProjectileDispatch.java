@@ -8,6 +8,9 @@ import net.minecraft.world.entity.Entity;
 public final class ProjectileDispatch {
     private ProjectileDispatch() {}
     public static boolean convert(Entity entity) {
+        // Client spawn packets contain a visual context, not a server caster lookup. Let those
+        // entities join normally; never read a resolver, dispatch a payload or bill on the client.
+        if (!(entity.level() instanceof net.minecraft.server.level.ServerLevel)) return false;
         if (!(entity instanceof EntityProjectileSpell projectile)) return false;
         var resolver = ArsAccess.resolver(projectile);
         if (resolver == null) return false;
