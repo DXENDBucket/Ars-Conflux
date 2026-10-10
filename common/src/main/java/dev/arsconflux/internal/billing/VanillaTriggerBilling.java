@@ -8,6 +8,8 @@ import dev.arsconflux.api.resource.*;
 import dev.arsconflux.config.ConfluxConfig;
 import dev.arsconflux.platform.ArsAccess;
 import dev.arsconflux.mixin.SpellResolverAccess;
+import dev.arsconflux.api.glyph.ArsSpellAccess;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.HitResult;
 import java.util.*;
@@ -95,7 +97,8 @@ public final class VanillaTriggerBilling {
     /** Ars effects return void: normal dispatch is a paid attempt, not a claim of world mutation. */
     public static void resolve(AbstractEffect effect, SpellResolver resolver, HitResult hit, Runnable action) {
         var context = resolver.spellContext;
-        if (!enabled(context) || !deferred(effect)) { action.run(); return; }
+        if (!(ArsSpellAccess.level(context) instanceof ServerLevel)
+                || !enabled(context) || !deferred(effect)) { action.run(); return; }
         if (hit == null || hit.getType() == HitResult.Type.MISS) { context.stop(); return; }
         int index = context.getCurrentIndex() - 1;
         var group = groups(context).stream().filter(g -> g.index() == index && g.part() == effect).findFirst().orElse(null);
@@ -104,8 +107,9 @@ public final class VanillaTriggerBilling {
         quoteContext.tag = context.tag.copy();
         quoteContext.tag.putBoolean(QUOTE, true);
         quoteContext.tag.putInt(RAW, allocated(context, Math.max(0, context.getSpell().getCost()), index));
+        var caster = ArsSpellAccess.caster(context);
         int discount = com.hollingsworth.arsnouveau.api.util.ManaUtil.getPlayerDiscounts(
-                context.getUnwrappedCaster(), resolver.spell, context.getCasterTool());
+                caster, resolver.spell, context.getCasterTool());
         quoteContext.tag.putInt(DISCOUNT, allocated(context, Math.max(0, discount), index));
         var quote = ResolverContexts.quote(resolver, quoteContext);
         try {
@@ -116,11 +120,11 @@ public final class VanillaTriggerBilling {
             // Both native cost-event phases can modify prices; never dispatch when the debit is unaffordable.
             var account = new ResourceAccount() {
                 public Object reservationKey() { return new ArsManaAccount(context.getCaster()).reservationKey(); }
-                public boolean free() { return context.getUnwrappedCaster() instanceof Player player && player.isCreative(); }
+                public boolean free() { return caster instanceof Player player && player.isCreative(); }
                 public boolean canSpend(int amount) {
                     if (amount > spent) return ArsAccess.canSpend(context.getCaster(), amount);
                     return ArsAccess.canSpend(context.getCaster(), Math.max(required, spent))
-                            && ((SpellResolverAccess)quote).arsConflux$enoughMana(context.getUnwrappedCaster());
+                            && ((SpellResolverAccess)quote).arsConflux$enoughMana(caster);
                 }
                 public void spend(int amount) { quote.expendMana(); }
             };

@@ -24,7 +24,7 @@ public final class CastContexts {
     public static CastContext resolve(SpellContext ars, HitResult hit, ResourceAccount account) {
         Objects.requireNonNull(ars, "Ars context");
         Origin origin = ars.getAttachment(KEY);
-        var caster = origin == null ? ars.getUnwrappedCaster() : origin.caster();
+        var caster = origin == null ? dev.arsconflux.api.glyph.ArsSpellAccess.caster(ars) : origin.caster();
         return new CastContext(ars, caster, caster, origin == null ? caster : origin.damageOwner(), hit,
                 TriggerGeometry.read(ars), account != null ? account : origin == null ? null : origin.account());
     }

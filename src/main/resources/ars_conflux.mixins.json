@@ -4,6 +4,7 @@
   "package": "dev.arsconflux.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "SpellContextAccess",
     "SpellResolverAccess",
     "ArsTriggerBillingMixin",
     "ResolverInheritanceMixin",

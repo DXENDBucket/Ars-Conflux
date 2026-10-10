@@ -14,7 +14,7 @@ public final class ProjectileDispatch {
         if (!(entity instanceof EntityProjectileSpell projectile)) return false;
         var resolver = ArsAccess.resolver(projectile);
         if (resolver == null) return false;
-        var forms = resolver.spell.getAugments(0, resolver.spellContext.getUnwrappedCaster()).stream()
+        var forms = resolver.spell.getAugments(0, dev.arsconflux.api.glyph.ArsSpellAccess.caster(resolver.spellContext)).stream()
                 .filter(ProjectileForm.class::isInstance).map(ProjectileForm.class::cast).toList();
         if (forms.isEmpty()) return false;
         if (forms.size() != 1) return true; // Ambiguous payload: fail closed even on a raw/generated recipe.

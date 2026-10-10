@@ -65,6 +65,8 @@ boolean started = ExecutionSessions.start(session);
 
 ## 编排与空间
 
+0.1.7 的 `ArsSpellAccess.level(context)` 直接读取存储的世界，不查询施法者；未绑定上下文可以返回 null。`caster(context)` 在服务端沿用 Ars 原有行为，包括装置的原生假玩家回退；在客户端或缺失世界时只读取存储的实体，装置／网络上下文可能返回 null。`CastContext.of` 也使用这个安全入口。调用方仍须在执行世界变化、资源支付及权限事件之前检查服务端，安全读取本身不代表可以执行法术。
+
 `ArsSpellAccess.parts(spell)` 返回不可修改的部件列表快照，避免附属直接依赖 Ars 4 的可变列表字段或 Ars 5 的读取方法。它保留原有顺序和部件实例；附属不能通过该列表改写原术式。
 
 `ArsSpellAccess.resolver(projectile)` 读取 `EntityProjectileSpell` 的解析器，同名双参数方法设置解析器；法术箭 `EntitySpellArrow` 有独立的读取重载。法术箭不是 `EntityProjectileSpell` 的子类。这些 API 在两个平台具有相同源码签名，仍需分别编译发行包；不要引用 Core 内部的 `platform.ArsAccess`。

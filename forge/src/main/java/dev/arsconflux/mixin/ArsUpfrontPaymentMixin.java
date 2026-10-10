@@ -24,13 +24,10 @@ public abstract class ArsUpfrontPaymentMixin {
         @At(value = "INVOKE", target = "Lcom/hollingsworth/arsnouveau/api/spell/AbstractCastMethod;onCastOnEntity(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/InteractionHand;Lcom/hollingsworth/arsnouveau/api/spell/SpellStats;Lcom/hollingsworth/arsnouveau/api/spell/SpellContext;Lcom/hollingsworth/arsnouveau/api/spell/SpellResolver;)Lcom/hollingsworth/arsnouveau/api/spell/CastResolveType;", remap = false)})
     private void arsConflux$beforeDispatch(CallbackInfoReturnable<Boolean> ci) {
         var resolver = (SpellResolver)(Object)this;
-        var caster = resolver.spellContext.getUnwrappedCaster();
-        var world = caster != null ? caster.level() : resolver.spellContext.castingTile != null
-                ? resolver.spellContext.castingTile.getLevel() : null;
-        if (world != null && !world.isClientSide
+        if (dev.arsconflux.api.glyph.ArsSpellAccess.level(resolver.spellContext) instanceof net.minecraft.server.level.ServerLevel
                 && (resolver.spell.recipe.stream().anyMatch(p -> p instanceof dev.arsconflux.api.glyph.TriggerPaidGlyph)
                 || dev.arsconflux.internal.billing.VanillaTriggerBilling.hasDeferred(resolver.spellContext))) {
-            if (!(resolver.spellContext.getUnwrappedCaster() instanceof net.minecraft.world.entity.player.Player player) || !player.isCreative())
+            if (!(dev.arsconflux.api.glyph.ArsSpellAccess.caster(resolver.spellContext) instanceof net.minecraft.world.entity.player.Player player) || !player.isCreative())
                 resolver.expendMana();
             arsConflux$paid = true;
             dev.arsconflux.api.projectile.VolleyBudget.begin(resolver);
