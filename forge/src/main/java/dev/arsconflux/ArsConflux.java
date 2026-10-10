@@ -1,0 +1,36 @@
+package dev.arsconflux;
+
+import dev.arsconflux.api.execution.ExecutionSessions;
+import dev.arsconflux.api.projectile.BuiltinCarriers;
+import dev.arsconflux.api.projectile.CarrierRegistry;
+import dev.arsconflux.api.projectile.ProjectileDispatch;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraft.server.level.ServerLevel;
+
+@Mod(ArsConflux.MOD_ID)
+public final class ArsConflux {
+    public static final String MOD_ID = "ars_conflux";
+    public ArsConflux() {
+        BuiltinCarriers.register();
+        FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
+            for (var profile : CarrierRegistry.profiles()) if (profile.glyph() != null)
+                profile.rememberOriginalAugments(profile.glyph());
+        }));
+        MinecraftForge.EVENT_BUS.addListener((TickEvent.ServerTickEvent event) -> {
+            if (event.phase == TickEvent.Phase.END) ExecutionSessions.tick();
+        });
+        MinecraftForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> ExecutionSessions.stop());
+        MinecraftForge.EVENT_BUS.addListener((LevelEvent.Unload event) -> {
+            if (event.getLevel() instanceof ServerLevel world) ExecutionSessions.unload(world);
+        });
+        MinecraftForge.EVENT_BUS.addListener(net.minecraftforge.eventbus.api.EventPriority.LOWEST,
+                (EntityJoinLevelEvent event) -> { if (ProjectileDispatch.convert(event.getEntity())) event.setCanceled(true); });
+    }
+}

@@ -1,0 +1,45 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.146'
+}
+group = 'dev.arsconflux'
+version = file('VERSION').text.trim()
+base { archivesName = 'ars-conflux' }
+java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
+repositories { mavenCentral() }
+sourceSets {
+    main { java.srcDir 'common/src/main/java'; resources.srcDir 'common/src/main/resources' }
+    gameTest { compileClasspath += sourceSets.main.output; runtimeClasspath += sourceSets.main.output }
+}
+configurations {
+    gameTestImplementation.extendsFrom implementation
+    gameTestCompileOnly.extendsFrom compileOnly
+    gameTestRuntimeOnly.extendsFrom runtimeOnly
+}
+neoForge {
+    version = '21.1.250'
+    addModdingDependenciesTo sourceSets.gameTest
+    runs {
+        gameTestServer {
+            type = 'gameTestServer'
+            gameDirectory = file('run/gametest')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'ars_conflux'
+        }
+    }
+    mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }
+}
+dependencies {
+    compileOnly fileTree(dir: 'libs', include: '*.jar')
+    runtimeOnly fileTree(dir: 'libs', include: '*.jar')
+    testImplementation platform('org.junit:junit-bom:5.13.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(Test).configureEach { useJUnitPlatform() }
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') { expand(version: project.version) }
+}
+tasks.named('jar') { from('LICENSE', 'THIRD_PARTY_NOTICES.md'); archiveFileName = "ars-conflux-${project.version}-mc1.21.1-neoforge.jar" }
+tasks.named('sourcesJar') { from('LICENSE') }

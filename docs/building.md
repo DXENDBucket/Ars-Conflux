@@ -1,0 +1,31 @@
+# 构建
+
+两个入口共享 `common/` 及根目录 `VERSION`，发行的是两个独立加载器 JAR。
+
+## NeoForge 1.21.1
+
+使用 Java 21。把以下开发依赖复制到根目录 `libs/`，不要提交或打进发行包：
+
+| 文件 | 版本 |
+| --- | --- |
+| `ars.jar` | Ars Nouveau 5.13.1 |
+| `curios.jar` | 与该 Ars 版本兼容的 Curios NeoForge |
+| `geckolib.jar` | 与该 Ars 版本兼容的 GeckoLib NeoForge |
+
+运行 `gradlew.bat build`，安装 `build/libs/ars-conflux-0.1.0-mc1.21.1-neoforge.jar`。
+
+独立验证使用 `gradlew.bat :test :runGameTestServer`。测试不需要 Iron、NEG 或 Ars Elemental。
+
+## Forge 1.20.1
+
+使用 Java 17。在 `forge/libs/` 放入 Ars Nouveau 4.12.7、Curios 5.14.1、GeckoLib 4.8.4、Patchouli 85 的 Forge 1.20.1 JAR。文件名分别是 `ars-nouveau-forge1201.jar`、`curios-forge1201.jar`、`geckolib-forge1201.jar`、`patchouli-forge1201.jar`。
+
+进入 `forge/`，运行 `gradlew.bat jarJar`。安装 `build/libs/ars-conflux-0.1.0-mc1.20.1-forge.jar`；它包含 MixinExtras 并完成重映射。不要把普通开发 JAR 作为另一份模组一起安装。
+
+## Iron 开发联调
+
+将仓库与 Iron & Nouveau 放在同级目录。NeoForge 默认从 `../Ars-Conflux` 引入 Core；Forge 默认从 `../Ars-Conflux/forge` 引入。不同目录可以传 `-PconfluxCheckout=路径`。
+
+编译期是 Gradle 项目依赖，运行和发布时仍是两个分开的模组 JAR。游戏内必须同时安装匹配版本的 Core 和 Iron & Nouveau。
+
+使用冒号限定根任务，例如 `:runGameTestServer`；不限定的任务选择器会同时运行子项目同名任务。组合联调可用 `-PgameTestNamespaces=irons_nouveau_conflux` 只执行迁移回归。

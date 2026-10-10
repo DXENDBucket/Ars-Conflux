@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="ars_conflux"
+version="${version}"
+displayName="Ars Conflux"
+authors="EndXiom"
+description='''Shared execution and optional carrier compatibility for composable Ars Nouveau addons.'''
+[[dependencies.ars_conflux]]
+modId="forge"
+mandatory=true
+versionRange="[47.4.0,48)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.ars_conflux]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.ars_conflux]]
+modId="ars_nouveau"
+mandatory=true
+versionRange="[4.12.7,5)"
+ordering="AFTER"
+side="BOTH"
