@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.8
+
+- Add opt-in `GlyphPresentation` registration: keep semantic categories, place participating providers after ordinary Ars/addon glyphs and keep each provider contiguous.
+- Centralize Ars 4 registry comparators and Ars 5 spellbook category sorting; preserve specialized optional-addon category predicates without linking their classes.
+- Order providers by namespace independently of initialization order; retain provider-specific secondary keys such as native Iron schools.
+- Transfer Iron sorting hooks and the same-rank effect/subform regression checks into Core.
+
 ## 0.1.7
 
 - 新增 `ArsSpellAccess.level(context)` / `caster(context)`：安全读取原始世界；服务端沿用 Ars 的施法者逻辑，客户端及未绑定上下文只读取已保存实体，允许为空。

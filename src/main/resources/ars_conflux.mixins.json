@@ -17,9 +17,13 @@
     "ResolutionGeometryMixin",
     "ArsUpfrontPaymentMixin",
     "ArsSplitBudgetMixin",
-    "OptionalTrailTargetsMixin"
+    "OptionalTrailTargetsMixin",
+    "GlyphRegistryOrderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "GlyphFormatterOrderMixin"
+  ]
 }
