@@ -69,8 +69,8 @@ public final class HexLinkCases {
                 var normal = normalConstructor.newInstance(spell, caster, player);
                 normalType.getMethod("cast", envType).invoke(normal, env);
                 h.assertTrue(form.calls.get() == 1, "Native Linker regular cast dispatches to this provider");
-                h.assertTrue(h.getLevel().getEntitiesOfClass(Snowball.class, area).size() == 1, "One replacement from regular cast");
-                h.getLevel().getEntitiesOfClass(Snowball.class, area).forEach(Entity::discard);
+                h.assertTrue(h.getLevel().getEntitiesOfClass(Snowball.class, area, p -> p.getOwner() == player).size() == 1, "One replacement from regular cast");
+                h.getLevel().getEntitiesOfClass(Snowball.class, area, p -> p.getOwner() == player).forEach(Entity::discard);
 
                 var direction = new Vec3(1, -.25, .5).normalize();
                 var context = SpellContext.fromEntity(spell, player, ItemStack.EMPTY);
@@ -81,7 +81,7 @@ public final class HexLinkCases {
                 var positioned = shootConstructor.newInstance(origin, direction, resolver);
                 shootType.getMethod("cast", envType).invoke(positioned, env);
                 h.assertTrue(form.calls.get() == 2, "Native Linker positioned cast dispatches to this provider exactly once");
-                var replacements = h.getLevel().getEntitiesOfClass(Snowball.class, area);
+                var replacements = h.getLevel().getEntitiesOfClass(Snowball.class, area, p -> p.getOwner() == player);
                 h.assertTrue(replacements.size() == 1 && replacements.get(0).getOwner() == player, "Owner remains the caster");
                 h.assertTrue(replacements.get(0).position().distanceTo(origin) < .01, "Requested launch position retained");
                 h.assertTrue(replacements.get(0).getDeltaMovement().normalize().dot(direction) > .999, "Requested direction retained");
@@ -90,10 +90,17 @@ public final class HexLinkCases {
                 var cloned = CastContext.of(context.clone(), null, null);
                 h.assertTrue(cloned.damageOwner() == target && cloned.incomingDirection().dot(direction) > .999,
                         "Clone preserves common attribution and direction");
-                h.assertTrue(h.getLevel().getEntitiesOfClass(EntityProjectileSpell.class, area).isEmpty(), "No duplicate original carrier");
+                h.assertTrue(h.getLevel().getEntitiesOfClass(EntityProjectileSpell.class, area,
+                        p -> ArsSpellAccess.resolver(p) != null && ArsSpellAccess.resolver(p).spellContext.getUnwrappedCaster() == player).isEmpty(), "No duplicate original carrier");
                 replacements.forEach(Entity::discard);
 
                 var effect = new TestEffect(form.getRegistryName().getNamespace() + ":glyph_hex_effect");
+                var quoteContext = SpellContext.fromEntity(new Spell(MethodProjectile.INSTANCE, form, effect), player, ItemStack.EMPTY);
+                setMana.accept(10);
+                var estimate = SpellResourceQuotes.estimate(quoteContext);
+                h.assertTrue(estimate.complete() && estimate.entries().size() == 2 && !estimate.affordable(),
+                        "Dry first-trigger quotes combine costs from the same physical pool");
+                setMana.accept(10000);
                 var touchContext = SpellContext.fromEntity(new Spell(MethodTouch.INSTANCE, effect), player, ItemStack.EMPTY);
                 var touchResolver = patternConstructor.newInstance(touchContext, env, MethodTouch.INSTANCE.getCastingCost());
                 var touch = touchConstructor.newInstance(Either.left(target), touchResolver);
@@ -108,7 +115,7 @@ public final class HexLinkCases {
                 var empty = patternConstructor.newInstance(emptyContext, env, MethodProjectile.INSTANCE.getCastingCost());
                 var emptyAction = shootConstructor.newInstance(origin, direction, empty);
                 shootType.getMethod("cast", envType).invoke(emptyAction, env);
-                h.assertTrue(form.calls.get() == before && h.getLevel().getEntitiesOfClass(Snowball.class, area).isEmpty(),
+                h.assertTrue(form.calls.get() == before && h.getLevel().getEntitiesOfClass(Snowball.class, area, p -> p.getOwner() == player).isEmpty(),
                         "Provider resource refusal still applies to native Linker positioned casts");
                 setMana.accept(10000);
             }
@@ -154,6 +161,9 @@ public final class HexLinkCases {
         public int getCastingCost() { return 0; }
         public boolean isEnabled() { return true; }
         public SpellTier getConfigTier() { return SpellTier.ONE; }
+        public ResourceCharge firstCharge(SpellContext context, List<AbstractAugment> augments) {
+            return new ResourceCharge(new ArsManaAccount(context.getCaster()), 7);
+        }
         @Override public void onResolve(HitResult hit, Level world, LivingEntity caster, SpellStats stats, SpellContext context, SpellResolver resolver) {
             var account = new ArsManaAccount(context.getCaster());
             new ResourceCharge(account, 7).trigger(() -> { last = CastContext.of(context, hit, account); calls.incrementAndGet(); return true; });

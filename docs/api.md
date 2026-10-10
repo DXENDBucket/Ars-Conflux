@@ -20,6 +20,17 @@ boolean applied = charge.trigger(() -> applySpellEffect());
 
 `charge.affordableCount(requested)` 返回当前可支付次数。它只计算预算，不扣款；每次执行仍要通过 `trigger` 预留和提交。调用必须在同步服务端执行范围内完成，不能把事务跨 tick 挂起。
 
+0.1.5 起，已自行计费的魔符可实现 `TriggerPaidGlyph.firstCharge(context, augments)`，返回一次首次触发的 `ResourceCharge`。`ProjectileForm` 默认复用 `initialCharge`。报价必须只读，沿用实际等级、工具和账户，不改变学习进度、余额或世界状态；无法报价时返回 null，只有确定免费才能返回金额 0。
+
+```java
+var estimate = SpellResourceQuotes.estimate(context);
+boolean allPricesKnown = estimate.complete();
+boolean canCoverKnownPrices = estimate.knownAffordable();
+boolean canCoverEstimate = estimate.affordable();
+```
+
+预估保留每个提供者魔符的条目，并按相等的 `reservationKey()` 合计同池费用。效果读取紧随其后的书写增强；替换形态读取同一增强段中前后的其他增强。它只估计每个魔符可能发生的一次首次激活，未含散射数量、持续脉冲、重复命中、原生 Ars 起手费或 Hex 媒质费，不是整个法术总费用的上界，也不是权限或目标有效性判断。未知条目会使 `complete()` 和 `affordable()` 返回 false；`knownAffordable()` 只检查可知部分。实际触发始终重新报价和预留。
+
 ## 会话
 
 `ExecutionSession<P>` 保存提供者自己的参数快照 `P`，调用 `ExecutionDriver<P>` 的 `start/tick/close`，由 `ExecutionSessions` 统一调度。
@@ -66,7 +77,15 @@ boolean started = ExecutionSessions.start(session);
 
 0.1.2 起，`CastContexts.bind` 通过 Ars 原有附件传递不可变的施法归属和账户，克隆、子上下文及常规延迟可保留；目标和执行者则在每次触发时重新确定。会话接受完整上下文，并在启动、tick、命中与清理时恢复作用域。Iron 的效果、弹射物、代理动作及持续施法已接入。详细约定见 [统一上下文](cast-context.md)。
 
-`TriggerPaidGlyph` 是附属已经自行实现触发计费的声明，主要让 Ars 的剩余起手费用在分支执行前支付。它不负责计算价格、取消该魔符的原生起手价格，或推断效果是否成功。
+`TriggerPaidGlyph` 是附属已经自行实现触发计费的声明，主要让 Ars 的剩余起手费用在分支执行前支付。其可选 `firstCharge` 提供只读报价；声明本身不会取消该魔符的原生起手价格，也不推断效果是否成功。
+
+## 解析器来源
+
+`ResolverExtension` 使用 Ars 的不可变上下文附件补充特殊施法入口的环境与报价语义，与 `CastContext` 中的施法归属、空间和账户分工独立。入口用 `ResolverContexts.attach(resolver, extension)` 附加它。克隆沿用 Ars 附件复制；Core 的 `getNewResolver` 钩子和 `ArsTrajectory` 碰撞包装传递附件。
+
+`derive(source, proposed)` 可在 Ars 提议普通子解析器时恢复入口自定义解析器；已有的碰撞或提供者解析器应保留自己的执行行为。`quote(source, context)` 可返回专用报价解析器，否则返回 null；同一来源最多一个附件拥有报价工厂。`ResolverContexts.quote` 用于需要保留原生入口定价的内部报价。
+
+自建包装器可以使用 `ResolverContexts.inherit(source, wrapper)` 仅传递来源附件。自行覆盖 `getNewResolver` 的提供者也应调用该方法，或明确调用 `derived`；普通基类的 mixin 不会自动拦截独立覆盖方法。提供者使用 `ResolverExtension` 时不应引用 Core 内部的 Hex 桥。附件是临时运行状态，不序列化外部 VM，也不让多个独立施法共享可变上下文。
 
 ## 原版 Ars 的可选接入
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.5
+
+- 新增公共 `ResolverExtension` / `ResolverContexts`，让入口来源语义随解析器派生、共享轨迹碰撞包装和原生报价继续传递；不覆盖提供者自定义解析器行为。
+- Core 内部集中维护可选 Linker 适配，保留 Hex 环境、原生回调深度与递归限制；未安装 Hex 时不加载其类型。
+- 可选 Ars 触发计费保留 Linker Mana 倍率；起手省略的人工形态费用不再从命中效果重复扣除，额外媒质仍按完整原生术式报价。
+- 修复 Ars 5 中 Linker 的资格报价与实际扣款倍率不一致；默认关闭 Core 的原生触发计费开关。
+- 新增提供者首次费用 API `TriggerPaidGlyph.firstCharge` 与 `SpellResourceQuotes`，按物理资源池合并检查，未知费用不视为免费。Iron 0.17.4 提供通用报价，不包含 Hex 专用逻辑。
+- 双版本定向验证覆盖真实 Ars → Hex VM → Ars 回调、实际媒质支付、指定方块、代施法付款归属、两种计费模式、倍率、空蓝、创造免费和递归限制。
+- 保留 Linker 的原生学习与启迪要求；Forge 测试使用世界生成的代施法图案并为测试玩家授予启迪。没有新增 Hex 查询图案或异步吟唱等待。
+
 ## 0.1.4
 
 - 将 Hex-Ars Linker 的可选适配声明、责任边界和独立集成验证集中到 Core。

@@ -13,4 +13,7 @@ import java.util.List;
 public interface ProjectileForm extends TriggerPaidGlyph {
     boolean replace(EntityProjectileSpell projectile, CarrierProfile carrier);
     ResourceCharge initialCharge(SpellContext context, List<AbstractAugment> augments);
+    @Override default ResourceCharge firstCharge(SpellContext context, List<AbstractAugment> augments) {
+        return initialCharge(context, augments);
+    }
 }

@@ -8,6 +8,18 @@ import net.neoforged.neoforge.gametest.*;
 
 @GameTestHolder("ars_conflux_hex") @PrefixGameTestTemplate(false)
 public final class HexLinkGameTests {
+    private static HexLinkAdvancedCases.PlayerAccess player(GameTestHelper h, String name) {
+        var player = net.neoforged.neoforge.common.util.FakePlayerFactory.get(h.getLevel(),
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), name));
+        player.setPos(h.absoluteVec(new Vec3(2, 3, 2))); player.setYRot(-90); player.setGameMode(GameType.SURVIVAL);
+        var mana = com.hollingsworth.arsnouveau.setup.registry.CapabilityRegistry.getMana(player);
+        mana.setMaxMana(10000);
+        return new HexLinkAdvancedCases.PlayerAccess(player, amount -> mana.setMana(amount), () -> mana.getCurrentMana());
+    }
+    @GameTest(template="empty", timeoutTicks=100)
+    public static void sourceBillingAndCallbackVm(GameTestHelper h) throws ReflectiveOperationException {
+        HexLinkAdvancedCases.verify(h, player(h, "HexSource"), player(h, "HexReceiver"), ModList.get().isLoaded("hex_ars_link"));
+    }
     @GameTest(template="empty", timeoutTicks=60)
     public static void independentProvidersUseNativeHexEntrypoints(GameTestHelper h) throws ReflectiveOperationException {
         h.assertTrue(!ModList.get().isLoaded("irons_nouveau") && !ModList.get().isLoaded("irons_spellbooks")

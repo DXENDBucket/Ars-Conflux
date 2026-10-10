@@ -6,6 +6,9 @@
   "mixins": [
     "SpellResolverAccess",
     "ArsTriggerBillingMixin",
+    "ResolverInheritanceMixin",
+    "OptionalHexResolverMixin",
+    "OptionalHexCallbackMixin",
     "ProjectileConversionMixin",
     "SpellValidationMixin",
     "ArsTriggerGeometryMixin",

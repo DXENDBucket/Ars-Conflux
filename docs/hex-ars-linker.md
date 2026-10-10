@@ -12,17 +12,23 @@ Hex 的 Ars 施法入口属于 Conflux 的公共适配边界。Iron、Goety 或�
 
 继续编排和延迟采用 Ars 上下文克隆，Core 的不可变归属附件随之保留。选择目标不会自动把目标变成施法者、伤害所有者或付款者。
 
+0.1.5 增加公共 `ResolverExtension` / `ResolverContexts`。Core 的可选 Linker 适配记录原生环境，普通子解析器恢复 Linker 定价，碰撞包装保留自己的执行逻辑并传递来源附件，触发报价使用原生来源工厂。回调从该来源读取深度，继续遵守 Linker 自带的递归限制。法术提供者不需要自行检测 `PatternResolver`。
+
 ## 资源与行为范围
 
 Hex 的基础媒质费用及 Linker 的额外媒质报价继续由 Hex／Linker 处理。魔符提供者保留自己的报价、资源来源与资格检查；Core 不把 Iron Mana、Goety 灵魂能量或 Hex 媒质强行合成一个池。
 
-这次独立验证使用 Core 默认的原生 Ars 起手计费。开启 `ars_trigger_billing.enabled` 时，Linker 的媒质报价与自定义解析器倍率仍需单独验证；不要将默认模式的测试结果理解为已经覆盖这项组合。
+默认仍为原生 Ars 起手计费。开启 `ars_trigger_billing.enabled` 后，原生 Ars 效果移到触发时支付，保留 Linker 的 `costRatePatternMana` 倍率。人工形态省略仅在起手生效，不从各次效果反复减去；空蓝的分支停止，创造施法免费。Ars 5 拆开了资格报价与实际扣款，Core 同时适配两者，避免原生 Linker 只缩放报价却扣除完整费用。
+
+`ratioExtraMediaCasting` 的额外媒质报价仍基于完整原生 Ars 术式，移到命中时付款不会使该报价漏掉后续原生效果。媒质实际支付由 Hex／Linker 完成。代施法时，运行 Hex 的玩家支付媒质，被选中执行 Ars 法术的玩家支付自己的 Ars 费用；选择普通攻击目标不会改变付款归属。
+
+Core 的 `SpellResourceQuotes.estimate(context)` 可只读汇总提供者各自的首次触发报价，同一个实际资源池的费用合计判断；未实现报价的提供者保留未知条目。这个接口不改写 Linker 的原生 Mana 查询含义，也没有新增 Hex 查询图案。它未计入持续、散射和重复次数，不能据此保证整个编排都能完成。
 
 吟唱、原生冷却和持续效果仍由各法术提供者声明和处理。这一层不会让整个 Hex 程序自动等待吟唱结束。Linker 自行创建的指定实体／位置操作仍使用其原生触发方式。
 
 ## 可选性
 
-Core 在两个加载器的元数据中声明 Linker 为可选模组，没有 Hex／Linker 硬前置。发行包不包含 Hex、Linker、测试提供者或这些模组的资源。运行时转换代码通过通用 Ars API 工作，不加载 Hex 类。
+Core 在两个加载器的元数据中声明 Linker 为可选模组，没有 Hex／Linker 硬前置。发行包不包含 Hex、Linker、测试提供者或这些模组的资源。转换仍走通用 Ars API；专用来源适配封装在 Core 内部的可选 mixin 和延迟反射桥，只有安装 Linker 后才访问其环境与配置类型。未安装时不加载 Hex 类，公共 API 没有 Hex 类型签名。
 
 Iron 中旧的 Linker 类型检测、可选依赖声明和专用 Forge 测试已归并到 Core 的验证范围。新的提供者只需要依赖 Conflux。
 
@@ -39,17 +45,24 @@ Iron 中旧的 Linker 类型检测、可选依赖声明和专用 Forge 测试已
 
 这些是测试使用的版本，不表示所有 Hex 预览版 API 都兼容。独立实验工程中的 Hex Pre53 客户端平台服务修复不属于 Core；本次服务端测试也不验证客户端渲染。
 
-2026-10-10：两个平台的真实 Linker 定向 GameTest 均通过，每个平台的一项测试依次验证两个独立提供者的上述入口与拒绝条件。测试没有安装 Iron 或 Goety；它验证公共链路，不表示 Goety 的具体法术已经接入。
+2026-10-10：双版本定向验证包含两项 Hex GameTest 与一项原生 Ars 计费回归：
+
+- 两个独立提供者的常规、指定位置、指定实体入口，归属、方向、克隆、单次转换、同池费用合计和空资源拒绝。
+- 起手及触发两种 Ars 计费模式、非默认 Mana／媒质倍率、派生解析器、人工形态省略、实际扣款、空蓝和创造免费。
+- 共享轨迹碰撞包装后仍保留回调深度和原生递归限制；实际 Ars 命中 → 回调 Hex VM → Ars 目标效果，并检查真实媒质支付。
+- 完整 VM 的指定方块与另一玩家代施法，检查施法结果及两名玩家的付款归属。
+
+Forge 的代施法属于原生逐世界图案且需要启迪，测试使用该世界生成的图案并给测试玩家授予启迪；Core 不取消这些原生要求。未安装 Hex／Linker 的启动和原生计费路径也单独验证。没有安装 Iron 或 Goety；结果验证公共链路，不表示 Goety 的具体法术已经接入。
 
 准备 Core 原有 Ars 开发依赖后，从 Core 根目录运行：
 
 ```powershell
 python tools/fetch_hex_test_dependencies.py
-./gradlew.bat :runGameTestServer -PwithHexLinker=true -PgameTestNamespaces=ars_conflux_hex
+./gradlew.bat :runGameTestServer -PwithHexLinker=true '-PgameTestNamespaces=ars_conflux_hex,ars_conflux_billing'
 cd forge
-./gradlew.bat :runGameTestServer -PwithHexLinker=true -PgameTestNamespaces=ars_conflux_hex
+./gradlew.bat :runGameTestServer -PwithHexLinker=true '-PgameTestNamespaces=ars_conflux_hex,ars_conflux_billing'
 ```
 
-`hex-test-dependencies.lock.json` 记录下载地址与 SHA-256，文件写入忽略的 `libs/hex-link/` 与 `forge/libs/hex-link/`。不传 `withHexLinker` 时这些依赖不会加入运行时。测试反射只存在于 gameTest 源码，不进入发行包。
+`hex-test-dependencies.lock.json` 记录下载地址与 SHA-256，文件写入忽略的 `libs/hex-link/` 与 `forge/libs/hex-link/`。不传 `withHexLinker` 时这些依赖不会加入运行时。完整 VM 操作、测试玩家与测试提供者只存在于 gameTest 源码，不进入发行包。
 
 上游代码：[Hex-Ars Linker](https://github.com/YukkuriC/HexArsLinker)。

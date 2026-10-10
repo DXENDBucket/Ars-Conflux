@@ -3,6 +3,7 @@ package dev.arsconflux.internal.billing;
 import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.api.spell.wrapped_caster.LivingCaster;
 import dev.arsconflux.api.glyph.TriggerPaidGlyph;
+import dev.arsconflux.api.context.ResolverContexts;
 import dev.arsconflux.api.resource.*;
 import dev.arsconflux.config.ConfluxConfig;
 import dev.arsconflux.platform.ArsAccess;
@@ -34,6 +35,14 @@ public final class VanillaTriggerBilling {
     public static Integer frozenQuoteCost(SpellContext context, boolean expended) {
         return context.tag.getBoolean(QUOTE) && context.tag.getBoolean(FROZEN)
                 ? context.tag.getInt(expended ? SPENT : REQUIRED) : null;
+    }
+    /** Full native price for external entrypoint quotes; it does not charge or alter the live cast. */
+    public static int originalQuote(SpellContext context) {
+        var quote = context.clone(); quote.tag = context.tag.copy();
+        quote.tag.putBoolean(SNAPSHOT, false);
+        quote.tag.remove(QUOTE); quote.tag.remove(FROZEN);
+        try { return new SpellResolver(quote).getResolveCost(); }
+        finally { NativePaymentCleanup.finish(quote); }
     }
     private static boolean deferred(AbstractSpellPart part) {
         return part instanceof AbstractEffect && !(part instanceof TriggerPaidGlyph)
@@ -98,7 +107,7 @@ public final class VanillaTriggerBilling {
         int discount = com.hollingsworth.arsnouveau.api.util.ManaUtil.getPlayerDiscounts(
                 context.getUnwrappedCaster(), resolver.spell, context.getCasterTool());
         quoteContext.tag.putInt(DISCOUNT, allocated(context, Math.max(0, discount), index));
-        var quote = resolver.getNewResolver(quoteContext);
+        var quote = ResolverContexts.quote(resolver, quoteContext);
         try {
             int required = quote.getResolveCost();
             int spent = ArsAccess.spentCost(quote);

@@ -3,6 +3,7 @@ package dev.arsconflux.api.projectile;
 import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 import dev.arsconflux.api.context.TriggerGeometry;
+import dev.arsconflux.api.context.ResolverContexts;
 import dev.arsconflux.platform.ArsAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -27,7 +28,8 @@ public final class ArsTrajectory {
         visual.setPos(carrier.position()); visual.setDeltaMovement(carrier.getDeltaMovement());
         configure.run();
         var original = ArsAccess.resolver(carrier);
-        ArsAccess.resolver(carrier, new ImpactResolver(original.spellContext.clone(), original.castType, impact));
+        ArsAccess.resolver(carrier, ResolverContexts.inherit(original,
+                new ImpactResolver(original.spellContext.clone(), original.castType, impact)));
         return world.addFreshEntity(visual);
     }
     public boolean tick(ServerLevel world) {
@@ -51,6 +53,8 @@ public final class ArsTrajectory {
             super(context); this.castType = castType; this.impact = impact;
         }
         @Override public void onResolveEffect(Level world, HitResult hit) { if (!world.isClientSide) impact.accept(hit); }
-        @Override public SpellResolver getNewResolver(SpellContext context) { return new ImpactResolver(context, castType, impact); }
+        @Override public SpellResolver getNewResolver(SpellContext context) {
+            return ResolverContexts.inherit(this, new ImpactResolver(context, castType, impact));
+        }
     }
 }

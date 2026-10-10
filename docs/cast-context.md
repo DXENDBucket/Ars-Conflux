@@ -27,6 +27,8 @@ CastContexts.scoped(action, () -> applyNativeAction(action));
 
 If an integration constructs a fresh context instead of cloning it, it must explicitly bind the desired origin to that context. Core does not silently inherit ambient ownership into independent casts.
 
+Since 0.1.5, `ResolverExtension` carries entrypoint-specific resolver semantics separately from these role definitions. Core propagates immutable extensions across ordinary resolver derivation and `ArsTrajectory` collision wrappers. Custom wrappers can call `ResolverContexts.inherit(source, wrapper)`. Optional quote factories retain native entrypoint pricing without replacing a collision resolver's execution behavior. The Hex-Ars Linker adapter uses this API to retain its environment and native callback depth; spell-content providers need no Hex-specific code. See [API contracts](api.md#解析器来源) and [Hex integration](hex-ars-linker.md).
+
 ## Sessions and continuations
 
 `ExecutionSession` accepts a `CastContext` and exposes it via `context()`. The legacy caster constructor remains available. Start, permission checks, ticks, activation and cleanup restore this context around the provider's own scope. Account configuration is allowed only before start. A living executor's death, removal or dimension change invalidates the session along with original caster loss.
