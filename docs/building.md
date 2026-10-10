@@ -12,7 +12,7 @@
 | `curios.jar` | 与该 Ars 版本兼容的 Curios NeoForge |
 | `geckolib.jar` | 与该 Ars 版本兼容的 GeckoLib NeoForge |
 
-运行 `gradlew.bat :jar :sourcesJar`，安装 `build/libs/ars-conflux-0.1.8-mc1.21.1-neoforge.jar`。
+运行 `gradlew.bat :jar :sourcesJar`，安装 `build/libs/ars-conflux-0.1.9-mc1.21.1-neoforge.jar`。
 
 独立验证使用 `gradlew.bat :test :runGameTestServer`。测试不需要 Iron、NEG 或 Ars Elemental。
 
@@ -22,7 +22,7 @@
 
 使用 Java 17。在 `forge/libs/` 放入 Ars Nouveau 4.12.7、Curios 5.14.1、GeckoLib 4.8.4、Patchouli 85 的 Forge 1.20.1 JAR。文件名分别是 `ars-nouveau-forge1201.jar`、`curios-forge1201.jar`、`geckolib-forge1201.jar`、`patchouli-forge1201.jar`。
 
-进入 `forge/`，运行 `gradlew.bat :jarJar :sourcesJar`。安装 `build/libs/ars-conflux-0.1.8-mc1.20.1-forge.jar`；它包含 MixinExtras 并完成重映射。不要把普通开发 JAR 作为另一份模组一起安装。Gradle 8.8 可以由 JDK 21 启动，但 Forge 编译与游戏运行仍使用 Java 17 工具链。
+进入 `forge/`，运行 `gradlew.bat :jarJar :sourcesJar`。安装 `build/libs/ars-conflux-0.1.9-mc1.20.1-forge.jar`；它包含 MixinExtras 并完成重映射。不要把普通开发 JAR 作为另一份模组一起安装。Gradle 8.8 可以由 JDK 21 启动，但 Forge 编译与游戏运行仍使用 Java 17 工具链。
 
 该目录的 `gradlew.bat :runGameTestServer` 独立验证 Ars 4 原生资源池、开关行为、嵌套环绕和创造免费，不依赖 Iron。
 
@@ -35,3 +35,5 @@ Hex-Ars Linker 的可选运行环境与定向验证统一放在 Core，参见 [�
 编译期是 Gradle 项目依赖，运行和发布时仍是两个分开的模组 JAR。游戏内必须同时安装匹配版本的 Core 和 Iron & Nouveau。
 
 使用冒号限定根任务，例如 `:runGameTestServer`；不限定的任务选择器会同时运行子项目同名任务。组合联调可用 `-PgameTestNamespaces=irons_nouveau_conflux` 只执行迁移回归。
+
+交互会话定向验证：`gradlew.bat :runGameTestServer -PgameTestNamespaces=ars_conflux_interaction`。三个共享检查不需要 Iron／Goety；两平台均有入口。

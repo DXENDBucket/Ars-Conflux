@@ -15,7 +15,7 @@ import java.util.function.BooleanSupplier;
  * This is not a persistence format for summons or long-lived areas. */
 public final class ExecutionSession<P> {
     public enum State { PREPARED, ACTIVE, COMPLETED, CANCELLED }
-    public enum EndReason { COMPLETED, EXPIRED, OWNER_GONE, DENIED, WORLD_UNLOADED, SPAWN_FAILED, SERVER_STOPPED, ERROR }
+    public enum EndReason { COMPLETED, EXPIRED, OWNER_GONE, DENIED, WORLD_UNLOADED, SPAWN_FAILED, SERVER_STOPPED, ERROR, USER_CANCELLED, SOURCE_CHANGED }
     private final UUID id = UUID.randomUUID();
     private final ServerLevel world;
     private final LivingEntity caster;
@@ -23,6 +23,7 @@ public final class ExecutionSession<P> {
     private final P parameters;
     private final int maxTicks;
     private final long started;
+    private long deadline;
     private final ExecutionDriver<P> driver;
     private final ImpactContinuation continuation;
     private final BooleanSupplier permission;
@@ -46,6 +47,7 @@ public final class ExecutionSession<P> {
         this.permission = Objects.requireNonNull(permission); Objects.requireNonNull(scope);
         this.scope = action -> CastContexts.run(this.context, () -> scope.run(action));
         started = world.getGameTime();
+        deadline = started + this.maxTicks;
     }
     public UUID id() { return id; }
     public ServerLevel world() { return world; }
@@ -59,7 +61,12 @@ public final class ExecutionSession<P> {
     public State state() { return state; }
     public boolean active() { return state == State.ACTIVE; }
     public boolean occupiesCaster() { return driver.occupiesCaster(); }
-    public int remainingTicks() { return (int)Math.max(0, Math.min(Integer.MAX_VALUE, maxTicks - (world.getGameTime() - started))); }
+    public int remainingTicks() { return (int)Math.max(0, Math.min(Integer.MAX_VALUE, deadline - world.getGameTime())); }
+    /** Renew a live lease, e.g. after accepted input. Does not reset driver age or charge resources. */
+    public void renew(int ticks) {
+        if (!active()) throw new IllegalStateException("Only active sessions may renew their lease");
+        deadline = world.getGameTime() + Math.max(1, ticks);
+    }
     public ExecutionSession<P> billing(TriggerPayment payment, boolean repeat) {
         if (state != State.PREPARED) throw new IllegalStateException("Billing must be set before start");
         this.payment = Objects.requireNonNull(payment); repeatPayments = repeat; return this;
@@ -90,7 +97,7 @@ public final class ExecutionSession<P> {
             if (!active()) return;
             if (!ownerPresent()) { finish(EndReason.OWNER_GONE); return; }
             long age = world.getGameTime() - started;
-            if (age >= maxTicks) { finish(EndReason.EXPIRED); return; }
+            if (world.getGameTime() >= deadline) { finish(EndReason.EXPIRED); return; }
             if (age % 20 == 0 && !permitted()) { finish(EndReason.DENIED); return; }
             try { if (driver.tick(this)) finish(EndReason.COMPLETED); }
             catch (RuntimeException | Error error) { fail(error); throw error; }

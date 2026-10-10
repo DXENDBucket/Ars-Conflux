@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.9
+
+- Add provider-neutral `CastInput`, `InteractiveDriver`, `InputBinding`, and `InputSession` APIs on the existing execution lifecycle. Core defines no native spell IDs, point counts, ranges, prices or cooldowns.
+- Route subsequent active Ars 4/5 casts to the matching live endpoint; rejected input is consumed without advancing, sneak activation cancels, and source/recipe changes close stale state. Ordinary casts without an endpoint retain their behavior.
+- Add renewable execution deadlines and one-shot `ArsContinuation` snapshots at the current cursor, so resuming does not restart preceding glyphs or active-cast billing. Preserve provider execution scopes.
+- Revalidate bindings and permissions before delayed completion; reject expired input rather than renewing it. One interactive input owner per actor, with existing background sessions unaffected.
+
 ## 0.1.8
 
 - Add opt-in `GlyphPresentation` registration: keep semantic categories, place participating providers after ordinary Ars/addon glyphs and keep each provider contiguous.

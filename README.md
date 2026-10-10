@@ -2,17 +2,18 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.8**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.9**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.8-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.8-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.9-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.9-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental 都不是 Core 的必需依赖。
 
 ## 当前内容
 
+- 通用交互会话：输入快照、工具绑定、拒绝／接受／完成／取消、可续期等待，以及一次性续接暂停的 Ars 编排。详见 [交互施法 API](docs/interactive-casting.md)。
 - 公共执行会话：启动、逐 tick 更新、权限复查、到期、维度卸载和服务器停止清理。
 - 通用资源账户、同池预留、触发成功后扣款、失败释放以及可负担数量计算。
 - 提供者首次触发费用的只读预估，按实际资源池合并判断余额，未知报价明确保留。
@@ -48,7 +49,7 @@ enabled = false
 
 两个平台共用根目录 `VERSION`。0.x 阶段 API 仍在演进：破坏兼容的变更提高次版本号，兼容修复提高补丁号。Iron & Nouveau 0.17.0 要求 Conflux `[0.1.0,0.2)`。
 
-版本由独立 Git 仓库管理，发布节点使用 `v0.1.8` 这样的标签；不会将上游依赖、运行世界或本地构建缓存提交到仓库。Iron & Nouveau 0.17.7 要求 Conflux `[0.1.8,0.2)`；Goety & Nouveau 0.1.0-dev.5 的最低要求仍为 `[0.1.8,0.2)`，可以共用 Core 0.1.8。
+版本由独立 Git 仓库管理，发布节点使用 `v0.1.9` 这样的标签；不会将上游依赖、运行世界或本地构建缓存提交到仓库。Iron & Nouveau 0.17.8 要求 Conflux `[0.1.9,0.2)`；Goety & Nouveau 0.1.0-dev.10 的最低要求仍为 `[0.1.8,0.2)`，可以共用 Core 0.1.9。
 
 0.1.7 提供不触发客户端假玩家创建的上下文读取 API，并将散射预算和原生效果计费限定在服务端。排查范围和验证限制见 [端侧异常排查](docs/side-boundaries.md)。
 

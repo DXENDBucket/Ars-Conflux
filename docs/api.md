@@ -48,6 +48,12 @@ boolean started = ExecutionSessions.start(session);
 
 会话是临时运行状态，不是世界存档格式。长期召唤物、领域、跨区块持久化仍由法术附属管理。Core 上限为 4096 个活动会话，触顶会拒绝新的执行并走清理路径。
 
+## 输入与编排续接
+
+`InputSession<P>` 为现有 `ExecutionSession<P>` 增加输入端点，复用同一生命周期与调度器。`InteractiveDriver<P>` 定义输入如何改变提供者状态；`CastInput` 仅携带操作、来源、方向及可选命中结果。`InputBinding` 定义工具／术式身份，`ArsContinuation` 保存当前游标后的编排。详见 [交互施法 API 与示例](interactive-casting.md)。
+
+Core 不规定选点数量、重施费用、原生冷却、持续按键或特定实体。`ExecutionSession.renew(ticks)` 只更新等待截止时间，不重置驱动年龄，也不计费。
+
 ## 弹射物
 
 在 Ars 强化魔符上实现 `ProjectileForm`，提供：
