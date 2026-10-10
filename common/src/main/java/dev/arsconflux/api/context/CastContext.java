@@ -12,10 +12,29 @@ public record CastContext(SpellContext ars, LivingEntity caster, LivingEntity ex
                           LivingEntity damageOwner, HitResult target, Vec3 incomingDirection,
                           ResourceAccount account) {
     public static CastContext of(SpellContext ars, HitResult target, ResourceAccount account) {
-        var caster = ars.getUnwrappedCaster();
-        return new CastContext(ars, caster, caster, caster, target, TriggerGeometry.read(ars), account);
+        return CastContexts.resolve(ars, target, account);
+    }
+    public static CastContext detached(LivingEntity caster, HitResult target, ResourceAccount account) {
+        return new CastContext(null, caster, caster, caster, target, Vec3.ZERO, account);
     }
     public CastContext withExecutor(LivingEntity entity) {
         return new CastContext(ars, caster, entity, damageOwner, target, incomingDirection, account);
+    }
+    public CastContext withTarget(HitResult hit) {
+        return new CastContext(ars, caster, executor, damageOwner, hit, incomingDirection, account);
+    }
+    public CastContext withDamageOwner(LivingEntity owner) {
+        return new CastContext(ars, caster, executor, owner, target, incomingDirection, account);
+    }
+    public CastContext withAccount(ResourceAccount resource) {
+        return new CastContext(ars, caster, executor, damageOwner, target, incomingDirection, resource);
+    }
+    public CastContext withIncomingDirection(Vec3 direction) {
+        return new CastContext(ars, caster, executor, damageOwner, target,
+                direction == null ? Vec3.ZERO : direction.normalize(), account);
+    }
+    /** Entity selection alone never turns that entity into an executor. */
+    public Vec3 origin() {
+        return target != null ? target.getLocation() : executor != null ? executor.getEyePosition() : Vec3.ZERO;
     }
 }

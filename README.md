@@ -2,12 +2,12 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.1**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.2**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.1-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.1-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.2-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.2-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental 都不是 Core 的必需依赖。
 
@@ -15,7 +15,7 @@ Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当�
 
 - 公共执行会话：启动、逐 tick 更新、权限复查、到期、维度卸载和服务器停止清理。
 - 通用资源账户、同池预留、触发成功后扣款、失败释放以及可负担数量计算。
-- 区分施法者、实际执行实体、伤害所有者与支付账户的上下文；传播命中方向。
+- 区分施法者、实际执行实体、伤害所有者与支付账户的上下文；Iron 已接入，克隆、接续和持续执行保留归属。
 - 可注册的弹射物载体与载荷接口；复用 Ars 轨迹、运动及碰撞，保留附属的后续编排。
 - 共享组合验证入口和散射预算，散射角度仍由 Ars 原有逻辑决定。
 - Ars 原版弹射物、环绕，以及可选的弹跳、追踪、溅射、调态节点、回响轨迹支持。
@@ -44,4 +44,4 @@ enabled = false
 
 两个平台共用根目录 `VERSION`。0.x 阶段 API 仍在演进：破坏兼容的变更提高次版本号，兼容修复提高补丁号。Iron & Nouveau 0.17.0 要求 Conflux `[0.1.0,0.2)`。
 
-版本由独立 Git 仓库管理，发布节点使用 `v0.1.0` 这样的标签；不会将上游依赖、运行世界或本地构建缓存提交到仓库。
+版本由独立 Git 仓库管理，发布节点使用 `v0.1.0` 这样的标签；不会将上游依赖、运行世界或本地构建缓存提交到仓库。Iron & Nouveau 0.17.1 要求 Conflux `[0.1.2,0.2)`。

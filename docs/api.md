@@ -58,6 +58,8 @@ boolean started = ExecutionSessions.start(session);
 
 `TriggerGeometry` 在 Ars 上下文保存方向，并在命中／接续作用域恢复。新写入的 key 为 `ars_conflux_incoming`，旧 Iron 方向字段仍可读取。`CastContext` 显式区分 caster、executor、damageOwner、target 和 account；`withExecutor` 不会把伤害与费用转给被选中的实体。
 
+0.1.2 起，`CastContexts.bind` 通过 Ars 原有附件传递不可变的施法归属和账户，克隆、子上下文及常规延迟可保留；目标和执行者则在每次触发时重新确定。会话接受完整上下文，并在启动、tick、命中与清理时恢复作用域。Iron 的效果、弹射物、代理动作及持续施法已接入。详细约定见 [统一上下文](cast-context.md)。
+
 `TriggerPaidGlyph` 是附属已经自行实现触发计费的声明，主要让 Ars 的剩余起手费用在分支执行前支付。它不负责计算价格、取消该魔符的原生起手价格，或推断效果是否成功。
 
 ## 原版 Ars 的可选接入
