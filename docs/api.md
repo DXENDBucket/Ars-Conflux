@@ -52,6 +52,10 @@ boolean started = ExecutionSessions.start(session);
 
 ## 编排与空间
 
+`ArsSpellAccess.parts(spell)` 返回不可修改的部件列表快照，避免附属直接依赖 Ars 4 的可变列表字段或 Ars 5 的读取方法。它保留原有顺序和部件实例；附属不能通过该列表改写原术式。
+
+`ArsSpellAccess.resolver(projectile)` 读取 `EntityProjectileSpell` 的解析器，同名双参数方法设置解析器；法术箭 `EntitySpellArrow` 有独立的读取重载。法术箭不是 `EntityProjectileSpell` 的子类。这些 API 在两个平台具有相同源码签名，仍需分别编译发行包；不要引用 Core 内部的 `platform.ArsAccess`。
+
 `SpellValidators.register(providerId, rule)` 让不同附属贡献组合规则。Core 自带“同一形态段只能有一个替换载荷”规则，避免跨附属同时接管一枚弹射物。
 
 提供者应只检查自己拥有的载荷。如果形态段已由其他 `ProjectileForm` 接管，不要再要求它携带自己模组的载荷；各家的效果仍可在后续编排中组合。识别公共接口即可，不需要引用另一家模组的实现类。
