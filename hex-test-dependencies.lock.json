@@ -1,0 +1,92 @@
+[
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/architectury-13.0.11-neoforge.jar",
+    "url": "https://cdn.modrinth.com/data/lhGA9TYQ/versions/1IiqEQGl/architectury-13.0.11-neoforge.jar",
+    "sha256": "9cc92f2c09533fc5482c60f993bd891c655a0e32b637037cdcb7c2b23adedeeb"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/caelus-neoforge-7.0.1+1.21.1.jar",
+    "url": "https://cdn.modrinth.com/data/40FYwb4z/versions/KsfI4QsR/caelus-neoforge-7.0.1%2B1.21.1.jar",
+    "sha256": "432a645557f29de159d9edde2fd109f8e3b32ff30895b4fede04ee5f1a1a682f"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/cloth-config-15.0.140-neoforge.jar",
+    "url": "https://cdn.modrinth.com/data/9s6osm5g/versions/izKINKFg/cloth-config-15.0.140-neoforge.jar",
+    "sha256": "65e722e0d98431a07c45f8bdd8d529a217cc8c175fde1740248bd5c1b4f3c0d4"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/hexcasting-neoforge-1.21.1-0.12.0-devel-pre-53.jar",
+    "url": "https://ci.blamejared.com/job/petrakat/job/Hexcasting/job/1.21/53/artifact/Neoforge/build/libs/hexcasting-neoforge-1.21.1-0.12.0-devel-pre-53.jar",
+    "sha256": "5363e5697a4a63599c80f6a40ae259ce6347e6a2590ed59307da5f0edded2d72"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/hex_ars_link-1.21.1-0.9.5.2.pre53.fix2.jar",
+    "url": "https://cdn.modrinth.com/data/Yntfg3XG/versions/MqfW7JIe/hex_ars_link-1.21.1-0.9.5.2.pre53.fix2.jar",
+    "sha256": "2a6e67493ee6cb8013d46b2ea51cfea6e8bfc703c0aaa618a1d626e52ec56d06"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/inline-neoforge-1.21.1-1.2.2.jar",
+    "url": "https://cdn.modrinth.com/data/fin1PX4m/versions/FhE1RJsR/inline-neoforge-1.21.1-1.2.2.jar",
+    "sha256": "694ead6f595f106c5b82fbd8de30816f9f72e9ec5bc4a6c8b754e514bee7be2d"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/kotlinforforge-5.12.0-all.jar",
+    "url": "https://cdn.modrinth.com/data/ordsPcFz/versions/uhJhCT7X/kotlinforforge-5.12.0-all.jar",
+    "sha256": "2785a4dd6de5c6c56065fd8eb789c82771bd2ee773c30794c23160a3b2c39139"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/Patchouli-1.21.1-93-NEOFORGE.jar",
+    "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/BIogJv2D/Patchouli-1.21.1-93-NEOFORGE.jar",
+    "sha256": "959af52ed6640c316c3a8469203420be4aeea11ad6603890ba83bf48f5d9f993"
+  },
+  {
+    "platform": "neoforge",
+    "path": "libs/hex-link/paucal-0.7.1-pre-27+1.21.1-neoforge.jar",
+    "url": "https://maven.blamejared.com/at/petra-k/paucal/0.7.1-pre-27+1.21.1-neoforge/paucal-0.7.1-pre-27+1.21.1-neoforge.jar",
+    "sha256": "4be89c91385ffaecb5a0cc405d644dc7387c6f05705630b26df333a226ffae08"
+  },
+  {
+    "platform": "forge",
+    "path": "forge/libs/hex-link/hex-ars-link-hex1201.jar",
+    "url": "https://cdn.modrinth.com/data/Yntfg3XG/versions/EcAoCfLK/hex_ars_link-1.20.1-0.9.5.1.jar",
+    "sha256": "40cc21a04f9f857c763802af592dc2345322aa386be133a5a7e241a6ff4548e7"
+  },
+  {
+    "platform": "forge",
+    "path": "forge/libs/hex-link/hexcasting-hex1201.jar",
+    "url": "https://cdn.modrinth.com/data/nTW3yKrm/versions/e41256fb/hexcasting-forge-1.20.1-0.11.4.jar",
+    "sha256": "038ede2a5db9206dc0ee82b1c2030992668010e32d569894635e387d6b059ca4"
+  },
+  {
+    "platform": "forge",
+    "path": "forge/libs/hex-link/caelus-hex1201.jar",
+    "url": "https://cdn.modrinth.com/data/40FYwb4z/versions/fs9CeXYZ/caelus-forge-3.1.0%2B1.20.jar",
+    "sha256": "3410966d93cd8f31bf4b48ea838f065f25c3f17c745a06fbc2a6cd0a89d4f785"
+  },
+  {
+    "platform": "forge",
+    "path": "forge/libs/hex-link/paucal-hex1201.jar",
+    "url": "https://cdn.modrinth.com/data/TZo2wHFe/versions/HyBiJPtT/paucal-0.6.0%2B1.20.1-forge.jar",
+    "sha256": "3f403fc200e744cc85c348206da70e4fb34808f14fda3fc88b0bde1688b784ca"
+  },
+  {
+    "platform": "forge",
+    "path": "forge/libs/hex-link/inline-hex1201.jar",
+    "url": "https://cdn.modrinth.com/data/fin1PX4m/versions/H1jsvy53/inline-forge-1.20.1-1.2.2.jar",
+    "sha256": "fe34e79fa98d67cfd48e1fa8da1893a9e0be4165c792374ede3099642c8b0336"
+  },
+  {
+    "platform": "forge",
+    "path": "forge/libs/hex-link/kotlinforforge-hex1201.jar",
+    "url": "https://cdn.modrinth.com/data/ordsPcFz/versions/Zsh14XeQ/kotlinforforge-4.12.0-all.jar",
+    "sha256": "6a66c6a68ec09f8717cdbf06883394f0ee24d7cd826b7134a0f81839e8e720ae"
+  }
+]

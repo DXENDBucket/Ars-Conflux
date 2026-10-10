@@ -9,6 +9,7 @@ base { archivesName = 'ars-conflux' }
 java { toolchain.languageVersion = JavaLanguageVersion.of(17); withSourcesJar() }
 sourceSets.main { java.srcDir '../common/src/main/java'; resources.srcDir '../common/src/main/resources' }
 sourceSets { gameTest {
+    java.srcDir '../common/src/gameTest/java'
     compileClasspath += sourceSets.main.output
     runtimeClasspath += sourceSets.main.output
 } }
@@ -17,7 +18,7 @@ configurations {
     gameTestCompileOnly.extendsFrom compileOnly
     gameTestRuntimeOnly.extendsFrom runtimeOnly
 }
-repositories { flatDir { dirs 'libs' }; mavenCentral { content { excludeGroup 'local' } } }
+repositories { flatDir { dirs 'libs', 'libs/hex-link' }; mavenCentral { content { excludeGroup 'local' } } }
 jarJar.enable()
 minecraft {
     mappings channel: 'official', version: '1.20.1'
@@ -25,7 +26,7 @@ minecraft {
     runs {
         gameTestServer {
             workingDirectory project.file('run/gametest')
-            property 'forge.enabledGameTestNamespaces', 'ars_conflux_billing'
+            property 'forge.enabledGameTestNamespaces', providers.gradleProperty('gameTestNamespaces').getOrElse('ars_conflux_billing')
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods { ars_conflux { source sourceSets.main; source sourceSets.gameTest } }
@@ -39,6 +40,11 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
     for (name in ['ars-nouveau','geckolib','curios','patchouli']) {
         implementation fg.deobf("local:${name}:forge1201")
+    }
+    if (providers.gradleProperty('withHexLinker').getOrElse('false').toBoolean()) {
+        for (name in ['hexcasting', 'hex-ars-link', 'paucal', 'inline', 'caelus', 'kotlinforforge']) {
+            gameTestRuntimeOnly fg.deobf("local:${name}:hex1201")
+        }
     }
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation 'io.github.llamalad7:mixinextras-common:0.4.1'

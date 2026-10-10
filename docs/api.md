@@ -50,6 +50,8 @@ boolean started = ExecutionSessions.start(session);
 
 `CarrierProxy` 让回响轨迹的目标查询排除自己的替换外观。载体须遵守 Ars 的 resolver 命中契约；完全绕过 resolver 的附属仍需专门适配。
 
+第三方 Ars 入口的共享适配由 Core 维护，例如 [Hex-Ars Linker](hex-ars-linker.md)。法术提供者只实现公共载荷、效果与资源接口，不检测 Hex 解析器类型，也不复制 Hex 或 NEG 的生成钩子。以后入口改变或出现新的通用载体时，在 Core 补充一次适配；具体原生法术的实体和行为仍由相应提供者实现。
+
 ## 编排与空间
 
 `ArsSpellAccess.parts(spell)` 返回不可修改的部件列表快照，避免附属直接依赖 Ars 4 的可变列表字段或 Ars 5 的读取方法。它保留原有顺序和部件实例；附属不能通过该列表改写原术式。

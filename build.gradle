@@ -9,7 +9,7 @@ java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() 
 repositories { mavenCentral() }
 sourceSets {
     main { java.srcDir 'common/src/main/java'; resources.srcDir 'common/src/main/resources' }
-    gameTest { compileClasspath += sourceSets.main.output; runtimeClasspath += sourceSets.main.output }
+    gameTest { java.srcDir 'common/src/gameTest/java'; compileClasspath += sourceSets.main.output; runtimeClasspath += sourceSets.main.output }
 }
 configurations {
     gameTestImplementation.extendsFrom implementation
@@ -31,6 +31,10 @@ neoForge {
 dependencies {
     compileOnly fileTree(dir: 'libs', include: '*.jar')
     runtimeOnly fileTree(dir: 'libs', include: '*.jar')
+    // Only the independent optional-integration test runtime loads Hex and Linker.
+    if (providers.gradleProperty('withHexLinker').getOrElse('false').toBoolean()) {
+        gameTestRuntimeOnly fileTree(dir: 'libs/hex-link', include: '*.jar')
+    }
     testImplementation platform('org.junit:junit-bom:5.13.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
