@@ -18,6 +18,8 @@ import net.minecraft.server.level.ServerLevel;
 public final class ArsConflux {
     public static final String MOD_ID = "ars_conflux";
     public ArsConflux() {
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.SERVER,
+                dev.arsconflux.config.ConfluxConfig.SPEC, "ars_conflux-server.toml");
         BuiltinCarriers.register();
         FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             for (var profile : CarrierRegistry.profiles()) if (profile.glyph() != null)

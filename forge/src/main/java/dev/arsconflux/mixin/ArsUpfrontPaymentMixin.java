@@ -13,6 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = SpellResolver.class, remap = false)
 public abstract class ArsUpfrontPaymentMixin {
     @Unique private boolean arsConflux$paid;
+    @Inject(method = {"onCast", "onCastOnBlock", "onCastOnEntity"}, at = @At("HEAD"))
+    private void arsConflux$mode(CallbackInfoReturnable<Boolean> ci) {
+        dev.arsconflux.internal.billing.VanillaTriggerBilling.captureMode(((SpellResolver)(Object)this).spellContext);
+    }
     @Inject(method = {"onCast", "onCastOnBlock", "onCastOnEntity"}, at = {
         @At(value = "INVOKE", target = "Lcom/hollingsworth/arsnouveau/api/spell/AbstractCastMethod;onCast(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/Level;Lcom/hollingsworth/arsnouveau/api/spell/SpellStats;Lcom/hollingsworth/arsnouveau/api/spell/SpellContext;Lcom/hollingsworth/arsnouveau/api/spell/SpellResolver;)Lcom/hollingsworth/arsnouveau/api/spell/CastResolveType;", remap = false),
         @At(value = "INVOKE", target = "Lcom/hollingsworth/arsnouveau/api/spell/AbstractCastMethod;onCastOnBlock(Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/entity/LivingEntity;Lcom/hollingsworth/arsnouveau/api/spell/SpellStats;Lcom/hollingsworth/arsnouveau/api/spell/SpellContext;Lcom/hollingsworth/arsnouveau/api/spell/SpellResolver;)Lcom/hollingsworth/arsnouveau/api/spell/CastResolveType;", remap = false),
@@ -24,7 +28,8 @@ public abstract class ArsUpfrontPaymentMixin {
         var world = caster != null ? caster.level() : resolver.spellContext.castingTile != null
                 ? resolver.spellContext.castingTile.getLevel() : null;
         if (world != null && !world.isClientSide
-                && resolver.spell.recipe.stream().anyMatch(p -> p instanceof dev.arsconflux.api.glyph.TriggerPaidGlyph)) {
+                && (resolver.spell.recipe.stream().anyMatch(p -> p instanceof dev.arsconflux.api.glyph.TriggerPaidGlyph)
+                || dev.arsconflux.internal.billing.VanillaTriggerBilling.hasDeferred(resolver.spellContext))) {
             if (!(resolver.spellContext.getUnwrappedCaster() instanceof net.minecraft.world.entity.player.Player player) || !player.isCreative())
                 resolver.expendMana();
             arsConflux$paid = true;

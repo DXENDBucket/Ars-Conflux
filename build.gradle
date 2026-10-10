@@ -23,7 +23,7 @@ neoForge {
         gameTestServer {
             type = 'gameTestServer'
             gameDirectory = file('run/gametest')
-            systemProperty 'neoforge.enabledGameTestNamespaces', 'ars_conflux'
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.findProperty('gameTestNamespaces') ?: 'ars_conflux'
         }
     }
     mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }

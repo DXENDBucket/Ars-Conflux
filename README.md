@@ -2,12 +2,12 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.0**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.1**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.0-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.0-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.1-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.1-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental 都不是 Core 的必需依赖。
 
@@ -19,6 +19,7 @@ Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当�
 - 可注册的弹射物载体与载荷接口；复用 Ars 轨迹、运动及碰撞，保留附属的后续编排。
 - 共享组合验证入口和散射预算，散射角度仍由 Ars 原有逻辑决定。
 - Ars 原版弹射物、环绕，以及可选的弹跳、追踪、溅射、调态节点、回响轨迹支持。
+- 可选的原版 Ars 效果触发计费，包含每层嵌套环绕的创建费用；默认关闭。
 
 法术的具体伤害、状态、粒子、原生实体钩子、等级、学习方式、吟唱与冷却仍由法术附属负责。Core 不自动把任意原生法术变成魔符；Goety 接入尚未实现。
 
@@ -26,7 +27,16 @@ Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当�
 
 触发计费是公共能力，费用定义和资源来源由调用方提供，因此既可用于 Iron，也可用于原版 Ars 或其他附属。当前 Iron 已使用这套事务接口。
 
-**当前版本没有更改原版 Ars 魔符的默认计费方式。** `TriggerPaidGlyph` 只声明调用方自行执行触发计费，不能仅通过加标记把原版魔符改成按命中扣费。未来接入原版模式时，需要同时调整起手费用及施放检查，且持续效果须有各自的脉冲入口，避免重复收费。
+**默认保持原版 Ars 的起手计费。** 在世界的 `serverconfig/ars_conflux-server.toml` 中可独立启用：
+
+```toml
+[ars_trigger_billing]
+enabled = false
+```
+
+改为 `true` 后，原版效果及其书写增强的费用移到各次效果执行。起手形态仍收费，弹射物未命中不会收取未执行的效果费用；环绕每次创建内层球体都会再次检查费用，余额不足则停止当前分支。创造模式免费。Iron 等附属沿用各自的计费实现，魔源装置保留原生规则。
+
+这里的“触发”是 Ars 的效果执行入口，正常返回即视为一次付费尝试；原版没有通用成功返回值，所以对不适用目标执行的效果也可能付费。单个效果内部的多目标伤害或自动持续状态不另按每个目标、每 tick 收费；持续载体每次重新执行编排则逐次收费。详见 [配置与计费语义](docs/trigger-billing.md)。
 
 详见 [API 与责任边界](docs/api.md)、[构建说明](docs/building.md) 和 [版本记录](CHANGELOG.md)。
 

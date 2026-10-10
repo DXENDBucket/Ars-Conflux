@@ -8,12 +8,28 @@ version = file('../VERSION').text.trim()
 base { archivesName = 'ars-conflux' }
 java { toolchain.languageVersion = JavaLanguageVersion.of(17); withSourcesJar() }
 sourceSets.main { java.srcDir '../common/src/main/java'; resources.srcDir '../common/src/main/resources' }
+sourceSets { gameTest {
+    compileClasspath += sourceSets.main.output
+    runtimeClasspath += sourceSets.main.output
+} }
+configurations {
+    gameTestImplementation.extendsFrom implementation
+    gameTestCompileOnly.extendsFrom compileOnly
+    gameTestRuntimeOnly.extendsFrom runtimeOnly
+}
 repositories { flatDir { dirs 'libs' }; mavenCentral { content { excludeGroup 'local' } } }
 jarJar.enable()
 minecraft {
     mappings channel: 'official', version: '1.20.1'
     copyIdeResources = true
     runs {
+        gameTestServer {
+            workingDirectory project.file('run/gametest')
+            property 'forge.enabledGameTestNamespaces', 'ars_conflux_billing'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods { ars_conflux { source sourceSets.main; source sourceSets.gameTest } }
+        }
         client { workingDirectory project.file('run/client'); mods { ars_conflux { source sourceSets.main } } }
         server { workingDirectory project.file('run/server'); args '--nogui'; mods { ars_conflux { source sourceSets.main } } }
     }

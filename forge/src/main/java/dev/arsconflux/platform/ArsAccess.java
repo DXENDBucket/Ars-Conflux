@@ -5,6 +5,8 @@ import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 
 public final class ArsAccess {
     private ArsAccess() {}
+    public static java.util.List<AbstractSpellPart> parts(Spell spell) { return spell.recipe; }
+    public static int spentCost(SpellResolver resolver) { return resolver.getResolveCost(); }
     public static SpellResolver resolver(EntityProjectileSpell carrier) { return carrier.spellResolver; }
     public static void resolver(EntityProjectileSpell carrier, SpellResolver resolver) { carrier.spellResolver = resolver; }
     public static boolean startsWithAugment(Spell spell) { return !spell.isEmpty() && spell.recipe.get(0) instanceof AbstractAugment; }
