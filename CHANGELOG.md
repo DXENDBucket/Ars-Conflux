@@ -4,6 +4,7 @@
 
 - Extend the optional generated-carrier budget hook to Ars Elemental's arc and homing propagators, including when NEG delegates those glyphs to Elemental. Preserve native emission layout and explicitly bind child carrier provenance on both platforms.
 - Register Elemental's Carian Phalanx as a driven, once-paid projectile carrier. Preserve its native formation slots, enemy detection, launch, homing, hits and cleanup while using provider replacement visuals; bind the child resolver after Elemental strips the original form.
+- Availability caveat: Elemental 0.7.10.4 registers Carian Phalanx only in development environments. This is preparatory compatibility for that implementation; Conflux does not enable it in production.
 - Add opt-in real-Elemental integration fixtures for generated fans, empty accounts, plain-addon emissions, and NeoForge phalanx lifecycle/source continuity. No Elemental classes, artwork or dependencies are included in release JARs.
 
 ## 0.1.12
