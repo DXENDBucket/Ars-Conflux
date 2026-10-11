@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.17
+
+- NeoForge: fix Ars book category headers overflowing off the page when row padding crosses the 98-slot boundary, notably with large addon augment lists. Preserve native widgets and provider sorting.
+- Add boundary, multi-page and unchanged-grid regression checks. Forge keeps the same release number; Ars 4 uses a different book layout and does not contain this formatter.
+
 ## 0.1.16
 
 - Add a neutral, extensible alliance-query API using native team and ownership relations.
