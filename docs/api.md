@@ -100,3 +100,7 @@ boolean started = ExecutionSessions.start(session);
 在模组初始化时调用 `GlyphPresentation.register(namespace)`，或传入本模组内部的次级排序键 `Function<AbstractSpellPart, String>`。注册命名空间按稳定字典序聚在同类普通 Ars／附属魔符之后；没有注册的魔符继续采用上游的内部顺序。内部排序键只描述本模组，不需要辨认其他提供者。不允许重复覆盖同一命名空间。
 
 Core 管理 Ars 4 注册表比较器和 Ars 5 法术书的类别分组。Ars 5 使用实际注册的分类谓词，保留可选附属的特殊类别；不会通过更改 `getTypeIndex()` 把效果挪成子形态。比较器在执行时读取登记表，避免模组初始化先后改变结果。没有提供者登记时保留原生比较器行为。
+
+## 主动施法（0.1.9）
+
+`ActiveCasts` 统一已注册提供者的主动准备、取消与释放事务；`ActiveCastProvider` 保留原生数值、冷却存储和显示责任。详见 [主动施法](active-casting.md)。

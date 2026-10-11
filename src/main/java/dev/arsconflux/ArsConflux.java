@@ -25,10 +25,10 @@ public final class ArsConflux {
             for (var profile : CarrierRegistry.profiles()) if (profile.glyph() != null)
                 profile.rememberOriginalAugments(profile.glyph());
         }));
-        NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> ExecutionSessions.tick());
-        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> ExecutionSessions.stop());
+        NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> { ExecutionSessions.tick(); dev.arsconflux.api.casting.ActiveCasts.tick(); });
+        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> { ExecutionSessions.stop(); dev.arsconflux.api.casting.ActiveCasts.stop(); });
         NeoForge.EVENT_BUS.addListener((LevelEvent.Unload event) -> {
-            if (event.getLevel() instanceof ServerLevel world) ExecutionSessions.unload(world);
+            if (event.getLevel() instanceof ServerLevel world) { ExecutionSessions.unload(world); dev.arsconflux.api.casting.ActiveCasts.unload(world); }
         });
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 (EntityJoinLevelEvent event) -> { if (ProjectileDispatch.convert(event.getEntity())) event.setCanceled(true); });

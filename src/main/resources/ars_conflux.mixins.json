@@ -4,6 +4,13 @@
   "package": "dev.arsconflux.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ActiveCasterChantMixin",
+    "ActiveBowChantMixin",
+    "ActiveCooldownDispatchMixin",
+    "ScryCooldownMixin",
+    "CrossbowCooldownMixin",
+    "BowCooldownSpawnMixin",
+    "SwordCooldownMixin",
     "SpellContextAccess",
     "SpellResolverAccess",
     "ArsTriggerBillingMixin",

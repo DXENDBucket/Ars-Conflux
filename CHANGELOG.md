@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.9
+
+统一提供者注册、主动准备、取消和释放后的冷却提交；混合编排只吟唱一次，保留原生 HUD 回调。
+
 ## 0.1.8
 
 - Add opt-in `GlyphPresentation` registration: keep semantic categories, place participating providers after ordinary Ars/addon glyphs and keep each provider contiguous.
