@@ -28,7 +28,13 @@
     "ArsUpfrontPaymentMixin",
     "ArsSplitBudgetMixin",
     "OptionalTrailTargetsMixin",
-    "GlyphRegistryOrderMixin"
+    "GlyphRegistryOrderMixin",
+    "EntityWorldAccess",
+    "ExecutionProjectilesMixin",
+    "ExecutionWorldMixin",
+    "RetaliationDamageMixin",
+    "OptionalAdditionsRetaliateMixin",
+    "OptionalControlePrismMixin"
   ],
   "injectors": {
     "defaultRequire": 1

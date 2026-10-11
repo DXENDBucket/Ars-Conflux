@@ -2,14 +2,14 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.14**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.15**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.14-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.14-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.15-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.15-mc1.20.1-forge.jar` |
 
-需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental 都不是 Core 的必需依赖。
+需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 
 ## 当前内容
 
@@ -21,6 +21,7 @@ Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当�
 - 共享组合验证入口和散射预算，散射角度仍由 Ars 原有逻辑决定。
 - Ars 原版弹射物、环绕，以及可选的弹跳、追踪、溅射、调态节点、回响轨迹支持。
 - Ars Elemental 的弧线／追踪再次发射预算，以及卡利亚圆阵（1.21.1）的轨迹兼容；0.1.14 默认通过独立启动配置启用上游隐藏的圆阵，并加入抄写台配方。
+- Ars Controle 传送棱镜的替换弹射物跨维度迁移；Ars Additions 反击在受伤回调中选中本次攻击者。1.21.1 另修正 Controle 二元随机过滤的增强位置与概率覆盖，1.20.1 不移植缺失功能。详见 [兼容边界](docs/controle-additions.md)。
 - 可选的原版 Ars 效果触发计费，包含每层嵌套环绕的创建费用；默认关闭。
 - 公开的 `ArsSpellAccess`：读取法术部件快照，访问弹射物和法术箭解析器，供附属共用源码。
 - 通用解析器来源附件，保留派生、碰撞包装和报价所需的入口语义。

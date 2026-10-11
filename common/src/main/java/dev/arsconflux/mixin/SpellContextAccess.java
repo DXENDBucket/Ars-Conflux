@@ -10,5 +10,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(value = SpellContext.class, remap = false)
 public interface SpellContextAccess {
     @Accessor("level") Level arsConflux$level();
+    @Accessor("level") void arsConflux$level(Level world);
     @Accessor("caster") LivingEntity arsConflux$caster();
 }

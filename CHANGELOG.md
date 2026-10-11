@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.15
+
+- Add a provider-neutral remote execution world and same-instance managed projectile migration. Preserve carrier state, visual/native session state, attribution, payment account and origin-clock lifetime; unload of either world and loss of the original owner still cancel the execution. Do not capture independent impact-created projectiles.
+- Adapt Controle's cross-dimensional Warping Spell Prism on both platforms. Managed carriers stay off-world instead of spawning a duplicate Ars projectile; plain Ars retains upstream transfer behavior, source costs and chunk-loading rules.
+- Fix Additions Retaliate on both platforms: damage callbacks select the current source attacker before vanilla writes damage history. Manual uses keep upstream targeting; unattributed damage does not select a stale attacker.
+- NeoForge only: snapshot both random operands of Controle binary filters, using each operand's own augments and upstream probability formula. Forge Controle 1.1.1 has no filters; none are ported.
+- Add opt-in real-addon integration fixtures, including native prism hits, transfer rejection/cleanup, frozen continuations, reactive targets and random operand isolation. Optional addons are not embedded or required.
+
 ## 0.1.14
 
 - Add NeoForge startup option `optional_content.enable_elemental_phalanx`, enabled by default. Register Elemental's native Carian Phalanx in production when installed; disabling preserves upstream registration. Conflux loads before Elemental so the real startup file is read before glyph/item registration.

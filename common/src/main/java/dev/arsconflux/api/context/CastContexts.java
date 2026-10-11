@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.HitResult;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 /** Transient chain attribution, carried by Ars' own cloneable attachment map. No global entity registry.
@@ -16,7 +17,7 @@ import java.util.function.Supplier;
 public final class CastContexts {
     private static final ResourceLocation KEY = CarrierRegistry.id("ars_conflux:cast_origin");
     private static final ThreadLocal<CastContext> CURRENT = new ThreadLocal<>();
-    private record Origin(LivingEntity caster, LivingEntity damageOwner, ResourceAccount account) implements IContextAttachment {
+    private record Origin(UUID chain, LivingEntity caster, LivingEntity damageOwner, ResourceAccount account) implements IContextAttachment {
         public ResourceLocation id() { return KEY; }
     }
     private CastContexts() {}
@@ -32,8 +33,17 @@ public final class CastContexts {
      * Ars copies the attachment map; immutable origins can be shared safely between siblings. */
     public static void bind(SpellContext ars, CastContext context) {
         Objects.requireNonNull(ars); Objects.requireNonNull(context);
-        ars.attachments.put(KEY, new Origin(context.caster(), context.damageOwner(), context.account()));
+        Origin inherited = context.ars() == null ? null : context.ars().getAttachment(KEY);
+        Origin existing = ars.getAttachment(KEY);
+        UUID chain = inherited != null ? inherited.chain() : existing != null ? existing.chain() : UUID.randomUUID();
+        ars.attachments.put(KEY, new Origin(chain, context.caster(), context.damageOwner(), context.account()));
         TriggerGeometry.write(ars, context.incomingDirection());
+    }
+    public static boolean sameChain(SpellContext a, SpellContext b) {
+        if (a == null || b == null) return false;
+        if (a == b) return true;
+        Origin first = a.getAttachment(KEY), second = b.getAttachment(KEY);
+        return first != null && second != null && first.chain().equals(second.chain());
     }
     public static <T> T scoped(CastContext context, Supplier<T> action) {
         var previous = CURRENT.get();

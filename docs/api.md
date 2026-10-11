@@ -115,3 +115,11 @@ Core 管理 Ars 4 注册表比较器和 Ars 5 法术书的类别分组。Ars 5 �
 返回 true 表示已登记；同一个 key 在同次使用里只登记一次，只有收到有效发射确认才执行。
 它不提前修改冷却或资源，不会拦住同步散射／嵌套分支。返回 false 表示没有匹配的主动事务，
 调用者可以立即执行自己的提交，例如被动命中的结果依赖规则。Core 不解释 key 或操作的内容。
+
+## 远程轨迹（0.1.15）
+
+`ExecutionSessions.current()` 只在会话的同步作用域内有效。`ExecutionSession.originWorld()` 保留原始世界；`world()` 可由显式迁移改为远程执行世界。原始施法者仍须留在原始世界，任一世界卸载都会清理。
+
+原生传送适配器可调用 `ArsTrajectory.redirect(carrier, destination)`；返回 true 表示已管理的载体原地改换世界，适配器随后继续设置它的位置，不应另外生成载体。呈现与批量自有弹射物在位置确定后迁移。`trackProjectile(entity)` 可显式登记启动之后产生的自有呈现，普通启动内的弹射物会自动捕获。生命周期仍由提供者负责。
+
+同一施法链使用 `CastContexts.sameChain(a, b)` 判断，标识随附件克隆，重新绑定归属／资源不改变链标识。它不代表多个独立施法共享可变状态。详细边界见 [Controle / Additions](controle-additions.md)。

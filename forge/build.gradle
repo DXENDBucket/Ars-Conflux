@@ -18,7 +18,7 @@ configurations {
     gameTestCompileOnly.extendsFrom compileOnly
     gameTestRuntimeOnly.extendsFrom runtimeOnly
 }
-repositories { flatDir { dirs 'libs', 'libs/hex-link', 'libs/neg', 'libs/elemental' }; mavenCentral { content { excludeGroup 'local' } } }
+repositories { flatDir { dirs 'libs', 'libs/hex-link', 'libs/neg', 'libs/elemental', 'libs/controle-additions' }; mavenCentral { content { excludeGroup 'local' } } }
 jarJar.enable()
 minecraft {
     mappings channel: 'official', version: '1.20.1'
@@ -57,6 +57,10 @@ dependencies {
     runtimeOnly 'io.github.llamalad7:mixinextras-forge:0.4.1'
     annotationProcessor 'io.github.llamalad7:mixinextras-common:0.4.1'
     jarJar('io.github.llamalad7:mixinextras-forge:0.4.1') { jarJar.ranged(it, '[0.4.1,0.5)') }
+    if (providers.gradleProperty('withControleAdditions').getOrElse('false').toBoolean()) {
+        runtimeOnly fg.deobf('local:ars-controle:controle1201')
+        runtimeOnly fg.deobf('local:ars-additions:additions1201')
+    }
     testImplementation platform('org.junit:junit-bom:5.13.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
