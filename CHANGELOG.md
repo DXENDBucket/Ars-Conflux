@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.11
+
+- Add public `ActiveCasts.afterRelease(caster, key, action)` for result-dependent commits after an acknowledged active release. Keys deduplicate callbacks within a use; failed/unacknowledged uses drop them, while passive callers can commit immediately when the method returns false.
+- Share the API between NeoForge 1.21.1 and Forge 1.20.1. No provider-specific cooldown policy is added to Core.
+
 ## 0.1.10
 
 统一提供者注册、主动准备、取消和释放后的冷却提交；混合编排只吟唱一次，保留原生 HUD 回调。

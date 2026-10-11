@@ -1,14 +1,19 @@
-# 主动施法准备与冷却（0.1.10）
+# 主动施法准备与冷却（0.1.11）
 
 Core 提供一次主动使用的边界，不提供任何具体模组的吟唱时间、冷却存储或 GUI。Iron / Goety 可以独立安装，也可以混用；不会互相引用对方的类。
 
 ## 注册和责任
 
-在模组初始化时用 `ActiveCasts.register(id, provider)` 登记 `ActiveCastProvider`。每个 provider 只识别自己的魔符，提供 `chantTicks`、原生冷却资格、`released` 回调与 `chantProgress`。查询必须只读；冷却写入只放在 `released`。`released` 接收起始编排及实际发射编排的快照列表；提供者按自己的原生法术／聚晶标识去重。
+在模组初始化时用 `ActiveCasts.register(id, provider)` 登记 `ActiveCastProvider`。每个 provider 只识别自己的魔符，提供 `chantTicks`、原生冷却资格、`released` 回调与 `chantProgress`。查询必须只读；通常在 `released` 提交冷却，依赖实际结果的规则可使用下面的释放后操作。`released` 接收起始编排及实际发射编排的快照列表；提供者按自己的原生法术／聚晶标识去重。
 
 Core 处理主动工具、附魔弓弩和附魔剑的魔法释放入口。第三方可以显式调用 `ActiveCasts.perform`，或组合 `defer` 与 `execute`；单纯调用 resolver 不自动吟唱或增加冷却。`ActiveCastSource.CASTER_TOOL` 和 `WEAPON` 描述入口用途，不是原生模组枚举。
 
 `perform`：起手检查 → 一次准备 → 释放前检查 → 原 Ars 操作 → 收到有效发射确认后提交所有相关提供者的冷却。`execute` 仅建立主动释放事务，不添加准备时间。`defer` 返回 `UNNEEDED / QUEUED / DENIED`；集成方不得把 `DENIED` 当成即时施法许可。已有有效准备不会被再次点击重置或排队。
+
+`afterRelease(caster, key, action)` 可登记依赖执行结果的提交（例如位移确实成功才记冷却）。
+同次主动使用按 key 去重，等相关提供者的释放回调完成后才执行；未收到有效发射确认则丢弃。
+返回 false 表示当前没有匹配的主动事务，调用者可以立即提交被动／延后命中的结果。
+此接口不建立新事务，也不会改变原有被动效果的施法边界；具体提交规则仍属于提供者。
 
 `ars_conflux-server.toml` 的 `[active_casting].chant_mode`：
 

@@ -34,6 +34,7 @@ public final class ActiveCasts {
     private static final class Attempt {
         final ActiveCastRequest request;
         final LinkedHashSet<Spell> recipes = new LinkedHashSet<>();
+        final LinkedHashMap<ResourceLocation, Runnable> releaseActions = new LinkedHashMap<>();
         boolean released;
         Attempt(ActiveCastRequest request) { this.request = request; recipes.add(request.spell()); }
     }
@@ -49,6 +50,17 @@ public final class ActiveCasts {
         if (caster == null || !(caster.level() instanceof ServerLevel)) return true;
         var request = new ActiveCastRequest(spell, caster, source);
         for (var provider : providers(spell)) if (!provider.allowed(request)) return false;
+        return true;
+    }
+    /** Defer a result-dependent commit until the enclosing active use is acknowledged.
+     * Keys deduplicate repeated successes within that use. Nothing runs for an unacknowledged
+     * use. False means no matching active use exists; the caller may commit immediately.
+     * This does not create an active use or change passive/ongoing trigger semantics. */
+    public static boolean afterRelease(LivingEntity caster, ResourceLocation key, Runnable action) {
+        Objects.requireNonNull(key); Objects.requireNonNull(action);
+        var attempt = CURRENT.get();
+        if (attempt == null || attempt.request.caster() != caster) return false;
+        attempt.releaseActions.putIfAbsent(key, action);
         return true;
     }
     public static <T> T perform(Spell spell, LivingEntity caster, InteractionHand hand, ActiveCastSource source,
@@ -102,8 +114,12 @@ public final class ActiveCasts {
         finally { if (previous == null) CURRENT.remove(); else CURRENT.set(previous); }
         if (attempt.released) {
             var recipes = List.copyOf(attempt.recipes);
-            for (var provider : PROVIDERS.values()) if (recipes.stream().anyMatch(provider::supports))
-                provider.released(attempt.request, recipes);
+            try {
+                for (var provider : PROVIDERS.values()) if (recipes.stream().anyMatch(provider::supports))
+                    provider.released(attempt.request, recipes);
+            } finally {
+                for (var actionAfterRelease : attempt.releaseActions.values()) actionAfterRelease.run();
+            }
         }
         return result;
     }
