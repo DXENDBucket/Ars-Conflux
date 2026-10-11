@@ -18,7 +18,7 @@ configurations {
     gameTestCompileOnly.extendsFrom compileOnly
     gameTestRuntimeOnly.extendsFrom runtimeOnly
 }
-repositories { flatDir { dirs 'libs', 'libs/hex-link' }; mavenCentral { content { excludeGroup 'local' } } }
+repositories { flatDir { dirs 'libs', 'libs/hex-link', 'libs/neg' }; mavenCentral { content { excludeGroup 'local' } } }
 jarJar.enable()
 minecraft {
     mappings channel: 'official', version: '1.20.1'
@@ -45,6 +45,9 @@ dependencies {
         for (name in ['hexcasting', 'hex-ars-link', 'paucal', 'inline', 'caelus', 'kotlinforforge']) {
             gameTestRuntimeOnly fg.deobf("local:${name}:hex1201")
         }
+    }
+    if (providers.gradleProperty('withNeg').getOrElse('false').toBoolean()) {
+        runtimeOnly fg.deobf('local:not-enough-glyphs:neg1201')
     }
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation 'io.github.llamalad7:mixinextras-common:0.4.1'

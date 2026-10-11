@@ -2,12 +2,12 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.11**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.12**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.11-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.11-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.12-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.12-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental 都不是 Core 的必需依赖。
 
@@ -55,3 +55,5 @@ enabled = false
 0.1.8 新增共同的魔符展示排序入口。Iron 和 Goety 只登记自己的分组与内部排序键，不各自修改 Ars 页面；同类中普通 Ars／附属在前，Goety、Iron 各自集中在后。魔符类型和解锁等级不因展示排序改变。
 
 主动吟唱与冷却：[实现与边界](docs/active-casting.md)
+
+NEG 的织册、派生分支、再次发射预算及双版本适配详见 [兼容范围与定向验证](docs/not-enough-glyphs.md)。

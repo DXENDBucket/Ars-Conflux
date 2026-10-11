@@ -18,7 +18,7 @@ public final class VolleyBudget {
         var stack = BATCHES.get();
         if (stack.isEmpty()) return requested;
         var batch = stack.peek(); var resolver = batch.resolver();
-        var profile = CarrierRegistry.of(resolver.castType);
+        var profile = CarrierRegistry.of(resolver);
         if (profile == null || profile.repeated()) return requested;
         var form = stats.getAugments().stream().filter(ProjectileForm.class::isInstance)
                 .map(ProjectileForm.class::cast).findFirst().orElse(null);

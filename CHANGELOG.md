@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.12
+
+- Preserve NEG SpellBinder focus-thread resolver factories, source extensions and native quotes across derived branches and replacement collision wrappers.
+- Budget NEG's generated projectile, arc, homing and missile fans within the child emission. Reduce count before NEG computes its native fan; ordinary Ars/NEG spells keep their original count and resource rules.
+- Add public `CarrierRegistry.bind(resolver, glyphId)` and `of(resolver)` for generated carrier provenance. This also fixes Ars 4/NEG propagators whose synthetic recipes do not identify arc or homing carriers.
+- Keep all NEG adapters optional. Share the implementation between NeoForge 1.21.1 and Forge 1.20.1; provider mods need no NEG-specific patches.
+- Add opt-in real-NEG integration fixtures for resolver/focus retention, chained/filtered/plane effects, generated fans, and NeoForge trail/contingency continuations. See `docs/not-enough-glyphs.md` for scope and commands.
+
 ## 0.1.11
 
 - Add public `ActiveCasts.afterRelease(caster, key, action)` for result-dependent commits after an acknowledged active release. Keys deduplicate callbacks within a use; failed/unacknowledged uses drop them, while passive callers can commit immediately when the method returns false.

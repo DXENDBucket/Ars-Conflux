@@ -15,6 +15,8 @@
     "SpellResolverAccess",
     "ArsTriggerBillingMixin",
     "ResolverInheritanceMixin",
+    "OptionalNegResolverMixin",
+    "OptionalNegPropagationMixin",
     "OptionalHexResolverMixin",
     "OptionalHexCallbackMixin",
     "HexDebitMixin",

@@ -9,6 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import java.util.function.Consumer;
@@ -29,7 +31,7 @@ public final class ArsTrajectory {
         configure.run();
         var original = ArsAccess.resolver(carrier);
         ArsAccess.resolver(carrier, ResolverContexts.inherit(original,
-                new ImpactResolver(original.spellContext.clone(), original.castType, impact)));
+                new ImpactResolver(original.spellContext.clone(), original.castType, original, impact)));
         return world.addFreshEntity(visual);
     }
     public boolean tick(ServerLevel world) {
@@ -49,12 +51,15 @@ public final class ArsTrajectory {
     public void close() { visual.discard(); carrier.discard(); }
     private static final class ImpactResolver extends SpellResolver {
         private final Consumer<HitResult> impact;
-        private ImpactResolver(SpellContext context, AbstractCastMethod castType, Consumer<HitResult> impact) {
-            super(context); this.castType = castType; this.impact = impact;
+        private final SpellResolver focusSource;
+        private ImpactResolver(SpellContext context, AbstractCastMethod castType, SpellResolver focusSource, Consumer<HitResult> impact) {
+            super(context); this.castType = castType; this.focusSource = focusSource; this.impact = impact;
         }
+        @Override public boolean hasFocus(ItemStack stack) { return focusSource.hasFocus(stack); }
+        @Override public boolean hasFocus(Item item) { return focusSource.hasFocus(item); }
         @Override public void onResolveEffect(Level world, HitResult hit) { if (!world.isClientSide) impact.accept(hit); }
         @Override public SpellResolver getNewResolver(SpellContext context) {
-            return ResolverContexts.inherit(this, new ImpactResolver(context, castType, impact));
+            return ResolverContexts.inherit(this, new ImpactResolver(context, castType, focusSource, impact));
         }
     }
 }

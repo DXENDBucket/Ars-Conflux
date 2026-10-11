@@ -57,6 +57,8 @@ boolean started = ExecutionSessions.start(session);
 
 `CarrierRegistry.register(CarrierProfile)` 允许新增载体声明，不需要修改一个封闭枚举。`arsDriven` 表示保留 Ars 轨迹，`repeated` 表示后续可反复触发，`emitted` 描述调态节点实际发出的形态。
 
+0.1.12 的 `CarrierRegistry.bind(resolver, glyphId)` 为生成分支声明已注册的实际载体。`of(resolver)` 和 `of(projectile)` 优先读取该标记，避免合成配方或旧附属的默认 `castType` 丢失形态信息；环绕实体保留其专有识别优先级。标记随上下文附件继承，子发射可以为自己的解析器覆盖它。它仅用于载体识别，不重新归属施法者、资源或伤害。
+
 对于复杂载体，`ArsTrajectory` 让原 Ars 实体在世界外继续计算运动和命中，实际入世的替换实体提供外观与载荷。它可以接受任意 `Entity`，并不引用 Iron 类。接入者必须抑制替换实体自己的重复运动与碰撞，设置原生 owner、粒子、载荷及伤害回调；不能同时把两个实体都加入世界。
 
 `CarrierProxy` 让回响轨迹的目标查询排除自己的替换外观。载体须遵守 Ars 的 resolver 命中契约；完全绕过 resolver 的附属仍需专门适配。
@@ -88,6 +90,8 @@ boolean started = ExecutionSessions.start(session);
 `derive(source, proposed)` 可在 Ars 提议普通子解析器时恢复入口自定义解析器；已有的碰撞或提供者解析器应保留自己的执行行为。`quote(source, context)` 可返回专用报价解析器，否则返回 null；同一来源最多一个附件拥有报价工厂。`ResolverContexts.quote` 用于需要保留原生入口定价的内部报价。
 
 自建包装器可以使用 `ResolverContexts.inherit(source, wrapper)` 仅传递来源附件。自行覆盖 `getNewResolver` 的提供者也应调用该方法，或明确调用 `derived`；普通基类的 mixin 不会自动拦截独立覆盖方法。提供者使用 `ResolverExtension` 时不应引用 Core 内部的 Hex 桥。附件是临时运行状态，不序列化外部 VM，也不让多个独立施法共享可变上下文。
+
+NEG 的 `ThreadwiseSpellResolver` 覆写入口由 Core 可选适配补齐，保留织册的聚焦丝线、来源派生与原生报价。`ArsTrajectory` 的碰撞包装也会将两种聚焦查询交回原解析器。详见 [NEG 兼容边界](not-enough-glyphs.md)。
 
 ## 原版 Ars 的可选接入
 
