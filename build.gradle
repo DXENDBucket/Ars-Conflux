@@ -23,6 +23,10 @@ neoForge {
         gameTestServer {
             type = 'gameTestServer'
             gameDirectory = file('run/gametest')
+            if (providers.gradleProperty('simulateElementalProduction').getOrElse('false').toBoolean()) {
+                programArguments.addAll('--mixin.config', 'ars_conflux_registration_tests.mixins.json')
+                systemProperty 'arsconflux.test.phalanx_expected', providers.gradleProperty('phalanxExpected').getOrElse('true')
+            }
         systemProperty 'neoforge.enabledGameTestNamespaces', project.findProperty('gameTestNamespaces') ?: 'ars_conflux'
         }
     }

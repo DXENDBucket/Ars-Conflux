@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.14
+
+- Add NeoForge startup option `optional_content.enable_elemental_phalanx`, enabled by default. Register Elemental's native Carian Phalanx in production when installed; disabling preserves upstream registration. Conflux loads before Elemental so the real startup file is read before glyph/item registration.
+- Add a conditional Ars Scribe's Table recipe using a homing projectile glyph, manipulation essence, conjuration essence and an amethyst shard. Keep upstream ID, tier, name, models and mechanics; no artwork is copied.
+- Add test-only production-gate simulation to check actual registry and recipe availability with the startup option on and off, rather than relying on upstream development registration.
+- Keep Forge 1.20.1 at the same release number; its Elemental does not implement Phalanx, and no startup activation is added there.
+
 ## 0.1.13
 
 - Extend the optional generated-carrier budget hook to Ars Elemental's arc and homing propagators, including when NEG delegates those glyphs to Elemental. Preserve native emission layout and explicitly bind child carrier provenance on both platforms.

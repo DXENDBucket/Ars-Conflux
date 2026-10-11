@@ -10,6 +10,12 @@ displayName="Ars Conflux"
 authors="EndXiom"
 description='''Shared execution and optional carrier compatibility for composable Ars Nouveau addons.'''
 [[dependencies.ars_conflux]]
+modId="ars_elemental"
+type="optional"
+versionRange="[0,)"
+ordering="BEFORE"
+side="BOTH"
+[[dependencies.ars_conflux]]
 modId="hex_ars_link"
 type="optional"
 versionRange="[0,)"

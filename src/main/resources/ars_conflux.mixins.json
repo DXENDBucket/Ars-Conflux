@@ -18,6 +18,7 @@
     "OptionalNegResolverMixin",
     "OptionalPropagationMixin",
     "OptionalElementalPhalanxMixin",
+    "OptionalElementalRegistrationMixin",
     "OptionalHexResolverMixin",
     "OptionalHexCallbackMixin",
     "HexDebitMixin",
