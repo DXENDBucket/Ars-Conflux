@@ -34,7 +34,8 @@
     "ExecutionWorldMixin",
     "RetaliationDamageMixin",
     "OptionalAdditionsRetaliateMixin",
-    "OptionalControlePrismMixin"
+    "OptionalControlePrismMixin",
+    "ScopedSpellDamageMixin"
   ],
   "injectors": {
     "defaultRequire": 1

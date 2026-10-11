@@ -2,12 +2,12 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.16**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.18**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.17-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.17-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.18-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.18-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 
@@ -30,6 +30,8 @@ enable_elemental_phalanx = true
 抄写台材料：召唤精华、操纵精华、魔源宝石各一，经验成本 160；施法遵循 Ars 原版三级魔符限制。获取配方仅在开关开启时加载，可供 JEI 显示。详细接口和语义见 [友军目标 API](docs/allied-targeting.md)。
 
 ## 当前内容
+
+- 显式接入的原生法术伤害 API：统一 Ars 装备加成、Pre/Post、上下文附件和同步伤害作用域；普通原生攻击不变。见 [原生伤害 API](docs/native-spell-damage.md)。
 
 - 公共执行会话：启动、逐 tick 更新、权限复查、到期、维度卸载和服务器停止清理。
 - 通用资源账户、同池预留、触发成功后扣款、失败释放以及可负担数量计算。
