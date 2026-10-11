@@ -133,3 +133,7 @@ GameTest 通过只能证明测到的服务端行为。没有开客户端就明�
 每批交付说明：最终行为、必要验证及其实际结果、未验证的边界、构建产物、提交和版本。并行任务还提交 Conflux 固定完整 SHA，以及该副本受版本控制文件未变化的结果。不要把这份流程当作继续发布或修改 Core 的授权。
 
 推荐使用 [agent-handoff-template.md](agent-handoff-template.md) 记录任务状态。长期原则更新本文件；版本和当前任务状态放交接记录，避免每个附属复制一份越来越不同的流程。
+
+## Forge 内嵌依赖范围
+
+MixinExtras 可自带最低可用版本，但 Jar-in-Jar 使用 `[0.4.1,)`，不要无依据加 `<0.5` 这类上限。多个模组的版本范围无交集时会在预加载阶段退出，增加独立新版 JAR 也无法修复旧包的范围。涉及此配置时，用 `tools/check-forge-jarjar-ranges.py <Core Forge发行包> <Iron Forge发行包>` 调用实际 Forge 选择器；要检查最终包的 Jar-in-Jar 元数据。
