@@ -101,6 +101,6 @@ boolean started = ExecutionSessions.start(session);
 
 Core 管理 Ars 4 注册表比较器和 Ars 5 法术书的类别分组。Ars 5 使用实际注册的分类谓词，保留可选附属的特殊类别；不会通过更改 `getTypeIndex()` 把效果挪成子形态。比较器在执行时读取登记表，避免模组初始化先后改变结果。没有提供者登记时保留原生比较器行为。
 
-## 主动施法（0.1.9）
+## 主动施法（0.1.10）
 
 `ActiveCasts` 统一已注册提供者的主动准备、取消与释放事务；`ActiveCastProvider` 保留原生数值、冷却存储和显示责任。详见 [主动施法](active-casting.md)。
