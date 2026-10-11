@@ -1,3 +1,6 @@
 {
-  "ars_conflux.validation.one_payload": "Only one replacement projectile glyph is allowed per phrase."
+  "ars_conflux.validation.one_payload": "Only one replacement projectile glyph is allowed per phrase.",
+  "ars_conflux.glyph_name.glyph_nearby_allies": "Nearby Allies",
+  "item.ars_conflux.glyph_nearby_allies": "Nearby Allies",
+  "ars_conflux.glyph_desc.glyph_nearby_allies": "Resolve subsequent effects on nearby allies, excluding yourself. AOE increases the radius. Selected allies do not become the caster or payer."
 }

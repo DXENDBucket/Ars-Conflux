@@ -20,6 +20,10 @@ public final class ArsConflux {
     public ArsConflux() {
         net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.SERVER,
                 dev.arsconflux.config.ConfluxConfig.SPEC, "ars_conflux-server.toml");
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON,
+                dev.arsconflux.config.ConfluxStartupConfig.SPEC,"ars_conflux-startup.toml");
+        dev.arsconflux.glyph.OptionalGlyphs.register();
+        net.minecraftforge.common.crafting.CraftingHelper.register(new dev.arsconflux.internal.content.NearbyAlliesCondition.Serializer());
         BuiltinCarriers.register();
         FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             for (var profile : CarrierRegistry.profiles()) if (profile.glyph() != null)

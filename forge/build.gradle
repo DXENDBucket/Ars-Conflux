@@ -26,6 +26,7 @@ minecraft {
     runs {
         gameTestServer {
             workingDirectory project.file('run/gametest')
+            property 'arsconflux.test.allies_expected', providers.gradleProperty('alliesExpected').getOrElse('false')
             property 'forge.enabledGameTestNamespaces', providers.gradleProperty('gameTestNamespaces').getOrElse('ars_conflux_billing')
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"

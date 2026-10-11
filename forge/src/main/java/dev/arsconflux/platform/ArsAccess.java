@@ -23,4 +23,10 @@ public final class ArsAccess {
                     .ifPresent(mana -> mana.removeMana(amount));
         else throw new IllegalStateException("Ars 4 device mana requires a provider ResourceAccount");
     }
+    public static void allyVisual(SpellContext context,net.minecraft.world.level.Level world,net.minecraft.world.entity.LivingEntity target) {
+        com.hollingsworth.arsnouveau.common.network.Networking.sendToNearby(world,target,
+                new com.hollingsworth.arsnouveau.common.network.PacketANEffect(
+                        com.hollingsworth.arsnouveau.common.network.PacketANEffect.EffectType.TIMED_HELIX,
+                        target.blockPosition(),context.getColors()));
+    }
 }

@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "ars_conflux:nearby_allies_enabled"
+    }
+  ],
+  "type": "ars_nouveau:glyph",
+  "exp": 160,
+  "output": "ars_conflux:glyph_nearby_allies",
+  "count": 1,
+  "inputItems": [
+    {
+      "item": {
+        "item": "ars_nouveau:conjuration_essence"
+      }
+    },
+    {
+      "item": {
+        "item": "ars_nouveau:manipulation_essence"
+      }
+    },
+    {
+      "item": {
+        "item": "ars_nouveau:source_gem"
+      }
+    }
+  ]
+}

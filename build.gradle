@@ -22,6 +22,7 @@ neoForge {
     runs {
         gameTestServer {
             type = 'gameTestServer'
+            systemProperty 'arsconflux.test.allies_expected', providers.gradleProperty('alliesExpected').getOrElse('false')
             gameDirectory = file('run/gametest')
             if (providers.gradleProperty('simulateElementalProduction').getOrElse('false').toBoolean()) {
                 programArguments.addAll('--mixin.config', 'ars_conflux_registration_tests.mixins.json')

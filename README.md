@@ -2,14 +2,32 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.15**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.16**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.15-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.15-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.16-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.16-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
+
+## 可选通用魔符
+
+Conflux 0.1.16 提供三级形态「周围友军」和通用友军判定 API。物品、魔符注册和抄写配方默认关闭，必须在客户端与服务器同时开启并重启：
+
+```toml
+# config/ars_conflux-startup.toml
+[optional_content]
+enable_nearby_allies = true
+# 仅 NeoForge：让 Ars Elemental 注册其隐藏的卡利亚圆阵。
+enable_elemental_phalanx = true
+```
+
+两个开关的发行默认值都是 `false`。没有 Elemental 不会注册卡利亚圆阵；Forge 当前版本没有此上游魔符。
+
+「周围友军」默认半径 8 格，每个扩散增加 3 格（上限 32），排除自身、死亡和旁观实体；每个目标独立执行剩余编排。基础形态费用为 30 Ars Mana，后续效果仍按 Ars／各提供者的计费规则执行。默认 Ars 原生效果仍是整次施法预付；启用触发计费后则逐目标结算。此形态不改变友军伤害规则，也不转移施法者、伤害归属或资源账户。
+
+抄写台材料：召唤精华、操纵精华、魔源宝石各一，经验成本 160；施法遵循 Ars 原版三级魔符限制。获取配方仅在开关开启时加载，可供 JEI 显示。详细接口和语义见 [友军目标 API](docs/allied-targeting.md)。
 
 ## 当前内容
 

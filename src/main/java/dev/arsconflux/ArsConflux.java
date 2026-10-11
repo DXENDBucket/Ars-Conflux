@@ -22,10 +22,12 @@ public final class ArsConflux {
                 dev.arsconflux.config.ConfluxStartupConfig.SPEC, "ars_conflux-startup.toml");
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,
                 dev.arsconflux.config.ConfluxConfig.SPEC, "ars_conflux-server.toml");
+        dev.arsconflux.glyph.OptionalGlyphs.register();
         BuiltinCarriers.register();
         var conditions = net.neoforged.neoforge.registries.DeferredRegister.create(
                 net.neoforged.neoforge.registries.NeoForgeRegistries.CONDITION_SERIALIZERS, MOD_ID);
         conditions.register("elemental_phalanx_enabled", () -> dev.arsconflux.internal.elemental.PhalanxRecipeCondition.CODEC);
+        conditions.register("nearby_allies_enabled", () -> dev.arsconflux.internal.content.NearbyAlliesCondition.CODEC);
         conditions.register(bus);
         bus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             for (var profile : CarrierRegistry.profiles()) if (profile.glyph() != null)

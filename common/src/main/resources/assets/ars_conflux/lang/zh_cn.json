@@ -1,3 +1,6 @@
 {
-  "ars_conflux.validation.one_payload": "同一法术段只能使用一个替换弹射物魔符。"
+  "ars_conflux.validation.one_payload": "同一法术段只能使用一个替换弹射物魔符。",
+  "ars_conflux.glyph_name.glyph_nearby_allies": "周围友军",
+  "item.ars_conflux.glyph_nearby_allies": "周围友军",
+  "ars_conflux.glyph_desc.glyph_nearby_allies": "对自身周围的友军分别施放后续效果，不包含自身。扩散增加范围；选中的友军不会成为施法者或付款者。"
 }

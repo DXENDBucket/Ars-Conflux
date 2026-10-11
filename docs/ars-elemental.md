@@ -12,7 +12,7 @@ Elemental 的 `PropagatorArc`、`PropagatorHoming` 与 NEG 的对应实现共用
 
 ## 卡利亚圆阵（1.21.1）
 
-**上游限制与 Conflux 开关：** Elemental 0.7.10.4 的 `ArsNouveauRegistry.registerGlyphs()` 仅在 `!FMLLoader.isProduction()` 时注册此魔符。Conflux 0.1.13 只准备了兼容；从 0.1.14 开始，NeoForge 提供默认开启的独立启动开关，让正常游戏也注册上游实现。游戏内中文名称沿用 Elemental 的“卡利亚圆阵”。
+**上游限制与 Conflux 开关：** Elemental 0.7.10.4 的 `ArsNouveauRegistry.registerGlyphs()` 仅在 `!FMLLoader.isProduction()` 时注册此魔符。Conflux 0.1.13 只准备了兼容；从 0.1.14 开始，NeoForge 提供独立启动开关（0.1.14–0.1.15 默认开启，0.1.16 起默认关闭），让正常游戏也注册上游实现。游戏内中文名称沿用 Elemental 的“卡利亚圆阵”。
 
 在 `config/ars_conflux-startup.toml` 中配置：
 
@@ -21,7 +21,7 @@ Elemental 的 `PropagatorArc`、`PropagatorHoming` 与 NEG 的对应实现共用
 enable_elemental_phalanx = true
 ```
 
-该配置影响物品注册，修改后必须重启；客户端和服务器保持一致。设为 `false` 后保持上游的注册政策，并取消 Conflux 添加的配方。没有 Elemental 时不加载可选目标，也不生成配方。只改变 Elemental 注册魔符时的局部检查，不修改加载器的全局生产环境标志，不开启其他开发内容。
+发行默认值是 `false`，需要此非标准内容时显式设为 `true`。该配置影响物品注册，修改后必须重启；客户端和服务器保持一致。设为 `false` 后保持上游的注册政策，并取消 Conflux 添加的配方。没有 Elemental 时不加载可选目标，也不生成配方。只改变 Elemental 注册魔符时的局部检查，不修改加载器的全局生产环境标志，不开启其他开发内容。
 
 沿用上游三级魔符、175 基础 Mana、ID、名称、图标与实体，不复制其素材。新增 Ars 抄写台配方：追踪弹射物魔符、操纵精华、召唤精华、紫水晶碎片各一个；经验 160。配方只有在开关开启且对应魔符物品存在时加载，可正常供 JEI 和抄写台读取。
 

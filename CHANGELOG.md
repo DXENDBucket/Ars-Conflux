@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.16
+
+- Add a neutral, extensible alliance-query API using native team and ownership relations.
+- Add the optional Tier 3 Nearby Allies cast method with independent target continuations, AOE radius and preserved attribution.
+- Add a transparent pixel icon, bilingual text, native resolve particles and conditional Scribe recipes on NeoForge and Forge.
+- Default Nearby Allies and NeoForge Elemental Phalanx registration to off; require matching startup configuration.
+- Add directed registry, ownership, fanout and context-preservation tests.
+
+
 ## 0.1.15
 
 - Add a provider-neutral remote execution world and same-instance managed projectile migration. Preserve carrier state, visual/native session state, attribution, payment account and origin-clock lifetime; unload of either world and loss of the original owner still cancel the execution. Do not capture independent impact-created projectiles.

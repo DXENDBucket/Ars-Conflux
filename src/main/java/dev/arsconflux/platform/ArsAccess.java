@@ -18,4 +18,9 @@ public final class ArsAccess {
     public static void spend(com.hollingsworth.arsnouveau.api.spell.wrapped_caster.IWrappedCaster source, int amount) {
         source.expendMana(amount);
     }
+    public static void allyVisual(SpellContext context,net.minecraft.world.level.Level world,net.minecraft.world.entity.LivingEntity target) {
+        var self=com.hollingsworth.arsnouveau.common.spell.method.MethodSelf.INSTANCE;
+        self.resolveEmitter(context,target.getBoundingBox().getCenter()).tick(world);
+        self.playResolveSound(context,world,target.position());
+    }
 }
