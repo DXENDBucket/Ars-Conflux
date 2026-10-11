@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.13
+
+- Extend the optional generated-carrier budget hook to Ars Elemental's arc and homing propagators, including when NEG delegates those glyphs to Elemental. Preserve native emission layout and explicitly bind child carrier provenance on both platforms.
+- Register Elemental's Carian Phalanx as a driven, once-paid projectile carrier. Preserve its native formation slots, enemy detection, launch, homing, hits and cleanup while using provider replacement visuals; bind the child resolver after Elemental strips the original form.
+- Add opt-in real-Elemental integration fixtures for generated fans, empty accounts, plain-addon emissions, and NeoForge phalanx lifecycle/source continuity. No Elemental classes, artwork or dependencies are included in release JARs.
+
 ## 0.1.12
 
 - Preserve NEG SpellBinder focus-thread resolver factories, source extensions and native quotes across derived branches and replacement collision wrappers.

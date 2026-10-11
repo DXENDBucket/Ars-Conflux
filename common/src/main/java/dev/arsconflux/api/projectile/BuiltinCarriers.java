@@ -13,6 +13,7 @@ public final class BuiltinCarriers {
         add("ars_nouveau:glyph_orbit", true, true, true, null);
         add("ars_elemental:glyph_arc_projectile", true, false, false, null);
         add("ars_elemental:glyph_homing_projectile", true, false, false, null);
+        add("ars_elemental:glyph_carian_phalanx", true, false, true, null);
         add("arsomega:glyph_missile", true, false, true, null);
         add("not_enough_glyphs:glyph_trail", true, true, true, null);
         add("arsomega:glyph_propagate_projectile", true, false, false, "ars_nouveau:glyph_projectile");

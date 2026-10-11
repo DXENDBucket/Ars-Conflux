@@ -19,9 +19,11 @@ import org.spongepowered.asm.mixin.Pseudo;
         "alexthw.not_enough_glyphs.common.glyphs.propagators.PropagateProjectile",
         "alexthw.not_enough_glyphs.common.glyphs.propagators.PropagateMissile",
         "alexthw.not_enough_glyphs.common.glyphs.propagators.PropagateArc",
-        "alexthw.not_enough_glyphs.common.glyphs.propagators.PropagateHoming"
+        "alexthw.not_enough_glyphs.common.glyphs.propagators.PropagateHoming",
+        "alexthw.ars_elemental.common.glyphs.PropagatorArc",
+        "alexthw.ars_elemental.common.glyphs.PropagatorHoming"
 }, remap = false)
-public abstract class OptionalNegPropagationMixin {
+public abstract class OptionalPropagationMixin {
     @WrapMethod(method = "propagate")
     private void arsConflux$budget(Level world, HitResult hit, LivingEntity caster, SpellStats stats,
             SpellResolver resolver, Operation<Void> original) {
