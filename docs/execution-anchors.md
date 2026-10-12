@@ -20,7 +20,7 @@
 
 不同通道相互独立。`isOccupied(actor, channel)` 用于具体动作冲突，`isCasting(actor)` 查询该实体是否持有任意活跃声明。停止一个会话不会释放其他会话的声明。
 
-Core在运行driver.start之前登记会话，因此嵌套启动也能看到父会话占用。冲突使用既有DENIED结束原因，不新增附属需要映射的枚举。驱动的close仍必须能清理未启动的准备对象，只释放本会话真正获得的外部状态。旧 `occupiesCaster` 默认映射为实际executor的动作声明（没有executor时回退caster）；附属应迁移到显式claims，尤其是位置输出与远端实体。
+Core在运行driver.start之前登记会话，因此嵌套启动也能看到父会话占用。冲突使用既有DENIED结束原因，不新增附属需要映射的枚举。驱动的close仍必须能清理未启动的准备对象，只释放本会话真正获得的外部状态。旧 `occupiesCaster` 默认映射为实际executor的非独占活动声明（没有executor时回退caster），保留旧驱动可并行启动的行为；显式action声明才要求独占。附属应迁移到显式claims，尤其是位置输出与远端实体。
 
 ## 几何继承
 

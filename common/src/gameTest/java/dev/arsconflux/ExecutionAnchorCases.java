@@ -62,6 +62,15 @@ public final class ExecutionAnchorCases {
             h.assertTrue(!ExecutionSessions.isOccupied(actor,ExecutionClaim.ENTITY_ACTION),"Action claim released independently");
             var position=session(h,frame.withExecutor(null),List.of(),starts,()->{});sessions.add(position);
             h.assertTrue(ExecutionSessions.start(position) && !ExecutionSessions.isCasting(root),"Fixed-point output does not claim the caster");
+            for(int i=0;i<2;i++){
+                var legacy=new ExecutionSession<>(h.getLevel(),CastContext.detached(root,null,null),0,30,new ExecutionDriver<Integer>(){
+                    public boolean occupiesCaster(){return true;}
+                    public boolean start(ExecutionSession<Integer> s){return true;}
+                    public boolean tick(ExecutionSession<Integer> s){return false;}
+                    public void close(ExecutionSession<Integer> s,ExecutionSession.EndReason reason){}
+                },hit->{},()->true,ExecutionScope.DIRECT);
+                sessions.add(legacy);h.assertTrue(ExecutionSessions.start(legacy),"Legacy activity flags retain concurrent-start behavior");
+            }
             actor.discard();ExecutionSessions.tick();
             h.assertTrue(!two.active() && position.active(),"Executor loss cancels its channel but not a separate fixed-point output");h.succeed();
         }finally{for(var s:sessions)s.finish(ExecutionSession.EndReason.SERVER_STOPPED);root.discard();actor.discard();ExecutionSessions.tick();}
