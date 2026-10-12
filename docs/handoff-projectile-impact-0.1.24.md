@@ -30,7 +30,7 @@ Core 0.1.24，运行 API 提交 `08c307f3238b9b9aa7fd628b9771cd287160448d`。工
 
 ## 版本控制
 
-附属已本地提交，协调者将其合回干净主分支并建立版本标签；不推送或公开发布。Mowzie 仍是私有原型。
+附属已本地提交，协调者已合回干净主分支并建立版本标签；不推送或公开发布。Mowzie 仍是私有原型。
 
 | 项目 | 版本 | 提交 |
 | --- | --- | --- |
@@ -39,3 +39,7 @@ Core 0.1.24，运行 API 提交 `08c307f3238b9b9aa7fd628b9771cd287160448d`。工
 | Cataclysm-Nouveau | 0.1.0-dev.42 | `406499cb97d0db32a44a5241dc06c035c76cc56a` |
 | Aquamirae-Nouveau | 0.1.0-dev.15 | `acb0ddff3cc0f4faff6d29578942edf0accce197` |
 | Mowzies-Nouveau | 0.1.0-dev.8 | `2e7c66946bd44dd6a072ea557182dbb9f1ba53b2` |
+
+## 测试部署
+
+已串行部署并核对 8 个 JAR 的 SHA-256；“万法归一”更新 Core 与本批五附属，“1.20.1-模组测试”只更新其已有 Core / BOMD。Iron 0.17.20 保留，未新增 Forge 测试实例原本未装的附属。旧包备份 `conflux-backups/20261013-065531-impacts/`，没有改用户配置。
