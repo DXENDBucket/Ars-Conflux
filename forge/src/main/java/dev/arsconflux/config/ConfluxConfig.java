@@ -6,6 +6,7 @@ public final class ConfluxConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.BooleanValue VANILLA_TRIGGER_BILLING;
     public static final ForgeConfigSpec.BooleanValue HEX_CHANTING, HEX_COOLDOWNS;
+    public static final ForgeConfigSpec.BooleanValue PRESERVE_COOLDOWNS_ON_DEATH;
     public enum ChantMode { MAXIMUM, SUM }
     public static final ForgeConfigSpec.EnumValue<ChantMode> CHANT_MODE;
     static {
@@ -33,9 +34,15 @@ public final class ConfluxConfig {
         HEX_COOLDOWNS = builder.comment("Check and commit installed providers' cooldowns for active Hex-Ars Linker operations.",
                 "False bypasses cooldowns only for this spell chain; mana and media billing are unchanged.")
                 .define("cooldowns", true);
+        builder.pop();
+        builder.push("addon_cooldowns");
+        PRESERVE_COOLDOWNS_ON_DEATH = builder.comment("Keep opt-in addon cooldown deadlines after player death.",
+                "Non-death clones always keep deadlines. Native Iron/Goety stores are not changed.")
+                .define("preserve_on_death", true);
         builder.pop(); SPEC = builder.build();
     }
     private ConfluxConfig() {}
+    public static boolean preserveCooldownsOnDeath() { return SPEC.isLoaded() ? PRESERVE_COOLDOWNS_ON_DEATH.get() : PRESERVE_COOLDOWNS_ON_DEATH.getDefault(); }
     public static boolean hexChanting() { return SPEC.isLoaded() ? HEX_CHANTING.get() : HEX_CHANTING.getDefault(); }
     public static boolean hexCooldowns() { return SPEC.isLoaded() ? HEX_COOLDOWNS.get() : HEX_COOLDOWNS.getDefault(); }
     public static boolean sumChants() { return (SPEC.isLoaded() ? CHANT_MODE.get() : CHANT_MODE.getDefault()) == ChantMode.SUM; }

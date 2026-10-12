@@ -34,6 +34,8 @@ public final class ArsConflux {
                 profile.rememberOriginalAugments(profile.glyph());
         }));
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> { ExecutionSessions.tick(); dev.arsconflux.api.casting.ActiveCasts.tick(); });
+        NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST, (net.neoforged.neoforge.event.entity.player.PlayerEvent.Clone event) ->
+                dev.arsconflux.api.casting.PersistentCooldowns.copyOnClone(event.getOriginal(), event.getEntity(), event.isWasDeath()));
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> { ExecutionSessions.stop(); dev.arsconflux.api.casting.ActiveCasts.stop(); dev.arsconflux.api.damage.NativeSpellDamage.stop(); });
         NeoForge.EVENT_BUS.addListener((LevelEvent.Unload event) -> {
             if (event.getLevel() instanceof ServerLevel world) { ExecutionSessions.unload(world); dev.arsconflux.api.casting.ActiveCasts.unload(world); dev.arsconflux.api.damage.NativeSpellDamage.unload(world); }

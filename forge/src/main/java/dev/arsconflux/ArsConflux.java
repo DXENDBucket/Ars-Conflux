@@ -32,6 +32,8 @@ public final class ArsConflux {
         MinecraftForge.EVENT_BUS.addListener((TickEvent.ServerTickEvent event) -> {
             if (event.phase == TickEvent.Phase.END) { ExecutionSessions.tick(); dev.arsconflux.api.casting.ActiveCasts.tick(); }
         });
+        MinecraftForge.EVENT_BUS.addListener(net.minecraftforge.eventbus.api.EventPriority.LOWEST, (net.minecraftforge.event.entity.player.PlayerEvent.Clone event) ->
+                dev.arsconflux.api.casting.PersistentCooldowns.copyOnClone(event.getOriginal(), event.getEntity(), event.isWasDeath()));
         MinecraftForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> { ExecutionSessions.stop(); dev.arsconflux.api.casting.ActiveCasts.stop(); dev.arsconflux.api.damage.NativeSpellDamage.stop(); });
         MinecraftForge.EVENT_BUS.addListener((LevelEvent.Unload event) -> {
             if (event.getLevel() instanceof ServerLevel world) { ExecutionSessions.unload(world); dev.arsconflux.api.casting.ActiveCasts.unload(world); dev.arsconflux.api.damage.NativeSpellDamage.unload(world); }

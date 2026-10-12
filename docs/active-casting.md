@@ -43,3 +43,11 @@ Core 处理主动工具、附魔弓弩和附魔剑的魔法释放入口。第三
 `afterRelease` 专用于结果冷却提交；本次入口禁用冷却时，返回 true 并丢弃该提交，防止调用方退回即时写入。普通被动触发仍不创建主动事务。
 
 `MovementLimits.multiplier(event, requested)` 合并同一客户端输入事件的多个限制，以最严格的倍率为准；返回增量倍率，调用方只乘一次。事件对象仅作为弱引用键，API 不依赖某个平台客户端事件类。
+
+## 0.1.23 结果冷却与持久记录
+
+`PersistentCooldowns.register(id, legacyNbtKey)` 返回独立名称空间，读取旧字段，用主世界时钟维护期限。`extend` 只延长；`commit` 用 `afterRelease` 延后本次同步分支的结果提交，失败释放不提交，后续独立命中即时提交。相同项不同期限最终取较长值。该接口不自行检查创造、是否启用或原生能力资格；调用方保留这些规则。
+
+登记应在附属启动时完成。Core 为已登记记录统一处理 Player Clone，默认死亡后保留；非死亡克隆始终保留。配置 `[addon_cooldowns].preserve_on_death = true` 仅影响选择此存储的附属，不改变 Iron / Goety 原生能力字段。
+
+非体术效果允许并行，持续状态只用于展示/清理，不应作为新的主动释放障碍。体术模拟仍用 `ExecutionClaim.action` 支持替换；吐息的 shared channel 和旧 ACTIVITY 均非独占。每次执行继续独立支付费用、复查目标资格。

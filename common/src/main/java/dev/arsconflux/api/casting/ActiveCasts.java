@@ -86,6 +86,7 @@ public final class ActiveCasts {
     public static boolean afterRelease(LivingEntity caster, ResourceLocation key, Runnable action) {
         Objects.requireNonNull(key); Objects.requireNonNull(action);
         var attempt = CURRENT.get();
+        if (!cooldownsEnabled(caster)) return true; // Handled, intentionally not committed for this chain.
         if (attempt == null || attempt.request.caster() != caster) return false;
         if (attempt.policy.cooldowns()) attempt.releaseActions.putIfAbsent(key, action);
         return true;
