@@ -38,6 +38,7 @@ public final class ExecutionSession<P> {
     private final ExecutionScope scope;
     private TriggerPayment payment = TriggerPayment.FREE;
     private boolean repeatPayments;
+    private java.util.List<ExecutionClaim> claims;
     private State state = State.PREPARED;
 
     public ExecutionSession(ServerLevel world, LivingEntity caster, P parameters, int maxTicks,
@@ -92,6 +93,10 @@ public final class ExecutionSession<P> {
     public State state() { return state; }
     public boolean active() { return state == State.ACTIVE; }
     public boolean occupiesCaster() { return driver.occupiesCaster(); }
+    public java.util.List<ExecutionClaim> claims() {
+        if(claims==null)claims=java.util.List.copyOf(driver.claims(this));
+        return claims;
+    }
     public int remainingTicks() { return (int)Math.max(0, Math.min(Integer.MAX_VALUE, maxTicks - (originWorld.getGameTime() - started))); }
     public ExecutionSession<P> billing(TriggerPayment payment, boolean repeat) {
         if (state != State.PREPARED) throw new IllegalStateException("Billing must be set before start");

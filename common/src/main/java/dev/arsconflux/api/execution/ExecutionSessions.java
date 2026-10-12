@@ -19,13 +19,21 @@ public final class ExecutionSessions {
         finally { if (previous == null) CURRENT.remove(); else CURRENT.set(previous); }
     }
     public static boolean isCasting(LivingEntity actor) {
-        return ACTIVE.values().stream().anyMatch(s -> s.active() && s.caster() == actor && s.occupiesCaster());
+        return ACTIVE.values().stream().anyMatch(s -> s.active() && s.claims().stream().anyMatch(c -> c.actor()==actor));
+    }
+    public static boolean isOccupied(LivingEntity actor,net.minecraft.resources.ResourceLocation channel) {
+        return ACTIVE.values().stream().anyMatch(s -> s.active() && s.claims().stream().anyMatch(c -> c.actor()==actor && c.channel().equals(channel)));
     }
     public static boolean start(ExecutionSession<?> session) {
-        if (ACTIVE.size() >= 4096 || !session.start()) {
-            session.finish(ExecutionSession.EndReason.SPAWN_FAILED); return false;
+        if(ACTIVE.containsKey(session.id()))return false;
+        if (ACTIVE.size() >= 4096 || ACTIVE.values().stream().anyMatch(s -> s.active()
+                && s.claims().stream().anyMatch(a -> session.claims().stream().anyMatch(a::conflicts)))) {
+            session.finish(ExecutionSession.EndReason.DENIED); return false;
         }
-        ACTIVE.put(session.id(), session); return true;
+        // Publish before driver.start: nested starts must see the active parent's claims.
+        ACTIVE.put(session.id(),session);
+        try {return session.start();}
+        finally {if(!session.active())ACTIVE.remove(session.id());}
     }
     public static void tick() {
         for (var session : List.copyOf(ACTIVE.values())) {

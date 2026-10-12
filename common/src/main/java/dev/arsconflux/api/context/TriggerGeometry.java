@@ -10,10 +10,15 @@ public final class TriggerGeometry {
     private static final ThreadLocal<Vec3> CURRENT = new ThreadLocal<>();
     private TriggerGeometry() {}
     public static void write(SpellContext context, Vec3 direction) {
-        if (context == null || direction == null || direction.lengthSqr() < 1.0e-10) return;
+        if (context == null || direction == null) return;
+        if (!Double.isFinite(direction.lengthSqr()) || direction.lengthSqr() < 1.0e-10) {clear(context);return;}
         var tag = new net.minecraft.nbt.CompoundTag(); direction = direction.normalize();
         tag.putDouble("x", direction.x); tag.putDouble("y", direction.y); tag.putDouble("z", direction.z);
         context.tag.put(KEY, tag);
+    }
+    /** Explicit reset, including the legacy Iron snapshot key. Null writes still mean inherit. */
+    public static void clear(SpellContext context) {
+        if(context!=null){context.tag.remove(KEY);context.tag.remove("irons_nouveau_incoming");}
     }
     public static Vec3 read(SpellContext context) {
         if (CURRENT.get() != null) return CURRENT.get();
@@ -31,7 +36,7 @@ public final class TriggerGeometry {
     }
     public static void scoped(Vec3 direction, Runnable action) {
         var previous = CURRENT.get();
-        if (direction != null && direction.lengthSqr() > 1.0e-10) CURRENT.set(direction.normalize());
+        if (direction != null) CURRENT.set(Double.isFinite(direction.lengthSqr()) && direction.lengthSqr()>1.0e-10?direction.normalize():Vec3.ZERO);
         try { action.run(); } finally { if (previous == null) CURRENT.remove(); else CURRENT.set(previous); }
     }
 }

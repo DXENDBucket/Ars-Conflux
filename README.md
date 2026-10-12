@@ -6,8 +6,8 @@ Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当�
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.19-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.19-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.20-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.20-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 
@@ -85,3 +85,5 @@ Elemental 的再次发射与卡利亚方阵详见 [兼容范围与定向验证](
 ## Forge 内嵌库兼容修复（0.1.19）
 
 MixinExtras 的 Jar-in-Jar 版本范围改为 `[0.4.1,)`，继续自带 0.4.1 作为最低可用实现，但允许整合包选用 0.5.x 或更新版本。原来的 `<0.5` 上限与其他模组要求 0.5.5 的范围无交集，导致 Forge 在模组预加载阶段退出。本次不改变魔符行为或配置。
+
+0.1.20 ??????????????????? [????](docs/execution-anchors.md)???????????????????????????????????
