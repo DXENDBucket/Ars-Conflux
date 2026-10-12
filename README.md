@@ -78,6 +78,8 @@ enabled = false
 
 主动吟唱与冷却：[实现与边界](docs/active-casting.md)
 
+跨附属维护：[2026-10-13 横向源码审计](docs/all-addon-audit-2026-10-13.md)记录固定版本下的资源、执行授权、冷却反馈和生命周期差异，区分待修问题与既有设计；审计建议不代表已实施的行为变更。
+
 NEG 的织册、派生分支、再次发射预算及双版本适配详见 [兼容范围与定向验证](docs/not-enough-glyphs.md)。
 
 Elemental 的再次发射与卡利亚方阵详见 [兼容范围与定向验证](docs/ars-elemental.md)。
