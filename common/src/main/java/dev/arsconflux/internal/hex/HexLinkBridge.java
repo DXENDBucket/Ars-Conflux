@@ -21,6 +21,10 @@ public final class HexLinkBridge {
     public static void active(Object action, Runnable release) {
         try {
             var resolver = (SpellResolver)action.getClass().getMethod("getResolver").invoke(action);
+            var source = origin(resolver);
+            if (source != null && source.environment().getClass().getName().equals(CALLBACK)) {
+                release.run(); return; // An existing spell's impact callback is not another active use.
+            }
             var caster = dev.arsconflux.api.glyph.ArsSpellAccess.caster(resolver.spellContext);
             if (caster == null) { release.run(); return; }
             dev.arsconflux.api.casting.ActiveCasts.perform(resolver.spell, caster,

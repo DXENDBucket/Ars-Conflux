@@ -50,7 +50,7 @@ public final class ActiveCasts {
         if (caster == null || !(caster.level() instanceof ServerLevel)) return true;
         var rejected = rejection(spell, caster, source);
         if (rejected == null) return true;
-        if (caster instanceof ServerPlayer player)
+        if (rejected.message() != null && caster instanceof ServerPlayer player)
             player.displayClientMessage(rejected.message().copy().withStyle(net.minecraft.ChatFormatting.RED), true);
         return false;
     }

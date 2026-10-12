@@ -19,7 +19,25 @@ public final class HexLinkGameTests {
     @GameTest(template="empty", timeoutTicks=40)
     public static void directHexRespectsActiveBoundary(GameTestHelper h) throws ReflectiveOperationException {
         var access = player(h, "HexActive");
-        HexLinkCases.verifyActive(h, access.player(), ModList.get().isLoaded("hex_ars_link"), access.setMana());
+        HexLinkCases.verifyActive(h, access.player(), ModList.get().isLoaded("hex_ars_link"), access.setMana(), false);
+    }
+    @GameTest(template="empty", timeoutTicks=40)
+    public static void positionedHexRespectsActiveBoundary(GameTestHelper h) throws ReflectiveOperationException {
+        var access = player(h, "HexLaunch");
+        HexLinkCases.verifyActive(h, access.player(), ModList.get().isLoaded("hex_ars_link"), access.setMana(), true);
+    }
+    @GameTest(template="empty", timeoutTicks=40)
+    public static void structuredRejectionChoosesLongestBlocker(GameTestHelper h) {
+        var caster=h.spawn(net.minecraft.world.entity.EntityType.COW,2,2,2);
+        var spell=new com.hollingsworth.arsnouveau.api.spell.Spell(com.hollingsworth.arsnouveau.common.spell.method.MethodSelf.INSTANCE);
+        for(long ticks:new long[]{40,200}) {
+            dev.arsconflux.api.casting.ActiveCasts.register(dev.arsconflux.api.projectile.CarrierRegistry.id("audit_fixture:"+java.util.UUID.randomUUID()),new dev.arsconflux.api.casting.ActiveCastProvider(){
+                public boolean supports(com.hollingsworth.arsnouveau.api.spell.Spell s){return s==spell;}
+                public dev.arsconflux.api.casting.CastRejection rejection(dev.arsconflux.api.casting.ActiveCastRequest request){return dev.arsconflux.api.casting.CastRejection.cooldown(net.minecraft.network.chat.Component.literal("Fixture"),ticks);}
+            });
+        }
+        h.assertTrue(dev.arsconflux.api.casting.ActiveCasts.rejection(spell,caster,dev.arsconflux.api.casting.ActiveCastSource.CASTER_TOOL).remainingTicks()==200,"Common feedback selects the longest actual blocker");
+        h.succeed();
     }
     @GameTest(template="empty", timeoutTicks=100)
     public static void sourceBillingAndCallbackVm(GameTestHelper h) throws ReflectiveOperationException {
