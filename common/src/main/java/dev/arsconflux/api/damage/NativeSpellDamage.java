@@ -59,6 +59,9 @@ public final class NativeSpellDamage {
      * A shared guard avoids duplicate scaling when provider hooks and the scoped hurt hook overlap.
      * Call only for amounts not already processed by Ars or another bridge. */
     public static boolean hurt(CastContext context, Entity target, DamageSource source, float amount, Hit original) {
+        return dev.arsconflux.api.projectile.ImpactTriggers.damage(target, () -> apply(context, target, source, amount, original));
+    }
+    private static boolean apply(CastContext context, Entity target, DamageSource source, float amount, Hit original) {
         if (context == null || target.level().isClientSide || DISPATCHING.get())
             return original.hurt(source, amount);
         var caster = context.caster();

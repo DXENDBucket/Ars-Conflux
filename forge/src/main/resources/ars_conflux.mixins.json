@@ -37,7 +37,8 @@
     "OptionalControlePrismMixin",
     "ScopedSpellDamageMixin",
     "OptionalHexActiveCastMixin",
-    "OptionalHexActiveSpawnMixin"
+    "OptionalHexActiveSpawnMixin",
+    "ImpactEntityDamageMixin"
   ],
   "injectors": {
     "defaultRequire": 1

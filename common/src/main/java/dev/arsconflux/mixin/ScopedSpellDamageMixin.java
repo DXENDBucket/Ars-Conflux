@@ -12,7 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class ScopedSpellDamageMixin {
     @WrapMethod(method = "hurt")
     private boolean arsConflux$scopedDamage(DamageSource source, float amount, Operation<Boolean> original) {
-        return NativeSpellDamage.hurt(NativeSpellDamage.currentScope(), (LivingEntity)(Object)this,
-                source, amount, (modifiedSource, modifiedAmount) -> original.call(modifiedSource, modifiedAmount));
+        return dev.arsconflux.api.projectile.ImpactTriggers.damage((LivingEntity)(Object)this, () ->
+                NativeSpellDamage.hurt(NativeSpellDamage.currentScope(), (LivingEntity)(Object)this,
+                        source, amount, (modifiedSource, modifiedAmount) -> original.call(modifiedSource, modifiedAmount)));
     }
 }
