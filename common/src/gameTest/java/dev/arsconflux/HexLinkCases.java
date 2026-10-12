@@ -26,12 +26,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public final class HexLinkCases {
     private HexLinkCases() {}
     public static void verifyActive(GameTestHelper h, ServerPlayer player, boolean loaded,
-                                    java.util.function.IntConsumer setMana) throws ReflectiveOperationException {
+                                    java.util.function.IntConsumer setMana, boolean shoot) throws ReflectiveOperationException {
         if (!loaded) { h.succeed(); return; }
         setMana.accept(10000);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(net.minecraft.world.item.Items.BOOK));
         var effect = new TestEffect("active_fixture:glyph_hex_" + player.getUUID().toString().replace("-", ""));
-        var recipe = new Spell(MethodTouch.INSTANCE, effect);
+        var form = new TestForm("active_fixture:glyph_hex_payload_" + player.getUUID().toString().replace("-", ""));
+        if(shoot) MethodProjectile.INSTANCE.compatibleAugments.add(form);
+        var recipe = shoot ? new Spell(MethodProjectile.INSTANCE, form) : new Spell(MethodTouch.INSTANCE, effect);
+        var calls = shoot ? form.calls : effect.calls;
         var provider = new dev.arsconflux.api.casting.ActiveCastProvider() {
             int releases;
             public boolean supports(Spell spell) { return spell == recipe; }
@@ -48,17 +51,77 @@ public final class HexLinkCases {
         var resolver = resolverType.getConstructor(SpellContext.class, envType, int.class)
                 .newInstance(SpellContext.fromEntity(recipe, player, ItemStack.EMPTY), env, MethodTouch.INSTANCE.getCastingCost());
         var target = h.spawn(EntityType.COW, 8, 3, 2);
-        var actionType = Class.forName("io.yukkuric.hex_ars_link.action.OpTouchCast$Action");
-        var action = actionType.getConstructor(Either.class, resolverType).newInstance(Either.left(target), resolver);
+        var actionType = Class.forName("io.yukkuric.hex_ars_link.action." + (shoot ? "OpShootCast$Action" : "OpTouchCast$Action"));
+        var action = shoot ? actionType.getConstructor(Vec3.class, Vec3.class, resolverType)
+                .newInstance(player.getEyePosition(),new Vec3(1,0,0),resolver)
+                : actionType.getConstructor(Either.class, resolverType).newInstance(Either.left(target), resolver);
         var cast = actionType.getMethod("cast", envType);
         cast.invoke(action, env);
-        h.assertTrue(effect.calls.get() == 0 && dev.arsconflux.api.casting.ActiveCasts.isChanting(player), "Direct Hex target cast queues the common chant");
+        h.assertTrue(calls.get() == 0 && dev.arsconflux.api.casting.ActiveCasts.isChanting(player), "Direct Hex target cast queues the common chant");
         h.runAfterDelay(8, () -> {
-            h.assertTrue(effect.calls.get() == 1, "Deferred Hex cast releases its original target exactly once");
+            h.assertTrue(calls.get() == 1, "Deferred Hex cast releases its original target exactly once");
             try { cast.invoke(action, env); } catch (ReflectiveOperationException e) { throw new RuntimeException(e); }
-            h.assertTrue(effect.calls.get() == 1 && !dev.arsconflux.api.casting.ActiveCasts.isChanting(player), "A new Hex operation cannot bypass committed cooldown");
+            h.assertTrue(calls.get() == 1 && !dev.arsconflux.api.casting.ActiveCasts.isChanting(player), "A new Hex operation cannot bypass committed cooldown");
+            if(shoot) MethodProjectile.INSTANCE.compatibleAugments.remove(form);
             h.succeed();
         });
+    }
+    public static void verifyOptions(GameTestHelper h, ServerPlayer player, boolean loaded,
+                                     java.util.function.IntConsumer setMana) throws ReflectiveOperationException {
+        if (!loaded) { h.succeed(); return; }
+        setMana.accept(10000);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(net.minecraft.world.item.Items.BOOK));
+        var envType = Class.forName("at.petrak.hexcasting.api.casting.eval.CastingEnvironment");
+        var env = Class.forName("at.petrak.hexcasting.api.casting.eval.env.StaffCastEnv")
+                .getConstructor(ServerPlayer.class, InteractionHand.class).newInstance(player, InteractionHand.MAIN_HAND);
+        var type = Class.forName("io.yukkuric.hex_ars_link.action.OpTouchCast$Action");
+        var resolverType = Class.forName("io.yukkuric.hex_ars_link.env.ars.PatternResolver");
+        var target = h.spawn(EntityType.COW, 8, 3, 2);
+        var completed = new AtomicInteger();
+        for (boolean chant : new boolean[]{false,true}) for (boolean cooldown : new boolean[]{false,true}) {
+            var effect = new TestEffect("options_fixture:glyph_"+java.util.UUID.randomUUID());
+            var recipe = new Spell(MethodTouch.INSTANCE,effect);
+            var releases = new AtomicInteger();
+            var provider = new dev.arsconflux.api.casting.ActiveCastProvider() {
+                public boolean supports(Spell spell) { return spell == recipe; }
+                public boolean chantingEnabled(dev.arsconflux.api.casting.ActiveCastRequest r) { return true; }
+                public List<Integer> chantTicks(dev.arsconflux.api.casting.ActiveCastRequest r) { return List.of(3); }
+                public boolean allowed(dev.arsconflux.api.casting.ActiveCastRequest r) { return releases.get()==0; }
+                public void released(dev.arsconflux.api.casting.ActiveCastRequest r,List<Spell> spells) { releases.incrementAndGet(); }
+            };
+            dev.arsconflux.api.casting.ActiveCasts.register(effect.getRegistryName(),provider);
+            // Each operation captures its settings before the global test config is restored.
+            var context = SpellContext.fromEntity(recipe,player,ItemStack.EMPTY);
+            var resolver = resolverType.getConstructor(SpellContext.class,envType,int.class)
+                    .newInstance(context,env,MethodTouch.INSTANCE.getCastingCost());
+            var action = type.getConstructor(Either.class,resolverType).newInstance(Either.left(target),resolver);
+            Runnable cast = () -> {
+                boolean oldChant=ConfluxConfig.hexChanting(),oldCooldown=ConfluxConfig.hexCooldowns();
+                try {
+                    ConfluxConfig.HEX_CHANTING.set(chant);ConfluxConfig.HEX_COOLDOWNS.set(cooldown);
+                    type.getMethod("cast",envType).invoke(action,env);
+                } catch(ReflectiveOperationException failure) { throw new RuntimeException(failure); }
+                finally { ConfluxConfig.HEX_CHANTING.set(oldChant);ConfluxConfig.HEX_COOLDOWNS.set(oldCooldown); }
+            };
+            // Run each option sequentially so one active-use slot cannot mask another policy.
+            int delay = completed.getAndIncrement()*14;
+            h.runAfterDelay(delay, () -> {
+                cast.run();
+                h.assertTrue(effect.calls.get()==(chant?0:1),"Hex preparation switch affects only preparation");
+                h.runAfterDelay(5, () -> {
+                    h.assertTrue(effect.calls.get()==1 && releases.get()==(cooldown?1:0),"Cooldown commit is independent of preparation");
+                    var policy=dev.arsconflux.api.casting.ActiveCastPolicy.of(context.clone());
+                    h.assertTrue(policy.cooldowns()==cooldown && policy.chanting()==chant,"Source options survive resolver cloning");
+                    dev.arsconflux.api.context.CastContexts.run(CastContext.of(context,null,null), () ->
+                            h.assertTrue(dev.arsconflux.api.casting.ActiveCasts.cooldownsEnabled(player)==cooldown,"Deferred result cooldown reads source policy"));
+                    cast.run();
+                    h.runAfterDelay(5, () -> {
+                        h.assertTrue(effect.calls.get()==(cooldown?1:2),"Hex cooldown switch gates subsequent active uses");
+                        if(chant && cooldown) h.succeed();
+                    });
+                });
+            });
+        }
     }
     public static void verify(GameTestHelper h, ServerPlayer player, boolean linkerLoaded, java.util.function.IntConsumer setMana) throws ReflectiveOperationException {
         if (!linkerLoaded) {

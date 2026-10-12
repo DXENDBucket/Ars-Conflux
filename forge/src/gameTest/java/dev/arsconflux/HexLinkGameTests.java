@@ -9,12 +9,26 @@ import net.minecraftforge.gametest.*;
 @GameTestHolder("ars_conflux_hex") @PrefixGameTestTemplate(false)
 public final class HexLinkGameTests {
     private static HexLinkAdvancedCases.PlayerAccess player(GameTestHelper h, String name) {
-        var player = net.minecraftforge.common.util.FakePlayerFactory.get(h.getLevel(),
-                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), name));
+        net.minecraft.server.level.ServerPlayer player;
+        var profile=new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(),name);
+        if(name.equals("HexSource")||name.equals("HexReceiver")) {
+            player=new net.minecraft.server.level.ServerPlayer(h.getLevel().getServer(),h.getLevel(),profile);
+            var connection=new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND);
+            new io.netty.channel.embedded.EmbeddedChannel(connection);
+            player.connection=new net.minecraft.server.network.ServerGamePacketListenerImpl(h.getLevel().getServer(),connection,player) {
+                @Override public void send(net.minecraft.network.protocol.Packet<?> packet) {}
+                @Override public void send(net.minecraft.network.protocol.Packet<?> packet,net.minecraft.network.PacketSendListener listener) {}
+            };
+        }else player=net.minecraftforge.common.util.FakePlayerFactory.get(h.getLevel(),profile);
         player.setPos(h.absoluteVec(new Vec3(2, 3, 2))); player.setYRot(-90); player.setGameMode(GameType.SURVIVAL);
         var mana = com.hollingsworth.arsnouveau.setup.registry.CapabilityRegistry.getMana(player).orElseThrow(IllegalStateException::new);
         mana.setMaxMana(10000);
         return new HexLinkAdvancedCases.PlayerAccess(player, amount -> mana.setMana(amount), () -> mana.getCurrentMana());
+    }
+    @GameTest(template="empty", timeoutTicks=100)
+    public static void hexPreparationAndCooldownOptionsAreIndependent(GameTestHelper h) throws ReflectiveOperationException {
+        var access = player(h, "HexOptions");
+        HexLinkCases.verifyOptions(h,access.player(),ModList.get().isLoaded("hex_ars_link"),access.setMana());
     }
     @GameTest(template="empty", timeoutTicks=40)
     public static void directHexRespectsActiveBoundary(GameTestHelper h) throws ReflectiveOperationException {

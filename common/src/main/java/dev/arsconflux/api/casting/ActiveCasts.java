@@ -33,10 +33,11 @@ public final class ActiveCasts {
     }
     private static final class Attempt {
         final ActiveCastRequest request;
+        final ActiveCastPolicy policy;
         final LinkedHashSet<Spell> recipes = new LinkedHashSet<>();
         final LinkedHashMap<ResourceLocation, Runnable> releaseActions = new LinkedHashMap<>();
         boolean released;
-        Attempt(ActiveCastRequest request) { this.request = request; recipes.add(request.spell()); }
+        Attempt(ActiveCastRequest request, ActiveCastPolicy policy) { this.request = request; this.policy = policy; recipes.add(request.spell()); }
     }
     private ActiveCasts() {}
     public static void register(ResourceLocation id, ActiveCastProvider provider) {
@@ -45,6 +46,18 @@ public final class ActiveCasts {
     }
     private static List<ActiveCastProvider> providers(Spell spell) {
         return PROVIDERS.values().stream().filter(p -> p.supports(spell)).toList();
+    }
+    /** Null outside a matching active transaction; entrypoints can carry its policy to derived resolvers. */
+    public static ActiveCastPolicy currentPolicy(LivingEntity caster) {
+        var attempt = CURRENT.get();
+        return attempt != null && attempt.request.caster() == caster ? attempt.policy : null;
+    }
+    /** Native result-specific cooldown implementations should consult this inside their cast/session scope. */
+    public static boolean cooldownsEnabled(LivingEntity caster) {
+        var attempt = CURRENT.get();
+        if (attempt != null && attempt.request.caster() == caster) return attempt.policy.cooldowns();
+        var context = dev.arsconflux.api.context.CastContexts.current();
+        return context == null || context.caster() != caster || ActiveCastPolicy.of(context.ars()).cooldowns();
     }
     public static boolean allowed(Spell spell, LivingEntity caster, ActiveCastSource source) {
         if (caster == null || !(caster.level() instanceof ServerLevel)) return true;
@@ -57,7 +70,7 @@ public final class ActiveCasts {
     /** Quiet for structured providers, suitable for previews/AI. Longest known blocker wins;
      * equal/unknown durations retain stable provider order. */
     public static CastRejection rejection(Spell spell, LivingEntity caster, ActiveCastSource source) {
-        if (caster == null || !(caster.level() instanceof ServerLevel)) return null;
+        if (caster == null || !(caster.level() instanceof ServerLevel) || !cooldownsEnabled(caster)) return null;
         var request = new ActiveCastRequest(spell, caster, source);
         CastRejection selected = null;
         for (var provider : providers(spell)) {
@@ -74,22 +87,30 @@ public final class ActiveCasts {
         Objects.requireNonNull(key); Objects.requireNonNull(action);
         var attempt = CURRENT.get();
         if (attempt == null || attempt.request.caster() != caster) return false;
-        attempt.releaseActions.putIfAbsent(key, action);
+        if (attempt.policy.cooldowns()) attempt.releaseActions.putIfAbsent(key, action);
         return true;
     }
     public static <T> T perform(Spell spell, LivingEntity caster, InteractionHand hand, ActiveCastSource source,
                                 Supplier<T> action, T denied, T queued) {
+        return perform(spell, caster, hand, source, ActiveCastPolicy.DEFAULT, action, denied, queued);
+    }
+    public static <T> T perform(Spell spell, LivingEntity caster, InteractionHand hand, ActiveCastSource source,
+                                ActiveCastPolicy policy, Supplier<T> action, T denied, T queued) {
+        Objects.requireNonNull(policy);
         var current = CURRENT.get();
-        if (current != null && current.request.caster() == caster) return execute(spell, caster, source, action, denied);
-        if (!allowed(spell, caster, source)) return denied;
-        Runnable release = () -> execute(spell, caster, source, action, denied);
-        return switch (defer(spell, caster, hand, source, release)) {
+        if (current != null && current.request.caster() == caster) return execute(spell, caster, source, current.policy, action, denied);
+        if (policy.cooldowns() && !allowed(spell, caster, source)) return denied;
+        Runnable release = () -> execute(spell, caster, source, policy, action, denied);
+        return switch (policy.chanting() ? defer(spell, caster, hand, source, policy, release) : Deferral.UNNEEDED) {
             case QUEUED -> queued;
             case DENIED -> denied;
-            case UNNEEDED -> execute(spell, caster, source, action, denied);
+            case UNNEEDED -> execute(spell, caster, source, policy, action, denied);
         };
     }
     public static Deferral defer(Spell spell, LivingEntity caster, InteractionHand hand, ActiveCastSource source, Runnable release) {
+        return defer(spell, caster, hand, source, ActiveCastPolicy.DEFAULT, release);
+    }
+    private static Deferral defer(Spell spell, LivingEntity caster, InteractionHand hand, ActiveCastSource source, ActiveCastPolicy policy, Runnable release) {
         if (caster == null || !(caster.level() instanceof ServerLevel world)) return Deferral.UNNEEDED;
         var current = CURRENT.get();
         if (current != null && current.request.caster() == caster) return Deferral.UNNEEDED;
@@ -105,7 +126,7 @@ public final class ActiveCasts {
         for (var p : participants) durations.addAll(p.provider.chantTicks(request));
         int ticks = ChantDurations.combine(durations, dev.arsconflux.config.ConfluxConfig.sumChants());
         if (ticks == 0) return Deferral.UNNEEDED;
-        if (!caster.isAlive() || ACTIVE.size() >= 4096 || !allowed(spell, caster, source)) return Deferral.DENIED;
+        if (!caster.isAlive() || ACTIVE.size() >= 4096 || policy.cooldowns() && !allowed(spell, caster, source)) return Deferral.DENIED;
         var held = caster.getItemInHand(hand);
         var pending = new Pending(request, world, hand, held, held.copy(), UUID.randomUUID(), world.getGameTime(), ticks, participants, release);
         ACTIVE.put(caster.getUUID(), pending);
@@ -117,16 +138,20 @@ public final class ActiveCasts {
         return pending != null && pending.request.caster() == caster;
     }
     public static <T> T execute(Spell spell, LivingEntity caster, ActiveCastSource source, Supplier<T> action, T denied) {
+        var current = CURRENT.get();
+        return execute(spell, caster, source, current != null && current.request.caster() == caster ? current.policy : ActiveCastPolicy.DEFAULT, action, denied);
+    }
+    private static <T> T execute(Spell spell, LivingEntity caster, ActiveCastSource source, ActiveCastPolicy policy, Supplier<T> action, T denied) {
         if (caster == null || !(caster.level() instanceof ServerLevel)) return action.get();
-        if (!allowed(spell, caster, source)) return denied;
+        if (policy.cooldowns() && !allowed(spell, caster, source)) return denied;
         var previous = CURRENT.get();
         if (previous != null && previous.request.caster() == caster) return action.get();
-        var attempt = new Attempt(new ActiveCastRequest(spell, caster, source));
+        var attempt = new Attempt(new ActiveCastRequest(spell, caster, source), policy);
         CURRENT.set(attempt);
         T result;
         try { result = action.get(); }
         finally { if (previous == null) CURRENT.remove(); else CURRENT.set(previous); }
-        if (attempt.released) {
+        if (attempt.released && attempt.policy.cooldowns()) {
             var recipes = List.copyOf(attempt.recipes);
             try {
                 for (var provider : PROVIDERS.values()) if (recipes.stream().anyMatch(provider::supports))
@@ -139,7 +164,7 @@ public final class ActiveCasts {
     }
     public static boolean allowDispatch(SpellResolver resolver) {
         var attempt = CURRENT.get();
-        return attempt == null || ArsSpellAccess.caster(resolver.spellContext) != attempt.request.caster()
+        return attempt == null || !attempt.policy.cooldowns() || ArsSpellAccess.caster(resolver.spellContext) != attempt.request.caster()
                 || allowed(resolver.spell, attempt.request.caster(), attempt.request.source());
     }
     public static void dispatched(SpellResolver resolver, boolean success) {

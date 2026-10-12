@@ -18,21 +18,51 @@ public final class HexLinkBridge {
     private HexLinkBridge() {}
     /** One new Hex operation is one active use. The VM continues; only its Ars release may
      * be deferred. Action fields retain its original target/position, not a later sight trace. */
-    public static void active(Object action, Runnable release) {
+    private static final ThreadLocal<java.util.Set<Object>> RELEASING = new ThreadLocal<>();
+    public static boolean intercept(Object action, Object environment) {
+        var releasing = RELEASING.get();
+        if (releasing != null && releasing.contains(action)) return false;
         try {
-            var resolver = (SpellResolver)action.getClass().getMethod("getResolver").invoke(action);
-            var source = origin(resolver);
-            if (source != null && source.environment().getClass().getName().equals(CALLBACK)) {
-                release.run(); return; // An existing spell's impact callback is not another active use.
-            }
-            var caster = dev.arsconflux.api.glyph.ArsSpellAccess.caster(resolver.spellContext);
-            if (caster == null) { release.run(); return; }
-            dev.arsconflux.api.casting.ActiveCasts.perform(resolver.spell, caster,
+            boolean normal = action.getClass().getName().equals("io.yukkuric.hex_ars_link.action.OpCastFromPlayer$Action");
+            var resolver = normal ? null : (SpellResolver)action.getClass().getMethod("getResolver").invoke(action);
+            var source = resolver == null ? null : origin(resolver);
+            if (environment.getClass().getName().equals(CALLBACK)
+                    || source != null && source.environment().getClass().getName().equals(CALLBACK)) return false;
+            var caster = normal ? (net.minecraft.world.entity.LivingEntity)action.getClass().getMethod("getOwner").invoke(action)
+                    : dev.arsconflux.api.glyph.ArsSpellAccess.caster(resolver.spellContext);
+            var spell = normal ? (com.hollingsworth.arsnouveau.api.spell.Spell)action.getClass().getMethod("getSpell").invoke(action) : resolver.spell;
+            if (caster == null) return false;
+            var policy = new dev.arsconflux.api.casting.ActiveCastPolicy(
+                    dev.arsconflux.config.ConfluxConfig.hexChanting(), dev.arsconflux.config.ConfluxConfig.hexCooldowns());
+            if (resolver != null) policy.attach(resolver.spellContext);
+            var method = action.getClass().getMethod("cast", Api.CONSTRUCTOR.getParameterTypes()[1]);
+            dev.arsconflux.api.casting.ActiveCasts.perform(spell, caster,
                     net.minecraft.world.InteractionHand.MAIN_HAND,
-                    dev.arsconflux.api.casting.ActiveCastSource.CASTER_TOOL,
-                    () -> { release.run(); return true; }, false, true);
+                    dev.arsconflux.api.casting.ActiveCastSource.CASTER_TOOL, policy,
+                    () -> { release(action, environment, method); return true; }, false, true);
+            return true;
         } catch (ReflectiveOperationException failure) {
             throw new IllegalStateException("Could not enter Linker active cast", failure);
+        }
+    }
+    private static void release(Object action, Object environment, Method method) {
+        var releasing = RELEASING.get();
+        boolean root = releasing == null;
+        if (root) {
+            releasing = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+            RELEASING.set(releasing);
+        }
+        releasing.add(action);
+        try { method.invoke(action, environment); }
+        catch (java.lang.reflect.InvocationTargetException failure) {
+            if (failure.getCause() instanceof RuntimeException cause) throw cause;
+            if (failure.getCause() instanceof Error cause) throw cause;
+            throw new IllegalStateException("Linker cast failed", failure.getCause());
+        } catch (ReflectiveOperationException failure) {
+            throw new IllegalStateException("Could not release Linker cast", failure);
+        } finally {
+            releasing.remove(action);
+            if (root) RELEASING.remove();
         }
     }
     private record Origin(Object environment, int launchOmission) implements ResolverExtension {
@@ -45,6 +75,8 @@ public final class HexLinkBridge {
     }
     public static void capture(SpellResolver resolver, Object environment, int omission) {
         ResolverContexts.attach(resolver, new Origin(environment, Math.max(0, omission)));
+        var policy = dev.arsconflux.api.casting.ActiveCasts.currentPolicy(dev.arsconflux.api.glyph.ArsSpellAccess.caster(resolver.spellContext));
+        if (policy != null) policy.attach(resolver.spellContext);
     }
     private static Origin origin(SpellResolver resolver) { return resolver.spellContext.getAttachment(KEY); }
     private static SpellResolver create(SpellContext context, Object env) {
