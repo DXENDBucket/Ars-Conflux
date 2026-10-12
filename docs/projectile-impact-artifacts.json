@@ -1,0 +1,137 @@
+{
+  "core_api_commit": "08c307f3238b9b9aa7fd628b9771cd287160448d",
+  "artifacts": [
+    {
+      "project": "Ars-Conflux",
+      "platform": "neoforge",
+      "file": "ars-conflux-0.1.24-mc1.21.1-neoforge.jar",
+      "sha256": "47de706990af78c78b16fbe6cfe29bfba78e959fddd8a60d626b1a5ca4d4fa3c"
+    },
+    {
+      "project": "Ars-Conflux",
+      "platform": "neoforge",
+      "file": "ars-conflux-0.1.24-sources.jar",
+      "sha256": "def67cb6fe4c8c5ea9188cc5e398693ea1935b0b583c878c8897140f1fc0a9b7"
+    },
+    {
+      "project": "Ars-Conflux",
+      "platform": "forge",
+      "file": "ars-conflux-0.1.24-mc1.20.1-forge.jar",
+      "sha256": "f026c33946ac4b8db46dcc40bf8b1387a6685ce32c29447496b7aa5c20ca2e57"
+    },
+    {
+      "project": "Ars-Conflux",
+      "platform": "forge",
+      "file": "ars-conflux-0.1.24-sources.jar",
+      "sha256": "d21cac59fb84fc5da23d76ce34cfe76a007d06e6b61af7e4e2b3e5368aa21bd3"
+    },
+    {
+      "project": "Goety-Nouveau",
+      "platform": "neoforge",
+      "file": "goety-nouveau-0.1.0-dev.55-mc1.21.1-neoforge.jar",
+      "sha256": "6cfc9ede9340922d1cd42c6d2ff07e964bf1df76691af9535fdb58d33d7eb2c8"
+    },
+    {
+      "project": "Goety-Nouveau",
+      "platform": "neoforge",
+      "file": "goety-nouveau-0.1.0-dev.55-sources.jar",
+      "sha256": "e0dcb3da4b764c25eb506dabd5fc71c7810aad1e0cba3c347cba80d5bc8faaf7"
+    },
+    {
+      "project": "Goety-Nouveau",
+      "platform": "forge",
+      "file": "goety-nouveau-0.1.0-dev.55-mc1.20.1-forge.jar",
+      "sha256": "5f99519bd93951db10dbc2b0114115156432330127dee9c1cd3f1dcd39174519"
+    },
+    {
+      "project": "Goety-Nouveau",
+      "platform": "forge",
+      "file": "goety-nouveau-0.1.0-dev.55-sources.jar",
+      "sha256": "27627e0ed05211fb85e0848b8660f41faa93490a1ccc53cb06792abfcee9e30e"
+    },
+    {
+      "project": "BOMD-Nouveau",
+      "platform": "neoforge",
+      "file": "bomd-nouveau-0.1.0-dev.13-mc1.21.1-neoforge.jar",
+      "sha256": "78feb67e8e87b4e4114f28d0d6e14cdd09c92e9e5d94ede706ecc7c602d7b9e8"
+    },
+    {
+      "project": "BOMD-Nouveau",
+      "platform": "neoforge",
+      "file": "bomd-nouveau-0.1.0-dev.13-sources.jar",
+      "sha256": "1cd359bd89c5ecb5a709b7b5994de3a9e6e51ae50c85ced752996c0f2862c15a"
+    },
+    {
+      "project": "BOMD-Nouveau",
+      "platform": "forge",
+      "file": "bomd-nouveau-0.1.0-dev.13-mc1.20.1-forge.jar",
+      "sha256": "a8688a39455848f50500aeb3b772a6b1f138c1e4903442b25a96b09c5f19f282"
+    },
+    {
+      "project": "BOMD-Nouveau",
+      "platform": "forge",
+      "file": "bomd-nouveau-0.1.0-dev.13-sources.jar",
+      "sha256": "6292d61c77e01f5bf047af7303f9472092c01550b3235fc9bb1a72aa213b7eb7"
+    },
+    {
+      "project": "Cataclysm-Nouveau",
+      "platform": "neoforge",
+      "file": "cataclysm-nouveau-0.1.0-dev.42-mc1.21.1-neoforge.jar",
+      "sha256": "449f45f73d76bbfcd2608ec078f0e7bfb88abde78cb363420b478f1535e575a9"
+    },
+    {
+      "project": "Cataclysm-Nouveau",
+      "platform": "neoforge",
+      "file": "cataclysm-nouveau-0.1.0-dev.42-sources.jar",
+      "sha256": "90e2fd4e77d72bfd454f0eef76d8f54ef45eba9671e9b23bb845b58e66c51854"
+    },
+    {
+      "project": "Aquamirae-Nouveau",
+      "platform": "neoforge",
+      "file": "aquamirae-nouveau-0.1.0-dev.15-mc1.21.1-neoforge.jar",
+      "sha256": "c0bd141af778dc55dc26cb9079635668d56e063755484a62d9307dce4abe6368"
+    },
+    {
+      "project": "Aquamirae-Nouveau",
+      "platform": "neoforge",
+      "file": "aquamirae-nouveau-0.1.0-dev.15-sources.jar",
+      "sha256": "cf8fefa4db88910faf516c69eca47f81da91d4520a75c15f9322e09a1d576989"
+    },
+    {
+      "project": "Aquamirae-Nouveau",
+      "platform": "forge",
+      "file": "aquamirae-nouveau-0.1.0-dev.15-mc1.20.1-forge.jar",
+      "sha256": "e16053c422035b6b0fd3a9c42957e8cb5b1667946b6f1cc393a810ec54938c7d"
+    },
+    {
+      "project": "Aquamirae-Nouveau",
+      "platform": "forge",
+      "file": "aquamirae-nouveau-0.1.0-dev.15-sources.jar",
+      "sha256": "e3cd6e3d069c5693cd2e2380e74cb26dcb0c2c52f50a78024d60d099aaa1a8ea"
+    },
+    {
+      "project": "Mowzies-Nouveau",
+      "platform": "neoforge",
+      "file": "mowzies-nouveau-0.1.0-dev.8-mc1.21.1-neoforge.jar",
+      "sha256": "bb788191398a8904bb943d20a536f3e6849742160c60af7b1a289abd3be30737"
+    },
+    {
+      "project": "Mowzies-Nouveau",
+      "platform": "neoforge",
+      "file": "mowzies-nouveau-0.1.0-dev.8-sources.jar",
+      "sha256": "7a8cd00d664adf1eec90c1be46cb02fc1d303153889e37a55a771624baefcd8f"
+    },
+    {
+      "project": "Mowzies-Nouveau",
+      "platform": "forge",
+      "file": "mowzies-nouveau-0.1.0-dev.8-mc1.20.1-forge.jar",
+      "sha256": "b698cabc11090001cd4b445bea7fd0a3b94d426158e3d52e67de0f6e90e76f85"
+    },
+    {
+      "project": "Mowzies-Nouveau",
+      "platform": "forge",
+      "file": "mowzies-nouveau-0.1.0-dev.8-sources.jar",
+      "sha256": "2c742d2530e554681df3d3fd44c9f38755eb510056fd7091e1e7950761451c6a"
+    }
+  ]
+}

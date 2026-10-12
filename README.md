@@ -2,12 +2,12 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.23**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.24**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.23-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.23-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.24-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.24-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 
@@ -112,3 +112,7 @@ preserve_on_death = true
 ```
 
 非死亡实体克隆总是保留记录；开关仅控制主动接入此 API 的附属。Iron / Goety 原生冷却保留本体规则。详见 [交接](docs/handoff-cooldown-lifecycle-0.1.23.md)。
+
+## 原生弹体的后续触发（0.1.24）
+
+`ImpactTriggers` 提供短暂的原生伤害成功观察，供提供者决定是否续接剩余 Ars 编排。实体伤害取原生接受结果；方块碰撞与非即时伤害的区域／状态激活另行处理。不会比较生命差值、改变伤害数值或费用，观察结束后才续接，嵌套与异常会恢复外层作用域。详见 [API 约定](docs/projectile-impact-triggers.md)。
