@@ -16,6 +16,21 @@ public final class HexLinkBridge {
     private static final String PATTERN = "io.yukkuric.hex_ars_link.env.ars.PatternResolver";
     private static final String CALLBACK = "io.yukkuric.hex_ars_link.env.hex.GlyphCallbackCastEnv";
     private HexLinkBridge() {}
+    /** One new Hex operation is one active use. The VM continues; only its Ars release may
+     * be deferred. Action fields retain its original target/position, not a later sight trace. */
+    public static void active(Object action, Runnable release) {
+        try {
+            var resolver = (SpellResolver)action.getClass().getMethod("getResolver").invoke(action);
+            var caster = dev.arsconflux.api.glyph.ArsSpellAccess.caster(resolver.spellContext);
+            if (caster == null) { release.run(); return; }
+            dev.arsconflux.api.casting.ActiveCasts.perform(resolver.spell, caster,
+                    net.minecraft.world.InteractionHand.MAIN_HAND,
+                    dev.arsconflux.api.casting.ActiveCastSource.CASTER_TOOL,
+                    () -> { release.run(); return true; }, false, true);
+        } catch (ReflectiveOperationException failure) {
+            throw new IllegalStateException("Could not enter Linker active cast", failure);
+        }
+    }
     private record Origin(Object environment, int launchOmission) implements ResolverExtension {
         public ResourceLocation id() { return KEY; }
         public SpellResolver derive(SpellResolver source, SpellResolver proposed) {

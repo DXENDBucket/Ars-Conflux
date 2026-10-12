@@ -37,7 +37,9 @@
     "OptionalAdditionsRetaliateMixin",
     "OptionalControlePrismMixin",
     "OptionalControleFilterMixin",
-    "ScopedSpellDamageMixin"
+    "ScopedSpellDamageMixin",
+    "OptionalHexActiveCastMixin",
+    "OptionalHexActiveSpawnMixin"
   ],
   "injectors": {
     "defaultRequire": 1

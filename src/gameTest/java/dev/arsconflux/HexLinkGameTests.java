@@ -16,9 +16,21 @@ public final class HexLinkGameTests {
         mana.setMaxMana(10000);
         return new HexLinkAdvancedCases.PlayerAccess(player, amount -> mana.setMana(amount), () -> mana.getCurrentMana());
     }
+    @GameTest(template="empty", timeoutTicks=40)
+    public static void directHexRespectsActiveBoundary(GameTestHelper h) throws ReflectiveOperationException {
+        var access = player(h, "HexActive");
+        HexLinkCases.verifyActive(h, access.player(), ModList.get().isLoaded("hex_ars_link"), access.setMana());
+    }
     @GameTest(template="empty", timeoutTicks=100)
     public static void sourceBillingAndCallbackVm(GameTestHelper h) throws ReflectiveOperationException {
-        HexLinkAdvancedCases.verify(h, player(h, "HexSource"), player(h, "HexReceiver"), ModList.get().isLoaded("hex_ars_link"));
+        var source = player(h, "HexSource");
+        boolean loaded = ModList.get().isLoaded("hex_ars_link");
+        if (loaded) {
+            var advancement = h.getLevel().getServer().getAdvancements().get(dev.arsconflux.api.projectile.CarrierRegistry.id("hexcasting:enlightenment"));
+            var progress = source.player().getAdvancements().getOrStartProgress(advancement);
+            for (var criterion : advancement.value().getCriteria().keySet()) progress.grantProgress(criterion);
+        }
+        HexLinkAdvancedCases.verify(h, source, player(h, "HexReceiver"), loaded);
     }
     @GameTest(template="empty", timeoutTicks=60)
     public static void independentProvidersUseNativeHexEntrypoints(GameTestHelper h) throws ReflectiveOperationException {

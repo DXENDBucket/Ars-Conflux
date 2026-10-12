@@ -48,9 +48,23 @@ public final class ActiveCasts {
     }
     public static boolean allowed(Spell spell, LivingEntity caster, ActiveCastSource source) {
         if (caster == null || !(caster.level() instanceof ServerLevel)) return true;
+        var rejected = rejection(spell, caster, source);
+        if (rejected == null) return true;
+        if (caster instanceof ServerPlayer player)
+            player.displayClientMessage(rejected.message().copy().withStyle(net.minecraft.ChatFormatting.RED), true);
+        return false;
+    }
+    /** Quiet for structured providers, suitable for previews/AI. Longest known blocker wins;
+     * equal/unknown durations retain stable provider order. */
+    public static CastRejection rejection(Spell spell, LivingEntity caster, ActiveCastSource source) {
+        if (caster == null || !(caster.level() instanceof ServerLevel)) return null;
         var request = new ActiveCastRequest(spell, caster, source);
-        for (var provider : providers(spell)) if (!provider.allowed(request)) return false;
-        return true;
+        CastRejection selected = null;
+        for (var provider : providers(spell)) {
+            var candidate = provider.rejection(request);
+            if (candidate != null && (selected == null || candidate.remainingTicks() > selected.remainingTicks())) selected = candidate;
+        }
+        return selected;
     }
     /** Defer a result-dependent commit until the enclosing active use is acknowledged.
      * Keys deduplicate repeated successes within that use. Nothing runs for an unacknowledged

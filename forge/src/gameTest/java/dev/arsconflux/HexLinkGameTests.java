@@ -16,6 +16,11 @@ public final class HexLinkGameTests {
         mana.setMaxMana(10000);
         return new HexLinkAdvancedCases.PlayerAccess(player, amount -> mana.setMana(amount), () -> mana.getCurrentMana());
     }
+    @GameTest(template="empty", timeoutTicks=40)
+    public static void directHexRespectsActiveBoundary(GameTestHelper h) throws ReflectiveOperationException {
+        var access = player(h, "HexActive");
+        HexLinkCases.verifyActive(h, access.player(), ModList.get().isLoaded("hex_ars_link"), access.setMana());
+    }
     @GameTest(template="empty", timeoutTicks=100)
     public static void sourceBillingAndCallbackVm(GameTestHelper h) throws ReflectiveOperationException {
         var source = player(h, "HexSource");

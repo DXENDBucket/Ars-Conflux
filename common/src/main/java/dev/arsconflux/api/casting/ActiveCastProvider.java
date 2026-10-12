@@ -11,6 +11,11 @@ public interface ActiveCastProvider {
     default List<Integer> chantTicks(ActiveCastRequest request) { return List.of(); }
     /** May show the native failure message. Called before preparation and again before release. */
     default boolean allowed(ActiveCastRequest request) { return true; }
+    /** New providers return a quiet structured rejection. The legacy allowed callback remains
+     * compatible, but old implementations may still display their own messages. */
+    default CastRejection rejection(ActiveCastRequest request) {
+        return allowed(request) ? null : new CastRejection(net.minecraft.network.chat.Component.translatable("ars_conflux.cast.denied"), -1);
+    }
     /** An acknowledged release, not a successful future hit. Deduplicate native cooldown keys here. */
     default void released(ActiveCastRequest request, List<Spell> dispatchedRecipes) {}
     /** remaining == 0 closes the token, including cancellation. Never initiate a native cast here. */

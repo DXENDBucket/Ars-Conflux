@@ -38,7 +38,7 @@ dependencies {
     runtimeOnly fileTree(dir: 'libs', include: '*.jar')
     // Only the independent optional-integration test runtime loads Hex and Linker.
     if (providers.gradleProperty('withHexLinker').getOrElse('false').toBoolean()) {
-        gameTestRuntimeOnly fileTree(dir: 'libs/hex-link', include: '*.jar')
+        runtimeOnly fileTree(dir: 'libs/hex-link', include: '*.jar')
     }
     if (providers.gradleProperty('withNeg').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/neg', include: '*.jar')
