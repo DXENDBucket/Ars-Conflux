@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.*;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /** Per-trigger physical origin. Does not change ownership, payment or a resolver's chain. */
 public final class ExecutionAnchor {
@@ -53,6 +54,15 @@ public final class ExecutionAnchor {
         if(entity!=null && (entity.level()!=world || !mayExecute(cast,entity)))return false;
         Vec3 origin=sample().origin();
         return finite(origin) && world.hasChunkAt(BlockPos.containing(origin));
+    }
+    /** Neutral presence check for providers with different, e.g. harmful-control, authorization. */
+    public boolean present(ServerLevel world){
+        if(entity!=null && (entity.level()!=world || !entity.isAlive() || entity.isRemoved() || entity.isSpectator()))return false;
+        Vec3 origin=sample().origin();return finite(origin) && world.hasChunkAt(BlockPos.containing(origin));
+    }
+    public boolean valid(ServerLevel world,Predicate<LivingEntity> permission){
+        Objects.requireNonNull(permission);
+        return present(world) && (entity==null || permission.test(entity));
     }
     private static boolean finite(Vec3 v){return v!=null && Double.isFinite(v.lengthSqr());}
     private static void requireFinite(Vec3 v){if(!finite(v))throw new IllegalArgumentException("Anchor coordinates must be finite");}

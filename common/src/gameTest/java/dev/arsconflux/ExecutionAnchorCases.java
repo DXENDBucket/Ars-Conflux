@@ -27,6 +27,9 @@ public final class ExecutionAnchorCases {
             ally.setYRot(90);ally.setPos(ally.position().add(0,1,0));
             h.assertTrue(anchor.sample().origin().distanceTo(ally.getEyePosition().add(0,-.8,0))<.001 && anchor.sample().direction().x<-.99,"Live position and aim follow actual entity");
             h.assertTrue(ExecutionAnchor.beneficial(frame.withTarget(new EntityHitResult(credit)),ExecutionAnchor.Basis.FEET,Vec3.ZERO)==null,"Damage credit does not authorize a hostile executor");
+            var controlled=ExecutionAnchor.entity(credit,ExecutionAnchor.Basis.FEET,Vec3.ZERO);
+            h.assertTrue(controlled.present(h.getLevel()) && controlled.valid(h.getLevel(),e->e==credit)
+                    && !controlled.valid(h.getLevel(),frame),"Neutral anchor permits explicit provider authorization without weakening beneficial defaults");
             var point=root.position().add(2,0,2);
             var fixed=ExecutionAnchor.beneficial(frame.withTarget(new BlockHitResult(point,Direction.UP,BlockPos.containing(point),false)),ExecutionAnchor.Basis.EYES,new Vec3(0,-.8,0));
             root.setYRot(180);
