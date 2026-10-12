@@ -2,12 +2,12 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.22**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.23**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.22-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.22-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.23-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.23-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 
@@ -101,3 +101,14 @@ cooldowns = true
 ```
 
 开关只控制 Hex 入口；各提供者的配置仍生效，资源消耗不变。详细修复与验证记录见 [交接](docs/handoff-cross-addon-audit-0.1.22.md)。
+
+## 自定义冷却生命周期（0.1.23）
+
+提供者可以登记既有持久字段，共用期限、同步分支后的结果提交和重生复制，不更换原生能力存储。`serverconfig/ars_conflux-server.toml`：
+
+```toml
+[addon_cooldowns]
+preserve_on_death = true
+```
+
+非死亡实体克隆总是保留记录；开关仅控制主动接入此 API 的附属。Iron / Goety 原生冷却保留本体规则。详见 [交接](docs/handoff-cooldown-lifecycle-0.1.23.md)。

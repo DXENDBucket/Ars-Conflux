@@ -1,0 +1,178 @@
+[
+  {
+    "repo": "Ars-Conflux",
+    "version": "0.1.23",
+    "platform": "neo",
+    "name": "ars-conflux-0.1.23-mc1.21.1-neoforge.jar",
+    "sha256": "16a9a18682ff9cb495f84b495504e416ddfdd607ad524dfee35a182bf54a5afa",
+    "sources": false
+  },
+  {
+    "repo": "Ars-Conflux",
+    "version": "0.1.23",
+    "platform": "neo",
+    "name": "ars-conflux-0.1.23-sources.jar",
+    "sha256": "dab984118216ebcfe7024e0d1fdc53eb4449bcc3f04dbc05731684be5a0f53b1",
+    "sources": true
+  },
+  {
+    "repo": "Ars-Conflux",
+    "version": "0.1.23",
+    "platform": "forge",
+    "name": "ars-conflux-0.1.23-mc1.20.1-forge.jar",
+    "sha256": "8b87376f91b5eb53d3f8c04f1eb2ddc618ed573e0923a19d7770cebd7125f92b",
+    "sources": false
+  },
+  {
+    "repo": "Ars-Conflux",
+    "version": "0.1.23",
+    "platform": "forge",
+    "name": "ars-conflux-0.1.23-sources.jar",
+    "sha256": "6c0bfbd3776b78b786057a914de416bec6dda5f3d873ade504fd6c6fe05bd200",
+    "sources": true
+  },
+  {
+    "repo": "Irons-Nouveau",
+    "version": "0.17.20",
+    "platform": "neo",
+    "name": "irons-nouveau-0.17.20-mc1.21.1-neoforge.jar",
+    "sha256": "f1e86cfa57f54d70cc8aed62f8fd88040678d975bb72fb9c26654c45c86edd1c",
+    "sources": false
+  },
+  {
+    "repo": "Irons-Nouveau",
+    "version": "0.17.20",
+    "platform": "neo",
+    "name": "irons-nouveau-0.17.20-sources.jar",
+    "sha256": "e9e4100f448829b71c84821e367f5cc784c3d3e50afea79ae5cc0eabeb6e5485",
+    "sources": true
+  },
+  {
+    "repo": "Irons-Nouveau",
+    "version": "0.17.20",
+    "platform": "forge",
+    "name": "irons-nouveau-0.17.20-mc1.20.1-forge.jar",
+    "sha256": "1eafec8b297979e453b8a9cd4dea1e21ff1ed532361a5e59647833b0516bc793",
+    "sources": false
+  },
+  {
+    "repo": "Irons-Nouveau",
+    "version": "0.17.20",
+    "platform": "forge",
+    "name": "irons-nouveau-0.17.20-sources.jar",
+    "sha256": "ddd28721b631ab8cf50d652087da36c7f41bffb8a08e31284279221f518c93a5",
+    "sources": true
+  },
+  {
+    "repo": "BOMD-Nouveau",
+    "version": "0.1.0-dev.12",
+    "platform": "neo",
+    "name": "bomd-nouveau-0.1.0-dev.12-mc1.21.1-neoforge.jar",
+    "sha256": "2e19851a9b3fb55e0dd4faa1ab719338d289700793fadc525d0a2ce832d8611f",
+    "sources": false
+  },
+  {
+    "repo": "BOMD-Nouveau",
+    "version": "0.1.0-dev.12",
+    "platform": "neo",
+    "name": "bomd-nouveau-0.1.0-dev.12-sources.jar",
+    "sha256": "f067a7d183d6922db825596d263c965c29fe05f9eb2dcd152559c3403fe7c5ee",
+    "sources": true
+  },
+  {
+    "repo": "BOMD-Nouveau",
+    "version": "0.1.0-dev.12",
+    "platform": "forge",
+    "name": "bomd-nouveau-0.1.0-dev.12-mc1.20.1-forge.jar",
+    "sha256": "26ee629b5d8beb4a65193555b7988cc88cf91411623f5e7e4c11e8cf73e716aa",
+    "sources": false
+  },
+  {
+    "repo": "BOMD-Nouveau",
+    "version": "0.1.0-dev.12",
+    "platform": "forge",
+    "name": "bomd-nouveau-0.1.0-dev.12-sources.jar",
+    "sha256": "a439c8ee23f4f9ffcb33954fa6a8e70de99ed616d05489e9910a9659e2863292",
+    "sources": true
+  },
+  {
+    "repo": "Cataclysm-Nouveau",
+    "version": "0.1.0-dev.41",
+    "platform": "neo",
+    "name": "cataclysm-nouveau-0.1.0-dev.41-mc1.21.1-neoforge.jar",
+    "sha256": "55e98c7d7229e239b9f0a8fd79dcca274de3ada9201a937c7fe06c932b30fd48",
+    "sources": false
+  },
+  {
+    "repo": "Cataclysm-Nouveau",
+    "version": "0.1.0-dev.41",
+    "platform": "neo",
+    "name": "cataclysm-nouveau-0.1.0-dev.41-sources.jar",
+    "sha256": "0999971e4b3b80573eaa8626e8be4c1096bdd81b4f6b7c640532d07dea241d13",
+    "sources": true
+  },
+  {
+    "repo": "Aquamirae-Nouveau",
+    "version": "0.1.0-dev.14",
+    "platform": "neo",
+    "name": "aquamirae-nouveau-0.1.0-dev.14-mc1.21.1-neoforge.jar",
+    "sha256": "94a14de1cde5951f09b56da5c368850d736ef20abfd55e04372bc1f47727aff8",
+    "sources": false
+  },
+  {
+    "repo": "Aquamirae-Nouveau",
+    "version": "0.1.0-dev.14",
+    "platform": "neo",
+    "name": "aquamirae-nouveau-0.1.0-dev.14-sources.jar",
+    "sha256": "7d8a7f47da23a2bd87345494d4e71e08dd90e9d7d7461bbfe26c916a05db4817",
+    "sources": true
+  },
+  {
+    "repo": "Aquamirae-Nouveau",
+    "version": "0.1.0-dev.14",
+    "platform": "forge",
+    "name": "aquamirae-nouveau-0.1.0-dev.14-mc1.20.1-forge.jar",
+    "sha256": "718add51d7b8cd81aacea95ca5b258cc22a134caa9d120587ff07ec5d5d69589",
+    "sources": false
+  },
+  {
+    "repo": "Aquamirae-Nouveau",
+    "version": "0.1.0-dev.14",
+    "platform": "forge",
+    "name": "aquamirae-nouveau-0.1.0-dev.14-sources.jar",
+    "sha256": "5ecedf50a3244257bd9e41b83baafcbbc94f6eac2f2d988c0d05fd535fd66d20",
+    "sources": true
+  },
+  {
+    "repo": "Mowzies-Nouveau",
+    "version": "0.1.0-dev.7",
+    "platform": "neo",
+    "name": "mowzies-nouveau-0.1.0-dev.7-mc1.21.1-neoforge.jar",
+    "sha256": "f7c343f68f6ca5467c42997059833167eb2946cef36d2b3d77123714689c38d1",
+    "sources": false
+  },
+  {
+    "repo": "Mowzies-Nouveau",
+    "version": "0.1.0-dev.7",
+    "platform": "neo",
+    "name": "mowzies-nouveau-0.1.0-dev.7-sources.jar",
+    "sha256": "c026bdd79b56ff7adbdbcee78b8138320aa107a9c8a18fb6cb1fcf9b560b5de2",
+    "sources": true
+  },
+  {
+    "repo": "Mowzies-Nouveau",
+    "version": "0.1.0-dev.7",
+    "platform": "forge",
+    "name": "mowzies-nouveau-0.1.0-dev.7-mc1.20.1-forge.jar",
+    "sha256": "2859773920de9a80ec356c672e30e95f498f86e8485b243d4c0cd1c5a767ccc2",
+    "sources": false
+  },
+  {
+    "repo": "Mowzies-Nouveau",
+    "version": "0.1.0-dev.7",
+    "platform": "forge",
+    "name": "mowzies-nouveau-0.1.0-dev.7-sources.jar",
+    "sha256": "e4c178ca0d76870b2f2e5a523a9a604a824fb9baee560eab4101b505169595ad",
+    "sources": true
+  }
+]
