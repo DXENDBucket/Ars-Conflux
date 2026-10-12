@@ -112,12 +112,17 @@ public final class ExecutionSession<P> {
         return scope.call(() -> active() && permitted() && (repeatPayments ? payment.trigger(action) : action.getAsBoolean()));
     }
     public boolean start() {
+        return start(()->true);
+    }
+    /** Coordinator handoff runs inside the successful startup payment reservation. */
+    boolean start(BooleanSupplier handoff) {
         return scope.call(() -> {
             if (state != State.PREPARED) return false;
             if (!permitted()) { finish(EndReason.DENIED); return false; }
             state = State.ACTIVE;
             try {
-                boolean success = repeatPayments ? startDriver() : payment.trigger(this::startDriver);
+                BooleanSupplier launch=()->handoff.getAsBoolean() && active() && startDriver();
+                boolean success = repeatPayments ? launch.getAsBoolean() : payment.trigger(launch);
                 if (!success) finish(EndReason.SPAWN_FAILED);
                 return success && active();
             } catch (RuntimeException | Error error) { fail(error); throw error; }

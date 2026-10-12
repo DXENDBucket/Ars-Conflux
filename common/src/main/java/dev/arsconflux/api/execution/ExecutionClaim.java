@@ -8,6 +8,8 @@ import java.util.Objects;
 public record ExecutionClaim(LivingEntity actor,ResourceLocation channel,boolean exclusive) {
     public static final ResourceLocation ENTITY_ACTION=ResourceLocation.tryParse("ars_conflux:entity_action");
     public static final ResourceLocation CHANNELING=ResourceLocation.tryParse("ars_conflux:channeling");
+    /** Legacy activity reporting is not a physical-action claim. */
+    public static final ResourceLocation ACTIVITY=ResourceLocation.tryParse("ars_conflux:activity");
     public ExecutionClaim {Objects.requireNonNull(actor);Objects.requireNonNull(channel);}
     public static ExecutionClaim action(LivingEntity actor){return new ExecutionClaim(actor,ENTITY_ACTION,true);}
     /** Shared channels may coexist; callers can declare an exclusive channel when needed. */

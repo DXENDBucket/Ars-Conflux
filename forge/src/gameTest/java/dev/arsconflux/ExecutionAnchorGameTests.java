@@ -6,4 +6,5 @@ public final class ExecutionAnchorGameTests {
     @GameTest(template="empty",timeoutTicks=30) public static void anchorsAndAuthority(GameTestHelper h) throws Exception{ExecutionAnchorCases.anchors(h);}
     @GameTest(template="empty",timeoutTicks=30) public static void claimsAndNestedCleanup(GameTestHelper h){ExecutionAnchorCases.claims(h);}
     @GameTest(template="empty",timeoutTicks=30) public static void directionReset(GameTestHelper h){ExecutionAnchorCases.reset(h);}
+    @GameTest(template="empty",timeoutTicks=30) public static void replacementClaimsAndPayment(GameTestHelper h){ExecutionAnchorCases.replacement(h);}
 }

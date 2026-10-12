@@ -88,4 +88,63 @@ public final class ExecutionAnchorCases {
             TriggerGeometry.write(ars,Vec3.ZERO);h.assertTrue(TriggerGeometry.read(ars).equals(Vec3.ZERO),"Explicit zero resets a stored direction");h.succeed();
         }finally{root.discard();}
     }
+
+    public static void replacement(GameTestHelper h) {
+        var root=cow(h,1);var actor=cow(h,3);var other=cow(h,5);
+        var frame=CastContext.detached(root,null,null).withExecutor(actor);
+        var owned=new ArrayList<ExecutionSession<Integer>>();var order=new ArrayList<String>();
+        var funds=new AtomicInteger(100);var closes=new AtomicInteger();
+        var account=new dev.arsconflux.api.resource.ResourceAccount(){
+            public Object reservationKey(){return funds;}
+            public boolean canSpend(int n){return funds.get()>=n;}
+            public void spend(int n){funds.addAndGet(-n);}
+        };
+        try {
+            var channel=session(h,frame,List.of(ExecutionClaim.channel(actor)),new AtomicInteger(),()->{});owned.add(channel);ExecutionSessions.start(channel);
+            var legacy=new ExecutionSession<>(h.getLevel(),frame,0,30,new ExecutionDriver<Integer>(){
+                public boolean occupiesCaster(){return true;}
+                public boolean start(ExecutionSession<Integer> s){return true;}
+                public boolean tick(ExecutionSession<Integer> s){return false;}
+                public void close(ExecutionSession<Integer> s,ExecutionSession.EndReason reason){}
+            },hit->{},()->true,ExecutionScope.DIRECT);owned.add(legacy);ExecutionSessions.start(legacy);
+            var independent=session(h,frame.withExecutor(other),List.of(ExecutionClaim.action(other)),new AtomicInteger(),()->{});owned.add(independent);ExecutionSessions.start(independent);
+            var nested=session(h,frame,List.of(ExecutionClaim.action(actor)),new AtomicInteger(),()->{});owned.add(nested);
+            var old=new ExecutionSession<>(h.getLevel(),frame,0,30,new ExecutionDriver<Integer>(){
+                public List<ExecutionClaim> claims(ExecutionSession<Integer> s){return List.of(ExecutionClaim.action(actor));}
+                public boolean start(ExecutionSession<Integer> s){order.add("old-start");return true;}
+                public boolean tick(ExecutionSession<Integer> s){return false;}
+                public void close(ExecutionSession<Integer> s,ExecutionSession.EndReason reason){
+                    closes.incrementAndGet();order.add("old-close");
+                    if(reason==ExecutionSession.EndReason.DENIED)h.assertTrue(!ExecutionSessions.startReplacing(nested),"Cleanup cannot steal the incoming reservation");
+                }
+            },hit->{},()->true,ExecutionScope.DIRECT);owned.add(old);
+            h.assertTrue(ExecutionSessions.start(old),"Legacy activity and channel can coexist with a physical action");
+            var denied=new ExecutionSession<>(h.getLevel(),frame,0,30,new ExecutionDriver<Integer>(){
+                public List<ExecutionClaim> claims(ExecutionSession<Integer> s){return List.of(ExecutionClaim.action(actor));}
+                public boolean start(ExecutionSession<Integer> s){throw new AssertionError("Denied driver ran");}
+                public boolean tick(ExecutionSession<Integer> s){return false;}
+                public void close(ExecutionSession<Integer> s,ExecutionSession.EndReason reason){}
+            },hit->{},()->false,ExecutionScope.DIRECT);owned.add(denied);
+            h.assertTrue(!ExecutionSessions.startReplacing(denied) && old.active() && closes.get()==0,"Denied permission preserves the old execution");
+            var empty=session(h,frame,List.of(ExecutionClaim.action(actor)),new AtomicInteger(),()->{throw new AssertionError("Unfunded driver ran");});
+            empty.billing(TriggerPayment.of(new dev.arsconflux.api.resource.ResourceCharge(account,30)),false);owned.add(empty);funds.set(0);
+            h.assertTrue(!ExecutionSessions.startReplacing(empty) && old.active() && closes.get()==0 && funds.get()==0,"Failed payment does not interrupt or spend");
+            var next=session(h,frame,List.of(ExecutionClaim.action(actor)),new AtomicInteger(),()->{
+                order.add("new-start");h.assertTrue(!old.active() && closes.get()==1,"Old cleanup finishes before the new driver starts");
+            });next.billing(TriggerPayment.of(new dev.arsconflux.api.resource.ResourceCharge(account,30)),false);owned.add(next);funds.set(100);
+            h.assertTrue(ExecutionSessions.startReplacing(next) && next.active() && !old.active() && funds.get()==70,"Replacement pays once");
+            h.assertTrue(order.equals(List.of("old-start","old-close","new-start")) && channel.active() && legacy.active() && independent.active(),"Only the actual actor's conflicting claim is replaced");
+            h.assertTrue(ExecutionSessions.isCasting(actor,c->c.channel().equals(ExecutionClaim.ACTIVITY)) && !ExecutionSessions.isCasting(root),"Filtered activity query distinguishes executor from payer");
+            h.assertTrue(!ExecutionSessions.startReplacing(next) && next.active(),"Duplicate replacement cannot cancel itself");
+            var position=session(h,frame.withExecutor(null),List.of(),new AtomicInteger(),()->{});owned.add(position);
+            h.assertTrue(ExecutionSessions.startReplacing(position) && next.active(),"Fixed position does not interrupt an entity action");
+            next.finish(ExecutionSession.EndReason.COMPLETED);
+            h.assertTrue(!ExecutionSessions.isOccupied(actor,ExecutionClaim.ENTITY_ACTION) && channel.active() && legacy.active(),"Ending replacement releases only its own claim");
+            h.succeed();
+        }finally{
+            for(var s:owned)s.finish(ExecutionSession.EndReason.SERVER_STOPPED);
+            root.discard();actor.discard();other.discard();ExecutionSessions.tick();
+        }
+    }
+
 }

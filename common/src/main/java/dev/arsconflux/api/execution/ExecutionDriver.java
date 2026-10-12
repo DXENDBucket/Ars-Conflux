@@ -14,6 +14,6 @@ public interface ExecutionDriver<P> {
         if(!occupiesCaster())return java.util.List.of();
         var actor=session.context().executor();
         // Legacy flags only reported activity; do not silently make existing channels exclusive.
-        return java.util.List.of(new ExecutionClaim(actor==null?session.caster():actor,ExecutionClaim.ENTITY_ACTION,false));
+        return java.util.List.of(new ExecutionClaim(actor==null?session.caster():actor,ExecutionClaim.ACTIVITY,false));
     }
 }

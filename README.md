@@ -2,12 +2,12 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.20**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.21**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.20-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.20-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.21-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.21-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 
@@ -86,4 +86,4 @@ Elemental 的再次发射与卡利亚方阵详见 [兼容范围与定向验证](
 
 MixinExtras 的 Jar-in-Jar 版本范围改为 `[0.4.1,)`，继续自带 0.4.1 作为最低可用实现，但允许整合包选用 0.5.x 或更新版本。原来的 `<0.5` 上限与其他模组要求 0.5.5 的范围无交集，导致 Forge 在模组预加载阶段退出。本次不改变魔符行为或配置。
 
-0.1.20 新增中立的执行锚点与实际实体占用，参见 [执行锚点](docs/execution-anchors.md)。实体／位置来源不改变付款和伤害归属，动作和持续引导可按不同通道声明。
+0.1.21 新增中立的执行锚点与实际实体占用，参见 [执行锚点](docs/execution-anchors.md)。实体／位置来源不改变付款和伤害归属，动作和持续引导可按不同通道声明。
