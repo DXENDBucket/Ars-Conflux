@@ -30,20 +30,35 @@ public final class GlyphCandidateValidation {
                 : cache.computeIfAbsent(key, ignored -> validator.validate(new ArrayList<>(prefix)));
         var introduced = PreviewErrors.introduced(errors, previous, ErrorKey::of);
         var candidate = recipe.get(position);
+        Set<ErrorKey> candidateViolations = Set.of();
+        var phrases = SpellPhraseValidator.splitSpellIntoPhrases(recipe);
+        var last = phrases.isEmpty() ? null : phrases.get(phrases.size() - 1);
+        // Providers may report one action-level error for several invalid modifiers. On an
+        // imported/edited invalid prefix the error therefore need not change when another
+        // invalid modifier is appended. Probe this modifier with its action and payloads,
+        // removing sibling modifiers, so unrelated old violations cannot darken it.
+        if (candidate instanceof AbstractAugment && last != null
+                && errors.stream().anyMatch(error -> error.getPosition() == last.getFirstPosition()
+                    && error.getPosition() < position && !introduced.contains(error))) {
+            var probe = new ArrayList<>(recipe);
+            for (int i = position - 1; i > last.getFirstPosition(); i--)
+                if (probe.get(i) instanceof AbstractAugment && !(probe.get(i) instanceof ProjectileForm)) probe.remove(i);
+            candidateViolations = new HashSet<>();
+            var probeErrors = validator.validate(probe);
+            var probePrevious = validator.validate(new ArrayList<>(probe.subList(0, probe.size() - 1)));
+            for (var error : PreviewErrors.introduced(probeErrors, probePrevious, ErrorKey::of))
+                if (error.getPosition() == last.getFirstPosition()) candidateViolations.add(ErrorKey.of(error));
+        }
         // Imported invalid recipes can already contain two payloads. A third remains invalid.
         int duplicateAction = -1;
-        if (candidate instanceof ProjectileForm) {
-            var phrases = SpellPhraseValidator.splitSpellIntoPhrases(recipe);
-            if (!phrases.isEmpty()) {
-                var last = phrases.get(phrases.size() - 1);
-                if (last.getAugments().stream().filter(ProjectileForm.class::isInstance).count() > 1)
-                    duplicateAction = last.getFirstPosition();
-            }
-        }
+        if (candidate instanceof ProjectileForm && last != null
+                && last.getAugments().stream().filter(ProjectileForm.class::isInstance).count() > 1)
+            duplicateAction = last.getFirstPosition();
         var result = new ArrayList<SpellValidationError>(errors.size());
         for (var error : errors) {
             boolean relocate = error.getPosition() < position
-                    && (introduced.contains(error) || error.getPosition() == duplicateAction);
+                    && (introduced.contains(error) || error.getPosition() == duplicateAction
+                        || candidateViolations.contains(ErrorKey.of(error)));
             result.add(relocate ? new CandidateError(position, candidate, error) : error);
         }
         return result;

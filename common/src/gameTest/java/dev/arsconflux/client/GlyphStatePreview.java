@@ -42,6 +42,7 @@ public final class GlyphStatePreview extends Screen {
         GlyphPreviewDefaults.load();
         // Force the actual client book class through Mixin transformation on both platforms.
         GuiSpellBook.class.getDeclaredMethods();
+        GlyphAvailabilityAudit.run();
         var fireball = glyph("irons_nouveau:glyph_fireball");
         var icicle = glyph("irons_nouveau:glyph_icicle");
         var projectile = MethodProjectile.INSTANCE;
@@ -117,8 +118,10 @@ public final class GlyphStatePreview extends Screen {
             gui.pose().popPose();
             gui.drawString(font, row.name() + (row.dim() ? " : dim" : " : bright"), 50, y + 4, 0xFFCCDDCC);
         }
-        gui.renderItem(MethodNearbyAllies.INSTANCE.getGlyph().getDefaultInstance(), 12, 224);
-        gui.drawString(font, "Nearby Allies: native Ars shape frame", 50, 228, 0xFFCCDDCC);
+        if (GlyphRegistry.getSpellPart(MethodNearbyAllies.INSTANCE.getRegistryName()) != null) {
+            gui.renderItem(MethodNearbyAllies.INSTANCE.getGlyph().getDefaultInstance(), 12, 224);
+            gui.drawString(font, "Nearby Allies: native Ars shape frame", 50, 228, 0xFFCCDDCC);
+        } else gui.drawString(font, "Nearby Allies: disabled by startup configuration", 50, 228, 0xFFCCDDCC);
         gui.flush();
         if (++frames == 30) Screenshot.grab(minecraft.gameDirectory, "glyph-states.png", minecraft.getMainRenderTarget(), ignored -> {});
         if (frames == 90) minecraft.stop();
