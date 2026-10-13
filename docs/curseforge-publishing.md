@@ -83,3 +83,6 @@ python .\tools\curseforge_publish.py --resolve-unknown "项目ID:SHA256" 0
 
 
 2026-10-13 实际上传 0.1.27 时，API 返回 HTTP 400 / 1021，明确要求至少一个运行环境版本标签。已通过只读目录确认 `Environment` 分组 ID 75208，`Client` / `Server` 标签 ID 9638 / 9639，补充默认双侧标签和独立配置，并增加分组同名排除、旧计划兼容、单侧配置与无效值预检。重新上传仍使用已验证的原二进制，不重新构建或改模组版本。
+
+
+补齐运行环境后，0.1.27 的两个发行包实际上传成功：NeoForge 1.21.1 文件 ID `9153753`，Forge 1.20.1 文件 ID `9153755`，项目 ID `1737308`。API 均返回文件 ID，上传进程正常退出，台账记录为 uploaded。计划 `build/curseforge/20261013-123015-6d4aa53d/plan.json`，`isMarkedForManualRelease=false`，审核通过后自动发布；这里只确认接收成功，不代表已经审核公开。发布工具修复提交 `253bc5d`，不改已验证的 0.1.27 二进制。
