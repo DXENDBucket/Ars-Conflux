@@ -89,3 +89,6 @@ python .\tools\curseforge_publish.py --resolve-unknown "项目ID:SHA256" 0
 
 
 Iron 0.17.22 首次上传时，CF 返回 HTTP 400 / 1002，明确要求 `relations.projects[].projectID` 为整数。发布工具已修正依赖 ID 类型，并在发送旧计划时做深复制归一化，保留原审核快照。新增 ID 类型/无效值检查，实际 multipart 测试和旧计划测试也覆盖带数字项目 ID 的依赖；共 18 项测试通过。已验证的模组 JAR 不变。
+
+
+2026-10-13，依赖项目 ID 类型修正后，Iron & Nouveau 0.17.22 两份文件均上传成功：NeoForge 1.21.1 文件 ID `9153840`，Forge 1.20.1 文件 ID `9153841`，项目 ID `1726248`。上传进程退出码 0，台账状态均为 uploaded，保留已验证的发行 JAR 哈希。计划 `build/curseforge/20261013-124850-e8c1b112/plan.json`，审核通过后自动发布；API 接收不等于已经审核公开。发布工具修复提交 `235ae86`。
