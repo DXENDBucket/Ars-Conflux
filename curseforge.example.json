@@ -1,0 +1,44 @@
+{
+  "workspace_root": "..",
+  "default_projects": ["conflux", "iron"],
+  "token_environment": "CURSEFORGE_API_TOKEN",
+  "release_type": "release",
+  "manual_release": false,
+  "state_directory": "build/curseforge",
+  "changelog_directory": "release-notes",
+  "java_homes": {"21": "", "17": ""},
+  "dependencies": {
+    "ars_nouveau": "ars-nouveau",
+    "ars_conflux": {"slug": "ars-conflux", "project_id": 1737308},
+    "irons_spellbooks": "irons-spells-n-spellbooks",
+    "goety": "goety",
+    "bosses_of_mass_destruction": {"slug": "bosses-of-mass-destruction-forge", "project_id": 941573},
+    "cataclysm": "l_ender-s-cataclysm",
+    "not_enough_glyphs": "not-enough-glyphs",
+    "ars_elemental": "ars-elemental",
+    "hex_ars_link": "hex-ars-linker"
+  },
+  "projects": {
+    "conflux": {
+      "directory": "Ars-Conflux", "name": "Ars Conflux", "modid": "ars_conflux",
+      "artifact": "ars-conflux", "project_id": 1737308, "platforms": ["neoforge", "forge"]
+    },
+    "iron": {
+      "directory": "Irons-Nouveau", "name": "Iron & Nouveau", "modid": "irons_nouveau",
+      "artifact": "irons-nouveau", "project_id": 1726248, "platforms": ["neoforge", "forge"]
+    },
+    "goety": {
+      "directory": "Goety-Nouveau", "name": "Goety & Nouveau", "modid": "goety_nouveau",
+      "artifact": "goety-nouveau", "project_id": 1739392, "platforms": ["neoforge", "forge"]
+    },
+    "bomd": {
+      "directory": "BOMD-Nouveau", "name": "BOMD & Nouveau", "modid": "bomd_nouveau",
+      "artifact": "bomd-nouveau", "project_id": 1739402, "platforms": ["neoforge", "forge"]
+    },
+    "cataclysm": {
+      "directory": "Cataclysm-Nouveau", "name": "Cataclysm & Nouveau", "modid": "cataclysm_nouveau",
+      "artifact": "cataclysm-nouveau", "project_id": null, "platforms": ["neoforge"],
+      "extra_tasks": {"neoforge": [":verifyDistributions"]}
+    }
+  }
+}

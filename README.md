@@ -4,6 +4,8 @@
 
 Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.25**。
 
+本地更新工具：双击 `Publish-CurseForge.cmd` 可构建并上传 Core 与附属的双版本发行包，设置方法见 [CurseForge 发布说明](docs/curseforge-publishing.md)。
+
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
 | 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.25-mc1.21.1-neoforge.jar` |
