@@ -77,7 +77,7 @@ python .\tools\curseforge_publish.py --resolve-unknown "项目ID:SHA256" 0
 
 ## 本次验证
 
-17 项临时 JAR / 模拟传输测试通过，检查双版本元数据、Markdown、整批失败、快照变更、重复跳过、部分成功续传、超时处理、Token 不进入输出、multipart 请求、锁、双 JDK 构建参数、同名版本隔离和错误响应脱敏。另对本地真实 Core / Iron 发行包生成四文件计划，并解析 PowerShell 入口。
+18 项临时 JAR / 模拟传输测试通过，检查双版本元数据、Markdown、整批失败、快照变更、重复跳过、部分成功续传、超时处理、Token 不进入输出、multipart 请求、锁、双 JDK 构建参数、同名版本隔离和错误响应脱敏。另对本地真实 Core / Iron 发行包生成四文件计划，并解析 PowerShell 入口。
 
 2026-10-13 HTTP 400 排查中已使用本机 Token 通过两个只读线上目录接口，并核对双版本/加载器 ID；没有提交新的上传请求。先前错误响应未保存，不能断言拒绝来自哪一字段；新的请求格式和错误诊断已补齐，实际上传接收结果仍需下一次明确上传确认。
 
@@ -86,3 +86,6 @@ python .\tools\curseforge_publish.py --resolve-unknown "项目ID:SHA256" 0
 
 
 补齐运行环境后，0.1.27 的两个发行包实际上传成功：NeoForge 1.21.1 文件 ID `9153753`，Forge 1.20.1 文件 ID `9153755`，项目 ID `1737308`。API 均返回文件 ID，上传进程正常退出，台账记录为 uploaded。计划 `build/curseforge/20261013-123015-6d4aa53d/plan.json`，`isMarkedForManualRelease=false`，审核通过后自动发布；这里只确认接收成功，不代表已经审核公开。发布工具修复提交 `253bc5d`，不改已验证的 0.1.27 二进制。
+
+
+Iron 0.17.22 首次上传时，CF 返回 HTTP 400 / 1002，明确要求 `relations.projects[].projectID` 为整数。发布工具已修正依赖 ID 类型，并在发送旧计划时做深复制归一化，保留原审核快照。新增 ID 类型/无效值检查，实际 multipart 测试和旧计划测试也覆盖带数字项目 ID 的依赖；共 18 项测试通过。已验证的模组 JAR 不变。

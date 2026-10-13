@@ -153,6 +153,7 @@ modId="{dependency}"
             self.quiet_upload(plan, sender)
 
     def test_real_http_request_shape_and_redirect_protection_with_fake_transport(self):
+        self.config["dependencies"]["ars_nouveau"] = {"slug": "ars-nouveau", "project_id": 12345}
         plan = publisher.load_json(self.plan())
         entry = plan["entries"][0]
         entry["metadata"].pop("gameVersionNames")
@@ -175,6 +176,8 @@ modId="{dependency}"
         self.assertIn(b'name="file"', request.data)
         self.assertIn("修复图标".encode(), request.data)
         self.assertIn(b'"gameVersions": [11779, 10150, 9638, 9639]', request.data)
+        self.assertIn(b'"projectID": 12345', request.data)
+        self.assertNotIn(b'"projectID": "12345"', request.data)
         self.assertNotIn(b'"gameVersionNames"', request.data)
         self.assertNotIn(b'Content-Type: application/json', request.data)
         self.assertIn(Path(entry["file"]).read_bytes(), request.data)
@@ -258,6 +261,7 @@ modId="{dependency}"
         plan = publisher.load_json(self.plan())
         plan["entries"] = plan["entries"][:1]
         plan["entries"][0]["metadata"]["gameVersionNames"] = ["1.21.1", "NeoForge"]
+        plan["entries"][0]["metadata"]["relations"]["projects"][0]["projectID"] = "12345"
         types = [{"id": 10, "name": "Minecraft 1.21"}, {"id": 11, "name": "Modloader"},
                  {"id": 12, "name": "Environment"}]
         versions = [{"id": 100, "name": "1.21.1", "gameVersionTypeID": 10},
@@ -269,6 +273,18 @@ modId="{dependency}"
         self.assertEqual([100, 101, 102, 103], resolved[0]["metadata"]["gameVersions"])
         self.assertEqual(["1.21.1", "NeoForge"], plan["entries"][0]["metadata"]["gameVersionNames"])
         self.assertEqual(plan["entries"][0]["sha256"], resolved[0]["sha256"])
+        self.assertEqual(12345, resolved[0]["metadata"]["relations"]["projects"][0]["projectID"])
+        self.assertIsInstance(resolved[0]["metadata"]["relations"]["projects"][0]["projectID"], int)
+        self.assertEqual("12345", plan["entries"][0]["metadata"]["relations"]["projects"][0]["projectID"])
+
+    def test_dependency_project_id_is_numeric_and_rejects_invalid_values(self):
+        for value in [12345, "12345"]:
+            relation = publisher.relation_for("example", True, {"example": {"slug": "example", "project_id": value}})
+            self.assertEqual(12345, relation["projectID"])
+            self.assertIsInstance(relation["projectID"], int)
+        for value in [False, -1, "bad-id"]:
+            with self.assertRaises(publisher.PublishError):
+                publisher.relation_for("example", True, {"example": {"slug": "example", "project_id": value}})
 
     def test_project_environment_override_and_invalid_environment_preflight(self):
         self.config["projects"]["example"]["environments"] = ["Server"]

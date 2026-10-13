@@ -82,7 +82,7 @@ def relation_for(modid, required, mapping):
         raise PublishError(f"Invalid dependency slug for {modid}")
     result = {"slug": slug, "type": "requiredDependency" if required else "optionalDependency"}
     if relation.get("project_id") is not None:
-        result["projectID"] = str(positive_id(relation["project_id"]))
+        result["projectID"] = positive_id(relation["project_id"])
     return result
 
 
@@ -312,6 +312,14 @@ def resolved_entries(plan, token, fetcher=None):
         if not any(name in {"Client", "Server"} for name in names):
             names.extend(["Client", "Server"])
         metadata["gameVersions"] = version_ids(names, versions, types)
+        if "relations" in metadata:
+            projects = []
+            for original_relation in metadata["relations"].get("projects", []):
+                relation = dict(original_relation)
+                if "projectID" in relation:
+                    relation["projectID"] = positive_id(relation["projectID"])
+                projects.append(relation)
+            metadata["relations"] = {**metadata["relations"], "projects": projects}
         entry["metadata"] = metadata
         entries.append(entry)
     return entries
