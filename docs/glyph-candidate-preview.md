@@ -55,3 +55,6 @@ Neo 最终客户端预览正常退出，21 项 Core 单元测试通过；Forge �
 - ars-conflux-0.1.27-sources.jar SHA-256：`1f0598ed5e1126f37f58148919d0089fdfe43dab7e4dfc870ccd5dd4d17410e1`。
 - ars-conflux-0.1.27-mc1.20.1-forge.jar SHA-256：`04716a60c0b28715358fe7dc2958ead78a1fe3561ae68ae397f35f737bbe43db`。
 - ars-conflux-0.1.27-sources.jar SHA-256：`c9da01903104d1a8eb65185e1885066827bf206c15ca43cbdca20e79e5cbe8dc`。
+
+
+0.1.27 实现提交 `0ad5f50`，标签 `v0.1.27`，工作区 `parallel-workspaces/glyph-availability/Ars-Conflux`。已将上述最终包/源码包复制主检出目录，分别部署“万法归一”与“1.20.1-模组测试”，每个 Core modid 唯一且复制后哈希匹配；旧包备份在实例 `.codex-backups/glyph-availability-20261013/`。本任务客户端已退出，无所属运行 JVM 残留。没有推送或上传。
