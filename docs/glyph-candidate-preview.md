@@ -20,3 +20,15 @@ Neo 的挂钩位于 `GuiSpellBook.validate(ISpellValidator)` 中第二处 valida
 - 预览强制加载原书页类以验证 Mixin 接线，用原生 `GlyphButton` 画出实际状态，并显示周围友军外观。没有在真实存档内人工遍历所有附属/所有书页。
 
 运行 `:runClient -PglyphStatePreview=true`，忽略的 `libs/glyph-state-preview/`（Forge 使用本地 deobf 测试依赖）放入真实 Iron 附属与原生依赖。预览在独立菜单加载默认服务器配置，保存截图后退出；测试类与检查用依赖不打进发行包。
+
+## 交付记录（2026-10-13）
+
+- 实现提交：`cc9090f44eabd32fe51118d4921706718a6794e4`，标签 `v0.1.26`；仅 Core 变更，Iron 保持 0.17.21。
+- 隔离工作区：`parallel-workspaces/glyph-state/Ars-Conflux`；Neo / Forge 各一次成功的客户端预览，均通过 6 个状态、文本委托、原错误位置与 Mixin 加载断言。Neo 客户端额外核对实际 Iron 增强说明表。
+- Core 单元测试共 21 项通过，0 失败。未重新运行无关施法矩阵；未在完整整合包存档人工遍历所有组合。
+- Neo 发行 SHA-256：`72d3adefd196a9adedb421d48392b2c299357d911671467ba59b3c3e0a02cbd7`。
+- Forge 发行 SHA-256：`b9dee7df4f110bc0f0c4b853fd76811fdf591262ce7e370e793c39a8bf6de175`；重混淆产物。
+- 源码包 SHA-256：Neo `55fedb3566d4a799eef57fae9c9675483d1ea165ef3ffccce583bcdc0b7b4c0f`；Forge `47cf8c2e899cc1b4bcd3f61c4d213cbd97a4b4734ee9203f03989ec1c65520b1`。
+- 包内许可与预览代码排除已检查。最终包及源码包已复制主检出目录的对应 `build/libs/`，两个测试实例每个 Core modid 唯一、部署哈希匹配，旧 0.1.25 在实例 `.codex-backups/glyph-state-20261013/`。
+- 两个客户端已自动退出，无本任务 JVM 残留。未改“万途归零”，未推送或上传。
+- 主检出目录 `build/glyph-frame-preview/glyph-states-{neoforge,forge}.png` 保存实际预览；更新日志 `release-notes/conflux/0.1.26.md` 已准备。
