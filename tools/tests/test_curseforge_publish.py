@@ -76,7 +76,7 @@ modId="{dependency}"
     def test_platform_metadata_markdown_and_immutable_copy(self):
         plan = publisher.load_json(self.plan())
         self.assertEqual(2, len(plan["entries"]))
-        for entry, expected in zip(plan["entries"], [["1.21.1", "NeoForge"], ["1.20.1", "Forge"]]):
+        for entry, expected in zip(plan["entries"], [["1.21.1", "NeoForge", "Client", "Server"], ["1.20.1", "Forge", "Client", "Server"]]):
             self.assertEqual(expected, entry["metadata"]["gameVersionNames"])
             self.assertIn("修复图标", entry["metadata"]["changelog"])
             self.assertIn("**Markdown**", entry["metadata"]["changelog"])
@@ -156,7 +156,7 @@ modId="{dependency}"
         plan = publisher.load_json(self.plan())
         entry = plan["entries"][0]
         entry["metadata"].pop("gameVersionNames")
-        entry["metadata"]["gameVersions"] = [11779, 10150]
+        entry["metadata"]["gameVersions"] = [11779, 10150, 9638, 9639]
         requests = []
         class Response(io.BytesIO):
             pass
@@ -174,7 +174,7 @@ modId="{dependency}"
         self.assertIn(b'name="metadata"', request.data)
         self.assertIn(b'name="file"', request.data)
         self.assertIn("修复图标".encode(), request.data)
-        self.assertIn(b'"gameVersions": [11779, 10150]', request.data)
+        self.assertIn(b'"gameVersions": [11779, 10150, 9638, 9639]', request.data)
         self.assertNotIn(b'"gameVersionNames"', request.data)
         self.assertNotIn(b'Content-Type: application/json', request.data)
         self.assertIn(Path(entry["file"]).read_bytes(), request.data)
@@ -244,6 +244,40 @@ modId="{dependency}"
         self.assertIn("[REDACTED]", record["error"])
         self.assertNotIn(secret, record["error"])
         self.assertNotIn("requestHeaders", record["error"])
+
+    def test_environment_group_is_resolved_without_unrelated_same_names(self):
+        versions = [{"id": 9638, "name": "Client", "gameVersionTypeID": 75208},
+                    {"id": 9639, "name": "Server", "gameVersionTypeID": 75208},
+                    {"id": 999, "name": "Client", "gameVersionTypeID": 1}]
+        types = [{"id": 75208, "name": "Environment"}]
+        self.assertEqual([9638, 9639], publisher.version_ids(["Client", "Server"], versions, types))
+        with self.assertRaisesRegex(publisher.PublishError, "uniquely"):
+            publisher.version_ids(["Client"], versions, [])
+
+    def test_legacy_plan_gains_environments_without_mutating_review_snapshot(self):
+        plan = publisher.load_json(self.plan())
+        plan["entries"] = plan["entries"][:1]
+        plan["entries"][0]["metadata"]["gameVersionNames"] = ["1.21.1", "NeoForge"]
+        types = [{"id": 10, "name": "Minecraft 1.21"}, {"id": 11, "name": "Modloader"},
+                 {"id": 12, "name": "Environment"}]
+        versions = [{"id": 100, "name": "1.21.1", "gameVersionTypeID": 10},
+                    {"id": 101, "name": "NeoForge", "gameVersionTypeID": 11},
+                    {"id": 102, "name": "Client", "gameVersionTypeID": 12},
+                    {"id": 103, "name": "Server", "gameVersionTypeID": 12}]
+        resolved = publisher.resolved_entries(plan, "fake-token",
+                   lambda endpoint, token: types if endpoint.endswith("version-types") else versions)
+        self.assertEqual([100, 101, 102, 103], resolved[0]["metadata"]["gameVersions"])
+        self.assertEqual(["1.21.1", "NeoForge"], plan["entries"][0]["metadata"]["gameVersionNames"])
+        self.assertEqual(plan["entries"][0]["sha256"], resolved[0]["sha256"])
+
+    def test_project_environment_override_and_invalid_environment_preflight(self):
+        self.config["projects"]["example"]["environments"] = ["Server"]
+        plan = publisher.load_json(self.plan())
+        self.assertEqual(["1.21.1", "NeoForge", "Server"], plan["entries"][0]["metadata"]["gameVersionNames"])
+        self.config["projects"]["example"]["environments"] = []
+        with self.assertRaisesRegex(publisher.PublishError, "Invalid environments"):
+            publisher.prepare(self.config, self.root, ["example"], ["neoforge"], self.root/"invalid", self.notes)
+        self.assertFalse((self.root/"invalid").exists())
 
     def test_read_only_catalog_failure_does_not_start_an_upload(self):
         plan = self.plan()

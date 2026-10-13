@@ -183,6 +183,11 @@ def prepare(config, root, names, platforms, output, changelog_dir, release_type=
         kind = release_type or project.get("release_type", config.get("release_type", "release"))
         if kind not in {"alpha", "beta", "release"}:
             raise PublishError(f"Invalid release type for {name}")
+        environments = project.get("environments", config.get("environments", ["Client", "Server"]))
+        if (not isinstance(environments, list) or not environments
+                or any(value not in {"Client", "Server"} for value in environments)
+                or len(environments) != len(set(environments))):
+            raise PublishError(f"Invalid environments for {name}: select Client and/or Server")
         for platform in platforms:
             if platform not in project["platforms"]:
                 continue
@@ -193,7 +198,7 @@ def prepare(config, root, names, platforms, output, changelog_dir, release_type=
             metadata = {
                 "displayName": f"{project['name']} {version} — MC {target['minecraft']} / {target['loader']}",
                 "changelog": notes.read_text(encoding="utf-8-sig").strip(), "changelogType": "markdown",
-                "gameVersionNames": [target["minecraft"], target["loader"]],
+                "gameVersionNames": [target["minecraft"], target["loader"], *environments],
                 "releaseType": kind,
                 "isMarkedForManualRelease": config.get("manual_release", False) if manual is None else manual,
                 "relations": {"projects": relations},
@@ -279,6 +284,8 @@ def version_ids(names, versions, types):
             expected_type = "Minecraft " + ".".join(name.split(".")[:2])
         elif name in {"Forge", "NeoForge"}:
             expected_type = "Modloader"
+        elif name in {"Client", "Server"}:
+            expected_type = "Environment"
         else:
             raise PublishError(f"Unsupported game version tag: {name}")
         type_ids = {row["id"] for row in types if row.get("name") == expected_type}
@@ -299,7 +306,12 @@ def resolved_entries(plan, token, fetcher=None):
         metadata = dict(original["metadata"])
         if "gameVersionNames" not in metadata:
             raise PublishError("The review plan must retain human-readable version names")
-        metadata["gameVersions"] = version_ids(metadata.pop("gameVersionNames"), versions, types)
+        names = list(metadata.pop("gameVersionNames"))
+        # Plans created before environment tags were required describe our dual-side mods.
+        # Retain their immutable artifact snapshot while supplying the missing category.
+        if not any(name in {"Client", "Server"} for name in names):
+            names.extend(["Client", "Server"])
+        metadata["gameVersions"] = version_ids(names, versions, types)
         entry["metadata"] = metadata
         entries.append(entry)
     return entries

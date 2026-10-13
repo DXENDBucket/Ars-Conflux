@@ -3,6 +3,7 @@
   "default_projects": ["conflux", "iron"],
   "token_environment": "CURSEFORGE_API_TOKEN",
   "release_type": "release",
+  "environments": ["Client", "Server"],
   "manual_release": false,
   "state_directory": "build/curseforge",
   "changelog_directory": "release-notes",
