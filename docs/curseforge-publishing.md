@@ -16,7 +16,7 @@ Python 3.11+、PowerShell 与本地构建环境即可，不需要额外 Python �
 | bomd | [BOMD & Nouveau](https://www.curseforge.com/minecraft/mc-mods/bomd-nouveau) | 1739402 | 双版本 |
 | cataclysm | Cataclysm & Nouveau | 尚需填写 | 仅 NeoForge |
 
-从 [CurseForge 作者后台](https://authors.curseforge.com/) 的 API Tokens 页面生成 **上传 Token**，在本机执行：
+从 [CurseForge 作者后台](https://authors.curseforge.com/) 的 API Tokens 页面生成 **上传 Token**，双击 `Set-CurseForge-Token.cmd`，或在本机执行：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-curseforge-token.ps1
@@ -72,6 +72,6 @@ python .\tools\curseforge_publish.py --resolve-unknown "项目ID:SHA256" 0
 
 ## 本次验证
 
-使用临时 JAR 与模拟传输检查双版本元数据、Markdown、整批失败、快照变更、重复跳过、部分成功续传、超时处理、Token 不进入输出、multipart 请求和锁。另对本地真实 Core / Iron 发行包生成四文件计划，并解析 PowerShell 入口。
+11 项临时 JAR / 模拟传输测试通过，检查双版本元数据、Markdown、整批失败、快照变更、重复跳过、部分成功续传、超时处理、Token 不进入输出、multipart 请求、锁及双 JDK 构建参数。另对本地真实 Core / Iron 发行包生成四文件计划，并解析 PowerShell 入口。
 
 未实际上传，未调用带 Token 的线上接口；需要本机配置 Token 后才能验证真实账户授权和 CurseForge 接收结果。
