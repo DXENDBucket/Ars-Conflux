@@ -2,14 +2,20 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.24**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.25**。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.24-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.24-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.25-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.25-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
+
+## 魔符图标
+
+0.1.25 为已通过 `GlyphPresentation` 或 `GlyphVisuals` 接入的附属提供 Ars 原版底板和分类外框；中心默认缩至 75%，普通 Ars 魔符不变。支持三维物品、无效编排淡化和资源包重载。Iron & Nouveau 0.17.21 另提供原生法术图标。
+
+`config/ars_conflux-client.toml` 可独立控制外框、中心来源、缩放、统一颜色或分类颜色。只影响 GUI；见 [客户端配置与图标 API](docs/glyph-visuals.md)。
 
 ## 可选通用魔符
 

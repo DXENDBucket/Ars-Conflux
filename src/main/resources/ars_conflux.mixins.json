@@ -47,6 +47,11 @@
   },
   "client": [
     "GlyphFormatterOrderMixin",
-    "GlyphFormatterPagesMixin"
+    "GlyphFormatterPagesMixin",
+    "client.GlyphIconRenderMixin",
+    "client.GlyphGuiStateMixin",
+    "client.GlyphRenderTypeAccess",
+    "client.GlyphCompositeStateAccess",
+    "client.GlyphTextureStateAccess"
   ]
 }

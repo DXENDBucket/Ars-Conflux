@@ -43,5 +43,12 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "ars_conflux.refmap.json"
+  "refmap": "ars_conflux.refmap.json",
+  "client": [
+    "client.GlyphIconRenderMixin",
+    "client.GlyphGuiStateMixin",
+    "client.GlyphRenderTypeAccess",
+    "client.GlyphCompositeStateAccess",
+    "client.GlyphTextureStateAccess"
+  ]
 }

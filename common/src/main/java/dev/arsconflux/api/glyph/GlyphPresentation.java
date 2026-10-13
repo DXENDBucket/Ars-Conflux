@@ -26,6 +26,8 @@ public final class GlyphPresentation {
     }
     public static void register(String namespace) { register(namespace, part -> ""); }
 
+    public static boolean isProvider(String namespace){return PROVIDERS.containsKey(namespace);}
+
     private static String provider(AbstractSpellPart part) {
         var namespace = part.getRegistryName().getNamespace();
         return PROVIDERS.containsKey(namespace) ? namespace : "";

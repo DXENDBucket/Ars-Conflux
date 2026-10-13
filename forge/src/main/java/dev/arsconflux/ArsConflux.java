@@ -22,6 +22,8 @@ public final class ArsConflux {
                 dev.arsconflux.config.ConfluxConfig.SPEC, "ars_conflux-server.toml");
         net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON,
                 dev.arsconflux.config.ConfluxStartupConfig.SPEC,"ars_conflux-startup.toml");
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT,
+                dev.arsconflux.config.ConfluxClientConfig.SPEC,"ars_conflux-client.toml");
         dev.arsconflux.glyph.OptionalGlyphs.register();
         net.minecraftforge.common.crafting.CraftingHelper.register(new dev.arsconflux.internal.content.NearbyAlliesCondition.Serializer());
         BuiltinCarriers.register();

@@ -22,6 +22,8 @@ public final class ArsConflux {
                 dev.arsconflux.config.ConfluxStartupConfig.SPEC, "ars_conflux-startup.toml");
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,
                 dev.arsconflux.config.ConfluxConfig.SPEC, "ars_conflux-server.toml");
+        container.registerConfig(net.neoforged.fml.config.ModConfig.Type.CLIENT,
+                dev.arsconflux.config.ConfluxClientConfig.SPEC,"ars_conflux-client.toml");
         dev.arsconflux.glyph.OptionalGlyphs.register();
         BuiltinCarriers.register();
         var conditions = net.neoforged.neoforge.registries.DeferredRegister.create(
