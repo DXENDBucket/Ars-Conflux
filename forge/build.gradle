@@ -32,13 +32,29 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods { ars_conflux { source sourceSets.main; source sourceSets.gameTest } }
         }
-        client { workingDirectory project.file('run/client'); mods { ars_conflux { source sourceSets.main } } }
+        client {
+            workingDirectory project.file(providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() ? 'run/glyph-state-preview' : 'run/client')
+            if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
+                property 'arsconflux.glyph_state_preview', 'true'
+                args '--width', '1100', '--height', '800'
+            }
+            mods { ars_conflux {
+                source sourceSets.main
+                if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) source sourceSets.gameTest
+            } }
+        }
         server { workingDirectory project.file('run/server'); args '--nogui'; mods { ars_conflux { source sourceSets.main } } }
     }
 }
 mixin { add sourceSets.main, 'ars_conflux.refmap.json'; config 'ars_conflux.mixins.json' }
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
+        for (name in ['irons-spells-n-spellbooks','irons-lib','playeranimator']) {
+            runtimeOnly fg.deobf("local:${name}:forge1201")
+        }
+        runtimeOnly fg.deobf('local:irons-nouveau:preview1201')
+    }
     for (name in ['ars-nouveau','geckolib','curios','patchouli']) {
         implementation fg.deobf("local:${name}:forge1201")
     }

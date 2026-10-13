@@ -4,6 +4,7 @@ import dev.arsconflux.config.ConfluxStartupConfig;
 public final class OptionalGlyphs {
     private OptionalGlyphs() {}
     public static void register() {
+        dev.arsconflux.api.glyph.GlyphVisuals.register("ars_conflux", part -> null);
         if(ConfluxStartupConfig.nearbyAllies()) GlyphRegistry.registerSpell(MethodNearbyAllies.INSTANCE);
     }
 }

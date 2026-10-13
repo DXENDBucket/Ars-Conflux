@@ -49,6 +49,7 @@
     "client.GlyphGuiStateMixin",
     "client.GlyphRenderTypeAccess",
     "client.GlyphCompositeStateAccess",
-    "client.GlyphTextureStateAccess"
+    "client.GlyphTextureStateAccess",
+    "GlyphCandidatePreviewMixin"
   ]
 }
