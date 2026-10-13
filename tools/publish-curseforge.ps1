@@ -10,6 +10,7 @@ param(
     [switch]$Build,
     [switch]$Offline,
     [switch]$Upload,
+    [switch]$CheckApi,
     [switch]$ManualRelease,
     [switch]$Interactive
 )
@@ -24,6 +25,7 @@ foreach($pair in @(
 if($Build) { $arguments += '--build' }
 if($Offline) { $arguments += '--offline' }
 if($Upload) { $arguments += '--upload' }
+if($CheckApi) { $arguments += '--check-api' }
 if($ManualRelease) { $arguments += '--manual-release' }
 if($Interactive) { $arguments += '--interactive' }
 # Read the stored user-level token when this shell predates the environment setup.

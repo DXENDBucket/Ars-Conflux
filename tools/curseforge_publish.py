@@ -19,6 +19,7 @@ import time
 import tomllib
 import urllib.error
 import urllib.request
+import urllib.parse
 import uuid
 import zipfile
 
@@ -230,14 +231,89 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         return None
 
 
+def response_detail(error, token):
+    """Keep actionable API messages, never echoed credentials or request headers."""
+    try:
+        body = error.read(65536).decode("utf-8", errors="replace")
+    except Exception:
+        return "No server error details available"
+    for secret in {token, urllib.parse.quote(token, safe=""), json.dumps(token)[1:-1]}:
+        if secret:
+            body = body.replace(secret, "[REDACTED]")
+    try:
+        data = json.loads(body)
+        if isinstance(data, dict):
+            data = {key: value for key, value in data.items()
+                    if key.lower() in {"error", "errors", "message", "detail", "title", "errorcode", "errormessage"}}
+            body = json.dumps(data, ensure_ascii=False) if data else "No server error details available"
+        elif isinstance(data, str):
+            body = data
+        else:
+            body = "No server error details available"
+    except ValueError:
+        body = re.sub(r"<[^>]*>", " ", body)
+    for secret in {token, urllib.parse.quote(token, safe=""), json.dumps(token)[1:-1]}:
+        if secret:
+            body = body.replace(secret, "[REDACTED]")
+    body = " ".join(re.sub(r"[\x00-\x1F\x7F]", " ", body).split())
+    return body[:1200] or "No server error details available"
+
+
+def fetch_api(endpoint, token):
+    request = urllib.request.Request(API + endpoint, headers={"X-Api-Token": token,
+                                    "User-Agent": "EndXiom/Conflux-CurseForge-Publisher"})
+    try:
+        with urllib.request.build_opener(NoRedirect).open(request, timeout=30) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as error:
+        raise PublishError(f"Read-only API check returned HTTP {error.code}: {response_detail(error, token)}") from None
+    except Exception:
+        raise PublishError("Could not read CurseForge version catalog; no upload attempted") from None
+
+
+def version_ids(names, versions, types):
+    ids = []
+    for name in names:
+        if re.fullmatch(r"\d+\.\d+(?:\.\d+)?", name):
+            # Bukkit and general Minecraft catalog entries reuse the same version name.
+            expected_type = "Minecraft " + ".".join(name.split(".")[:2])
+        elif name in {"Forge", "NeoForge"}:
+            expected_type = "Modloader"
+        else:
+            raise PublishError(f"Unsupported game version tag: {name}")
+        type_ids = {row["id"] for row in types if row.get("name") == expected_type}
+        matches = [row for row in versions if row.get("name") == name and row.get("gameVersionTypeID") in type_ids]
+        if len(matches) != 1:
+            raise PublishError(f"Cannot uniquely resolve {expected_type}: {name}; no upload attempted")
+        ids.append(positive_id(matches[0]["id"]))
+    return ids
+
+
+def resolved_entries(plan, token, fetcher=None):
+    fetcher = fetcher or fetch_api
+    versions = fetcher("/api/game/versions", token)
+    types = fetcher("/api/game/version-types", token)
+    entries = []
+    for original in plan["entries"]:
+        entry = dict(original)
+        metadata = dict(original["metadata"])
+        if "gameVersionNames" not in metadata:
+            raise PublishError("The review plan must retain human-readable version names")
+        metadata["gameVersions"] = version_ids(metadata.pop("gameVersionNames"), versions, types)
+        entry["metadata"] = metadata
+        entries.append(entry)
+    return entries
+
+
 def upload_file(entry, token):
     boundary = "conflux-" + uuid.uuid4().hex
     filename = entry["filename"]
     if not re.fullmatch(r"[A-Za-z0-9._+-]+\.jar", filename):
         raise PublishError("Unsafe multipart filename")
+    if "gameVersionNames" in entry["metadata"] or not entry["metadata"].get("gameVersions"):
+        raise PublishError("Resolve exact game version IDs before uploading")
     metadata = json.dumps(entry["metadata"], ensure_ascii=False).encode("utf-8")
-    body = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"metadata\"\r\n"
-            "Content-Type: application/json; charset=utf-8\r\n\r\n").encode() + metadata
+    body = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"metadata\"\r\n\r\n").encode() + metadata
     body += (f"\r\n--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\n"
              "Content-Type: application/java-archive\r\n\r\n").encode()
     body += Path(entry["file"]).read_bytes() + f"\r\n--{boundary}--\r\n".encode()
@@ -265,7 +341,7 @@ def exclusive_lock(path):
         path.unlink(missing_ok=True)
 
 
-def upload_plan(path, ledger_path, token, sender=upload_file):
+def upload_plan(path, ledger_path, token, sender=None):
     if not token or any(c in token for c in "\r\n"):
         raise PublishError("Set CURSEFORGE_API_TOKEN locally; do not put the token in config or command arguments")
     plan = load_json(path)
@@ -275,16 +351,18 @@ def upload_plan(path, ledger_path, token, sender=upload_file):
         positive_id(entry["project_id"])
         if digest(entry["file"]) != entry["sha256"]:
             raise PublishError(f"Staged file changed: {entry['filename']}")
+    entries = resolved_entries(plan, token) if sender is None else plan["entries"]
+    sender = sender or upload_file
     ledger_path = Path(ledger_path)
     with exclusive_lock(ledger_path.with_suffix(".lock")):
         ledger = load_json(ledger_path) if ledger_path.exists() else {}
-        keys = [f"{e['project_id']}:{e['sha256']}" for e in plan["entries"]]
+        keys = [f"{e['project_id']}:{e['sha256']}" for e in entries]
         if len(keys) != len(set(keys)):
             raise PublishError("Duplicate artifact in upload plan")
         for key in keys:
             if ledger.get(key, {}).get("state") in {"pending", "unknown"}:
                 raise PublishError(f"Uncertain previous upload: {key}. Check CurseForge and resolve it before retrying.")
-        for key, entry in zip(keys, plan["entries"]):
+        for key, entry in zip(keys, entries):
             previous = ledger.get(key, {})
             if previous.get("state") == "uploaded":
                 print(f"Already uploaded: {entry['filename']} (file ID {previous['file_id']})")
@@ -297,8 +375,10 @@ def upload_plan(path, ledger_path, token, sender=upload_file):
                 record.update(state="uploaded", file_id=positive_id(file_id))
             except urllib.error.HTTPError as error:
                 record["state"] = "failed" if 400 <= error.code < 500 else "unknown"
+                record["http_status"] = error.code
+                record["error"] = response_detail(error, token)
                 save_json(ledger_path, ledger)
-                raise PublishError(f"Upload returned HTTP {error.code}; no automatic retry. See {ledger_path}") from None
+                raise PublishError(f"Upload returned HTTP {error.code}: {record['error']}; no automatic retry. See {ledger_path}") from None
             except Exception:
                 record["state"] = "unknown"
                 save_json(ledger_path, ledger)
@@ -337,6 +417,7 @@ def main(argv=None):
     parser.add_argument("--manual-release", action="store_true", default=None)
     parser.add_argument("--plan", type=Path, help="Use an already prepared immutable upload plan")
     parser.add_argument("--upload", action="store_true")
+    parser.add_argument("--check-api", action="store_true", help="Resolve exact version IDs using authenticated GETs; never upload")
     parser.add_argument("--interactive", action="store_true")
     parser.add_argument("--resolve-unknown", nargs=2, metavar=("KEY", "FILE_ID"))
     args = parser.parse_args(argv)
@@ -380,6 +461,17 @@ def main(argv=None):
             output = state_dir / (time.strftime("%Y%m%d-%H%M%S") + "-" + uuid.uuid4().hex[:8])
             plan = prepare(config, root, names, platforms, output, notes, args.release_type, args.manual_release)
     show_plan(plan)
+    if args.check_api:
+        if args.upload or args.interactive:
+            raise PublishError("--check-api cannot be combined with upload/interactive mode")
+        token = os.environ.get(config.get("token_environment", "CURSEFORGE_API_TOKEN"), "")
+        if not token:
+            raise PublishError("Set CURSEFORGE_API_TOKEN locally to check the API")
+        entries = resolved_entries(load_json(plan), token)
+        for entry in entries:
+            print(f"API tags verified: {entry['filename']} -> {entry['metadata']['gameVersions']}")
+        save_json(plan.parent / "resolved-metadata.json", {"entries": entries})
+        return 0
     if args.interactive:
         args.upload = input("Upload these files to CurseForge? [y/N]: ").strip().lower() == "y"
     if args.upload:

@@ -155,6 +155,8 @@ modId="{dependency}"
     def test_real_http_request_shape_and_redirect_protection_with_fake_transport(self):
         plan = publisher.load_json(self.plan())
         entry = plan["entries"][0]
+        entry["metadata"].pop("gameVersionNames")
+        entry["metadata"]["gameVersions"] = [11779, 10150]
         requests = []
         class Response(io.BytesIO):
             pass
@@ -172,6 +174,9 @@ modId="{dependency}"
         self.assertIn(b'name="metadata"', request.data)
         self.assertIn(b'name="file"', request.data)
         self.assertIn("修复图标".encode(), request.data)
+        self.assertIn(b'"gameVersions": [11779, 10150]', request.data)
+        self.assertNotIn(b'"gameVersionNames"', request.data)
+        self.assertNotIn(b'Content-Type: application/json', request.data)
         self.assertIn(Path(entry["file"]).read_bytes(), request.data)
         self.assertIsNone(publisher.NoRedirect().redirect_request(request, None, 302, "redirect", {}, "https://example.com"))
 
@@ -209,6 +214,45 @@ modId="{dependency}"
             with self.assertRaisesRegex(publisher.PublishError, "Java 17"):
                 publisher.build_projects(self.config, self.root, ["example"], ["neoforge", "forge"], {"21": homes["21"]}, False)
             run.assert_not_called()
+
+    def test_version_resolution_excludes_bukkit_and_general_same_name(self):
+        versions = [
+            {"id": 12735, "name": "1.21.1", "gameVersionTypeID": 1},
+            {"id": 16115, "name": "1.21.1", "gameVersionTypeID": 615},
+            {"id": 11779, "name": "1.21.1", "gameVersionTypeID": 77784},
+            {"id": 10150, "name": "NeoForge", "gameVersionTypeID": 68441},
+        ]
+        types = [{"id": 77784, "name": "Minecraft 1.21"}, {"id": 68441, "name": "Modloader"}]
+        self.assertEqual([11779, 10150], publisher.version_ids(["1.21.1", "NeoForge"], versions, types))
+        with self.assertRaisesRegex(publisher.PublishError, "uniquely"):
+            publisher.version_ids(["1.21.1"], versions, [])
+        with self.assertRaisesRegex(publisher.PublishError, "uniquely"):
+            publisher.version_ids(["1.21.1"], versions + [versions[2]], types)
+
+    def test_response_details_recorded_without_plain_or_json_escaped_token(self):
+        plan = self.plan()
+        secret = "test-secret"
+        def sender(entry, token):
+            body = b'{"errorCode":42,"errorMessage":"Invalid versions; \\u0074est-secret","requestHeaders":"hidden"}'
+            raise urllib.error.HTTPError("endpoint", 400, "Bad Request", {}, io.BytesIO(body))
+        with self.assertRaisesRegex(publisher.PublishError, "Invalid versions") as raised:
+            self.quiet_upload(plan, sender, secret)
+        self.assertNotIn(secret, str(raised.exception))
+        ledger = publisher.load_json(self.root / "ledger.json")
+        record = next(iter(ledger.values()))
+        self.assertEqual(400, record["http_status"])
+        self.assertIn("[REDACTED]", record["error"])
+        self.assertNotIn(secret, record["error"])
+        self.assertNotIn("requestHeaders", record["error"])
+
+    def test_read_only_catalog_failure_does_not_start_an_upload(self):
+        plan = self.plan()
+        with patch.object(publisher, "fetch_api", side_effect=publisher.PublishError("catalog failed")):
+            with patch.object(publisher, "upload_file") as sender:
+                with self.assertRaisesRegex(publisher.PublishError, "catalog failed"):
+                    publisher.upload_plan(plan, self.root / "ledger.json", "token")
+                sender.assert_not_called()
+        self.assertFalse((self.root / "ledger.json").exists())
 
 
 if __name__ == "__main__":

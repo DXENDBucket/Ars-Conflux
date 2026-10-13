@@ -45,6 +45,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-curseforge-token
 
 # 上传刚刚展示/审核过的计划，不再构建或替换文件。
 .\tools\publish-curseforge.ps1 -Plan .\build\curseforge\某批次\plan.json -Upload
+
+# 只读验证 Token 和准确版本标签，完全不上传。
+.\tools\publish-curseforge.ps1 -Plan .\build\curseforge\某批次\plan.json -CheckApi
 ```
 
 默认构建不会启动客户端、GameTest 或重复玩法验证，只打包发行与源码包；**上传的是二进制发行 JAR**，源码包暂不自动上传。Forge 显式执行 `jarJar` 和 `reobfJarJar`，不选择 dev JAR。Cataclysm 配置带 `verifyDistributions`，保留素材打包检查。
@@ -55,7 +58,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-curseforge-token
 
 工具根据 JAR 的真实 modid、版本、加载器、MC 版本与依赖声明生成上传信息。未配置的必需依赖会阻止上传；已配置的可选依赖标记为 optional。关系只描述直接依赖，传递依赖由原项目处理。
 
-全部项目先通过检查，再把产物复制到 `build/curseforge/<批次>/`，保存 SHA-256 与完整 `plan.json`。准备失败不上传任何文件；上传前再次检查整批快照哈希。计划使用 API 的 `gameVersionNames`，无需维护容易变化的游戏版本数字 ID。Core 在附属之前上传；API 返回文件 ID 不等于 Core 已审核公开，必要时可分别发布。
+全部项目先通过检查，再把产物复制到 `build/curseforge/<批次>/`，保存 SHA-256 与完整 `plan.json`。准备失败不上传任何文件；上传前再次检查整批快照哈希。计划保留易读的版本名，发送时读取 API 的版本与类型目录，将 MC 名称限制到对应 `Minecraft 1.20` / `Minecraft 1.21` 类型、加载器限制到 `Modloader`，提交唯一数字 `gameVersions`。同名 Bukkit / 通用条目不会混入，目录解析失败不开始上传；旧计划同样自动转换，无需重新构建。
+
+元数据作为普通 multipart 表单字段发送。HTTP 拒绝的具体错误经 Token 脱敏后显示并记录在 `uploads.json` 的 `http_status` / `error`。Core 在附属之前上传；API 返回文件 ID 不等于 Core 已审核公开，必要时可分别发布。
 
 `build/curseforge/uploads.json` 记录项目 ID＋文件哈希＋返回的文件 ID。重新执行同一计划会跳过成功文件；不会自动重试 POST。请求超时、服务端异常或中断后，结果可能不确定，需要先去网站确认，避免重复上传。
 
@@ -72,6 +77,6 @@ python .\tools\curseforge_publish.py --resolve-unknown "项目ID:SHA256" 0
 
 ## 本次验证
 
-11 项临时 JAR / 模拟传输测试通过，检查双版本元数据、Markdown、整批失败、快照变更、重复跳过、部分成功续传、超时处理、Token 不进入输出、multipart 请求、锁及双 JDK 构建参数。另对本地真实 Core / Iron 发行包生成四文件计划，并解析 PowerShell 入口。
+14 项临时 JAR / 模拟传输测试通过，检查双版本元数据、Markdown、整批失败、快照变更、重复跳过、部分成功续传、超时处理、Token 不进入输出、multipart 请求、锁、双 JDK 构建参数、同名版本隔离和错误响应脱敏。另对本地真实 Core / Iron 发行包生成四文件计划，并解析 PowerShell 入口。
 
-未实际上传，未调用带 Token 的线上接口；需要本机配置 Token 后才能验证真实账户授权和 CurseForge 接收结果。
+2026-10-13 HTTP 400 排查中已使用本机 Token 通过两个只读线上目录接口，并核对双版本/加载器 ID；没有提交新的上传请求。先前错误响应未保存，不能断言拒绝来自哪一字段；新的请求格式和错误诊断已补齐，实际上传接收结果仍需下一次明确上传确认。
