@@ -6,6 +6,9 @@ import net.minecraftforge.event.TickEvent;
 @Mod.EventBusSubscriber(modid="ars_conflux", value=Dist.CLIENT)
 public final class GlyphStatePreviewEvents {
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) GlyphStatePreview.openIfReady();
+        if (event.phase == TickEvent.Phase.END) {
+            GlyphStatePreview.openIfReady();
+            LegacyGlyphPagesPreview.openIfReady();
+        }
     }
 }

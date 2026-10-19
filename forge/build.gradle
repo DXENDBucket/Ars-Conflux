@@ -33,14 +33,19 @@ minecraft {
             mods { ars_conflux { source sourceSets.main; source sourceSets.gameTest } }
         }
         client {
-            workingDirectory project.file(providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() ? 'run/glyph-state-preview' : 'run/client')
+            def pagePreview = providers.gradleProperty('glyphPagePreview').getOrElse('false').toBoolean()
+            workingDirectory project.file(pagePreview ? 'run/glyph-page-preview' : providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() ? 'run/glyph-state-preview' : 'run/client')
+            if (pagePreview) {
+                property 'arsconflux.glyph_page_preview', 'true'
+                args '--width', '1100', '--height', '800'
+            }
             if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
                 property 'arsconflux.glyph_state_preview', 'true'
                 args '--width', '1100', '--height', '800'
             }
             mods { ars_conflux {
                 source sourceSets.main
-                if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) source sourceSets.gameTest
+                if (pagePreview || providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) source sourceSets.gameTest
             } }
         }
         server { workingDirectory project.file('run/server'); args '--nogui'; mods { ars_conflux { source sourceSets.main } } }
@@ -49,7 +54,7 @@ minecraft {
 mixin { add sourceSets.main, 'ars_conflux.refmap.json'; config 'ars_conflux.mixins.json' }
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
-    if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
+    if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() || providers.gradleProperty('glyphPagePreview').getOrElse('false').toBoolean()) {
         for (name in ['irons-spells-n-spellbooks','irons-lib','playeranimator']) {
             runtimeOnly fg.deobf("local:${name}:forge1201")
         }
