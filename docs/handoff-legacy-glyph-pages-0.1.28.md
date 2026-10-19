@@ -45,6 +45,17 @@
 | `build/libs/ars-conflux-0.1.28-mc1.21.1-neoforge.jar` | `dfc6299b7c7e0509cc77367aeac826067c8195c6b54425739f1841b0a1079770` |
 | `forge/build/libs/ars-conflux-0.1.28-mc1.20.1-forge.jar` | `6c682abf3f832b0b3c400b40efc983328f653a9dd731e077795bb422258481f8` |
 
-仅本地版本控制与构建。本轮未发布 CurseForge、未推送远程，也未改写共享游戏实例。未重新运行 Neo 客户端；其发行包版本同步，但分页运行时代码不变。
+实现批次完成本地版本控制与构建，提交 `090d994`。未推送远程，也未改写共享游戏实例。未重新运行 Neo 客户端；其发行包版本同步，但分页运行时代码不变。
+
+## CurseForge 上传
+
+2026-10-19，用户明确要求上传后，直接使用上述已验证的发行 JAR，未重新构建或重复测试。发布更新说明为 `release-notes/conflux/0.1.28.md`，明确 Forge 修复范围及 Neo 同步版本。
+
+- 项目 ID：`1737308`。
+- NeoForge 1.21.1 文件 ID：`9252968`。
+- Forge 1.20.1 文件 ID：`9252969`。
+- 计划：`build/curseforge/20261019-142819-df2c6c85/plan.json`。
+- 上传进程退出码 0，台账两项均为 `uploaded`，哈希与上表一致。
+- `releaseType=release`、`isMarkedForManualRelease=false`，审核通过后自动发布。API 接收成功不代表已审核公开。
 
 后续若用户仍能复现，优先索取具体 Ars／NEG／附属版本和书页截图，检查是否有额外 UI 模组接管网格；不要重新给每个法术附属补一套分页。
