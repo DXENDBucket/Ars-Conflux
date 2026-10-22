@@ -95,3 +95,13 @@ Iron 0.17.22 首次上传时，CF 返回 HTTP 400 / 1002，明确要求 `relatio
 
 
 2026-10-18?Goety & Nouveau 0.1.0-dev.56 ?????????????NeoForge 1.21.1 ?? ID `9238232`?Forge 1.20.1 ?? ID `9238233`??? ID `1739392`???????? 0??????? uploaded???????????????????????? `build/curseforge/20261018-180512-493a6379/plan.json`?`releaseType=release`???????????API ?????????????????????? `release-notes/goety/0.1.0-dev.56.md`?
+
+
+## Goety dev.57 upload receipt
+
+2026-10-23: Goety & Nouveau 0.1.0-dev.57 was accepted by the Upload API for both platforms, project ID `1739392`:
+
+- Minecraft 1.21.1 / NeoForge: file ID `9291233`, SHA-256 `8e0605c41de714f0ed8f94d33697eb08bba8451bb149e60c7de115709b71b37c`.
+- Minecraft 1.20.1 / Forge: file ID `9291234`, SHA-256 `8a7641cc99dbbee0e27bbd79e879fc5ec69ae04c3cc0c8adfcb55c89e4eecae6`.
+
+Plan: `build/curseforge/20261023-034102-1d01058d/plan.json`. Both ledger entries are `uploaded`; the process exited successfully. Release type is `release`, with automatic publication after approval (`isMarkedForManualRelease=false`). The API receipt does not confirm that moderation is complete. Existing verified binaries were reused without rebuilding. Public notes are in `release-notes/goety/0.1.0-dev.57.md`.
