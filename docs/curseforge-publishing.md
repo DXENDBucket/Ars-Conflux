@@ -105,3 +105,13 @@ Iron 0.17.22 首次上传时，CF 返回 HTTP 400 / 1002，明确要求 `relatio
 - Minecraft 1.20.1 / Forge: file ID `9291234`, SHA-256 `8a7641cc99dbbee0e27bbd79e879fc5ec69ae04c3cc0c8adfcb55c89e4eecae6`.
 
 Plan: `build/curseforge/20261023-034102-1d01058d/plan.json`. Both ledger entries are `uploaded`; the process exited successfully. Release type is `release`, with automatic publication after approval (`isMarkedForManualRelease=false`). The API receipt does not confirm that moderation is complete. Existing verified binaries were reused without rebuilding. Public notes are in `release-notes/goety/0.1.0-dev.57.md`.
+
+
+## Iron 0.17.23 upload receipt
+
+2026-10-23: Iron & Nouveau 0.17.23 was accepted by the Upload API for both platforms, project ID `1726248`:
+
+- Minecraft 1.21.1 / NeoForge: file ID `9291470`, SHA-256 `a666d01d019ae4e4745c42b6b6d40cc671e39e2d78c1d8e2656979e09c144b79`.
+- Minecraft 1.20.1 / Forge: file ID `9291472`, SHA-256 `82639ad8b372e5076303ebe0618259a83ed2696802cafb9c4e3d6649f1d9bc19`.
+
+Plan: `build/curseforge/20261023-041031-8dbd5b0a/plan.json`. Both ledger entries are `uploaded`; the process exited successfully. Release type is `release`, with automatic publication after approval (`isMarkedForManualRelease=false`). The API receipt does not confirm moderation is complete. Previously verified binaries were reused without rebuilding. Public notes are in `release-notes/iron/0.17.23.md`.
