@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-25",
+  "status": "deployed",
+  "version": "0.1.29",
+  "source_commit": "44f00b5d086ef03a4d4c5f2647f3721a63b63bc6",
+  "instance": "C:\\Users\\57991\\Desktop\\.minecraft\\versions\\1.21.1-万法归一",
+  "backup": "C:\\Users\\57991\\Documents\\MinecraftDev\\deployment-backups\\conflux-ans-0.1.29-20261025",
+  "old_file": "ars-conflux-0.1.28-mc1.21.1-neoforge.jar",
+  "old_sha256": "dfc6299b7c7e0509cc77367aeac826067c8195c6b54425739f1841b0a1079770",
+  "new_file": "ars-conflux-0.1.29-mc1.21.1-neoforge.jar",
+  "new_sha256": "0379d4930785cbf1b32f5375f90fecc4daae89bb6bd70c05c8fe97e6d541c63f",
+  "mod_count": 177,
+  "other_mod_hashes_unchanged": true,
+  "config_changes": [],
+  "verification": {
+    "neoforge_ans_gametests": 6,
+    "forge_ans_gametests": 6,
+    "neoforge_optional_absence_billing": 1,
+    "client_launched": false
+  },
+  "forge_built_not_deployed": true,
+  "curseforge_uploaded": false
+}
