@@ -30,3 +30,8 @@
 - `forge/build/libs/ars-conflux-0.1.29-sources.jar`：`47191549ce70432d669d377b1caa77202e1aeafaaa0a159e9303355cddb5c89d`
 
 共享实例部署由主协调者执行；查看对应 deployment 记录。没有推送或上传 CurseForge。
+
+
+## 2026-10-26 CurseForge 上传
+
+用户授权后，原验证发行包已提交上传：NeoForge 文件 `9327414`、Forge 文件 `9327415`，项目 `1737308`。台账均 `uploaded`；审核后自动发布。未重新构建，哈希与上文一致。计划与回执见 `docs/curseforge-publishing.md` 的当日记录。

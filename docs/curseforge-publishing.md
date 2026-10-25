@@ -115,3 +115,19 @@ Plan: `build/curseforge/20261023-034102-1d01058d/plan.json`. Both ledger entries
 - Minecraft 1.20.1 / Forge: file ID `9291472`, SHA-256 `82639ad8b372e5076303ebe0618259a83ed2696802cafb9c4e3d6649f1d9bc19`.
 
 Plan: `build/curseforge/20261023-041031-8dbd5b0a/plan.json`. Both ledger entries are `uploaded`; the process exited successfully. Release type is `release`, with automatic publication after approval (`isMarkedForManualRelease=false`). The API receipt does not confirm moderation is complete. Previously verified binaries were reused without rebuilding. Public notes are in `release-notes/iron/0.17.23.md`.
+
+
+## 2026-10-26: Conflux 0.1.29 / Iron 0.17.25
+
+用户授权上传有更新的项目，复用既有定向验证通过的四份发行包，没有重新构建或重复运行测试。计划 `build/curseforge/20261026-060747-efa90a59/plan.json`，公开发行说明分别为 `release-notes/conflux/0.1.29.md`、`release-notes/iron/0.17.25.md`。
+
+| 文件 | CF file ID | SHA-256 |
+| --- | --- | --- |
+| `ars-conflux-0.1.29-mc1.21.1-neoforge.jar` | `9327414` | `0379d4930785cbf1b32f5375f90fecc4daae89bb6bd70c05c8fe97e6d541c63f` |
+| `ars-conflux-0.1.29-mc1.20.1-forge.jar` | `9327415` | `c38444ccd99daaadc506ca401e77e0cd46875be9b4574e6fffdbd238e330b635` |
+| `irons-nouveau-0.17.25-mc1.21.1-neoforge.jar` | `9327416` | `35271935f03f660d40243a542f3eedd0f333ffe87e6f2a809948dafb7f5f533b` |
+| `irons-nouveau-0.17.25-mc1.20.1-forge.jar` | `9327417` | `4b87eb39cb7ebd04eb6d44ae126d272130d5e75fd20a1e4795654b79d167d89e` |
+
+四项台账均为 `uploaded`，上传进程退出码 0。`releaseType=release`，`isMarkedForManualRelease=false`，MC / 加载器 / Client + Server 标签由线上目录解析后提交；API 接收成功不代表审核已完成。Core 仍只要求 Ars，ANS 与 Iron 没有成为 Core 硬前置；Iron 依赖关系维持 Ars、Iron、Conflux 必需和 NEG 可选。
+
+本次没有推送 Git，也没有更改测试实例。
