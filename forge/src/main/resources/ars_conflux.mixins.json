@@ -38,7 +38,10 @@
     "ScopedSpellDamageMixin",
     "OptionalHexActiveCastMixin",
     "OptionalHexActiveSpawnMixin",
-    "ImpactEntityDamageMixin"
+    "ImpactEntityDamageMixin",
+    "OptionalAnsCarrierMixin",
+    "OptionalAnsNativeCastMixin",
+    "OptionalAnsProxyReleaseMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -52,5 +55,6 @@
     "client.GlyphCompositeStateAccess",
     "client.GlyphTextureStateAccess",
     "GlyphCandidatePreviewMixin"
-  ]
+  ],
+  "plugin": "dev.arsconflux.internal.ans.AnsMixinPlugin"
 }

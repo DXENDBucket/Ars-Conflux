@@ -31,7 +31,7 @@ neoForge {
         gameTestServer {
             type = 'gameTestServer'
             systemProperty 'arsconflux.test.allies_expected', providers.gradleProperty('alliesExpected').getOrElse('false')
-            gameDirectory = file('run/gametest')
+            gameDirectory = file(providers.gradleProperty('gameTestRunDir').getOrElse('run/gametest'))
             if (providers.gradleProperty('simulateElementalProduction').getOrElse('false').toBoolean()) {
                 programArguments.addAll('--mixin.config', 'ars_conflux_registration_tests.mixins.json')
                 systemProperty 'arsconflux.test.phalanx_expected', providers.gradleProperty('phalanxExpected').getOrElse('true')
@@ -42,6 +42,9 @@ neoForge {
     mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }
 }
 dependencies {
+    if (providers.gradleProperty('withArsNSpells').getOrElse('false').toBoolean()) {
+        runtimeOnly fileTree(dir: 'libs/ars-n-spells', include: '*.jar')
+    }
     compileOnly fileTree(dir: 'libs', include: '*.jar')
     if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/glyph-state-preview', include: '*.jar')

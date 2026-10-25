@@ -18,14 +18,14 @@ configurations {
     gameTestCompileOnly.extendsFrom compileOnly
     gameTestRuntimeOnly.extendsFrom runtimeOnly
 }
-repositories { flatDir { dirs 'libs', 'libs/hex-link', 'libs/neg', 'libs/elemental', 'libs/controle-additions' }; mavenCentral { content { excludeGroup 'local' } } }
+repositories { flatDir { dirs 'libs', 'libs/hex-link', 'libs/neg', 'libs/elemental', 'libs/controle-additions', 'libs/ars-n-spells' }; mavenCentral { content { excludeGroup 'local' } } }
 jarJar.enable()
 minecraft {
     mappings channel: 'official', version: '1.20.1'
     copyIdeResources = true
     runs {
         gameTestServer {
-            workingDirectory project.file('run/gametest')
+            workingDirectory project.file(providers.gradleProperty('gameTestRunDir').getOrElse('run/gametest'))
             property 'arsconflux.test.allies_expected', providers.gradleProperty('alliesExpected').getOrElse('false')
             property 'forge.enabledGameTestNamespaces', providers.gradleProperty('gameTestNamespaces').getOrElse('ars_conflux_billing')
             property 'mixin.env.remapRefMap', 'true'
@@ -54,6 +54,11 @@ minecraft {
 mixin { add sourceSets.main, 'ars_conflux.refmap.json'; config 'ars_conflux.mixins.json' }
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    if (providers.gradleProperty('withArsNSpells').getOrElse('false').toBoolean()) {
+        for (name in ['ars-n-spells', 'irons-spells-n-spellbooks', 'irons-lib', 'playeranimator']) {
+            runtimeOnly fg.deobf("local:${name}:ans1201")
+        }
+    }
     if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() || providers.gradleProperty('glyphPagePreview').getOrElse('false').toBoolean()) {
         for (name in ['irons-spells-n-spellbooks','irons-lib','playeranimator']) {
             runtimeOnly fg.deobf("local:${name}:forge1201")

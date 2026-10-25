@@ -1,3 +1,9 @@
+# 0.1.29
+
+- Integrate Ars 'n Spells 3.4.0 exported Ars scrolls and inscribed items with the shared preparation and cooldown boundary on both loaders.
+- Prepare native Iron wheel proxy casts before native initiation, then acknowledge the real release inside ANS's existing payment lifecycle. Cancelled or unpaid casts start no provider cooldown.
+- Retain ANS targeting, school selection, pricing, native proxy cooldown and carrier creation. Native Iron spells and installations without a supported ANS entrypoint remain unchanged.
+
 # 0.1.28
 
 - 修复 Forge 1.20.1 普通／无限法术书按固定数量切页造成的遗漏与跨分类重叠，按实际网格和分类标题空间分页。
