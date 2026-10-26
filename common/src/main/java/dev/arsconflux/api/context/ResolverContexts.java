@@ -16,6 +16,7 @@ public final class ResolverContexts {
     }
     /** Copy source extensions without replacing a custom resolver's execution behavior. */
     public static <T extends SpellResolver> T inherit(SpellResolver source, T result) {
+        dev.arsconflux.api.casting.ActiveCastPolicy.inherit(source.spellContext, result.spellContext);
         for (var extension : extensions(source))
             result.spellContext.attachments.putIfAbsent(extension.id(), extension);
         return result;

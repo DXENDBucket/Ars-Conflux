@@ -26,10 +26,12 @@ public final class CarrierProfile {
     public boolean propagator() { return emitted != null; }
     public ResourceLocation emitted() { return emitted; }
     public AbstractSpellPart glyph() { return GlyphRegistry.getSpellPart(glyphId); }
-    public Set<AbstractAugment> augments() { return Set.copyOf(augments.get()); }
+    public Set<AbstractAugment> augments() { return dev.arsconflux.api.glyph.AugmentEquivalence.expand(augments.get()); }
     /** Capture once, before any participating addon adds its payload augments. */
     public void rememberOriginalAugments(AbstractSpellPart glyph) {
         if (originalAugments == null) originalAugments = Set.copyOf(glyph.compatibleAugments);
     }
-    public boolean originallySupported(AbstractAugment augment) { return originalAugments != null && originalAugments.contains(augment); }
+    public boolean originallySupported(AbstractAugment augment) {
+        return originalAugments != null && dev.arsconflux.api.glyph.AugmentEquivalence.supports(originalAugments, augment);
+    }
 }

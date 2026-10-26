@@ -41,7 +41,8 @@
     "ImpactEntityDamageMixin",
     "OptionalAnsCarrierMixin",
     "OptionalAnsNativeCastMixin",
-    "OptionalAnsProxyReleaseMixin"
+    "OptionalAnsProxyReleaseMixin",
+    "OptionalAdamsResolverMixin"
   ],
   "injectors": {
     "defaultRequire": 1

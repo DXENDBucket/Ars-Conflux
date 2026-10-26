@@ -30,6 +30,7 @@ neoForge {
         }
         gameTestServer {
             type = 'gameTestServer'
+            jvmArgument '-Xmx'+providers.gradleProperty('gameTestHeap').getOrElse('1400m')
             systemProperty 'arsconflux.test.allies_expected', providers.gradleProperty('alliesExpected').getOrElse('false')
             gameDirectory = file(providers.gradleProperty('gameTestRunDir').getOrElse('run/gametest'))
             if (providers.gradleProperty('simulateElementalProduction').getOrElse('false').toBoolean()) {
@@ -42,6 +43,12 @@ neoForge {
     mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }
 }
 dependencies {
+    if (providers.gradleProperty('withAdamsProviders').getOrElse('false').toBoolean()) {
+        runtimeOnly fileTree(dir: 'libs/adams-ars-plus-providers', include: '*.jar')
+    }
+    if (providers.gradleProperty('withAdamsArsPlus').getOrElse('false').toBoolean()) {
+        runtimeOnly fileTree(dir: 'libs/adams-ars-plus', include: '*.jar')
+    }
     if (providers.gradleProperty('withArsNSpells').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/ars-n-spells', include: '*.jar')
     }

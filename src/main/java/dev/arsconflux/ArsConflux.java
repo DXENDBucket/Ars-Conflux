@@ -26,6 +26,10 @@ public final class ArsConflux {
                 dev.arsconflux.config.ConfluxClientConfig.SPEC,"ars_conflux-client.toml");
         dev.arsconflux.glyph.OptionalGlyphs.register();
         BuiltinCarriers.register();
+        bus.addListener((net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent event) -> event.enqueueWork(() -> {
+            dev.arsconflux.internal.adams.AdamsArsPlusCompat.register();
+            dev.arsconflux.api.glyph.AugmentEquivalence.refreshCompatibility();
+        }));
         var conditions = net.neoforged.neoforge.registries.DeferredRegister.create(
                 net.neoforged.neoforge.registries.NeoForgeRegistries.CONDITION_SERIALIZERS, MOD_ID);
         conditions.register("elemental_phalanx_enabled", () -> dev.arsconflux.internal.elemental.PhalanxRecipeCondition.CODEC);

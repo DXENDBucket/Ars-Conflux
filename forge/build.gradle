@@ -25,6 +25,7 @@ minecraft {
     copyIdeResources = true
     runs {
         gameTestServer {
+            jvmArgs '-Xmx'+providers.gradleProperty('gameTestHeap').getOrElse('1400m')
             workingDirectory project.file(providers.gradleProperty('gameTestRunDir').getOrElse('run/gametest'))
             property 'arsconflux.test.allies_expected', providers.gradleProperty('alliesExpected').getOrElse('false')
             property 'forge.enabledGameTestNamespaces', providers.gradleProperty('gameTestNamespaces').getOrElse('ars_conflux_billing')
@@ -53,6 +54,9 @@ minecraft {
 }
 mixin { add sourceSets.main, 'ars_conflux.refmap.json'; config 'ars_conflux.mixins.json' }
 dependencies {
+    if (providers.gradleProperty('withAdamsArsPlus').getOrElse('false').toBoolean()) {
+        runtimeOnly fg.deobf('local:adams-ars-plus:adams1201')
+    }
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
     if (providers.gradleProperty('withArsNSpells').getOrElse('false').toBoolean()) {
         for (name in ['ars-n-spells', 'irons-spells-n-spellbooks', 'irons-lib', 'playeranimator']) {

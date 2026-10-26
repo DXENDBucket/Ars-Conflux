@@ -27,6 +27,10 @@ public final class ArsConflux {
         dev.arsconflux.glyph.OptionalGlyphs.register();
         net.minecraftforge.common.crafting.CraftingHelper.register(new dev.arsconflux.internal.content.NearbyAlliesCondition.Serializer());
         BuiltinCarriers.register();
+        FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent event) -> event.enqueueWork(() -> {
+            dev.arsconflux.internal.adams.AdamsArsPlusCompat.register();
+            dev.arsconflux.api.glyph.AugmentEquivalence.refreshCompatibility();
+        }));
         FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             for (var profile : CarrierRegistry.profiles()) if (profile.glyph() != null)
                 profile.rememberOriginalAugments(profile.glyph());
