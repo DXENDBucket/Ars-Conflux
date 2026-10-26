@@ -2,18 +2,20 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.29**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.30**。
 
 本地更新工具：双击 `Publish-CurseForge.cmd` 可构建并上传 Core 与附属的双版本发行包，设置方法见 [CurseForge 发布说明](docs/curseforge-publishing.md)。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.29-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.29-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.30-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.30-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 
 ## 魔符图标
+
+0.1.30 将二维外框与贴图图标改用不受物品方向光影响的 GUI 绘制，修正部分三维来源魔符外框偏暗。原生三维物品保留原有光照、变换和透明度。两平台均适用。
 
 0.1.26 将「周围友军」接入相同外框，并修正候选魔符预览：前方载体上的新错误也会让导致该错误的候选魔符变暗。原施法校验、错误文本和增强说明来源保留。
 
@@ -42,7 +44,7 @@ enable_elemental_phalanx = true
 
 ## Ars ’n Spells 载体联动
 
-0.1.29 为 ANS 3.4.0 的导出卷轴、铭刻物品和原生 Iron 法术轮接入统一吟唱与冷却边界；保留 ANS 制作、选点、资源倍率及原生代理槽冷却。没有 ANS 时不启用这些挂钩。详见 [适配范围与验证](docs/ars-n-spells.md)。
+0.1.30 为 ANS 3.4.0 的导出卷轴、铭刻物品和原生 Iron 法术轮接入统一吟唱与冷却边界；保留 ANS 制作、选点、资源倍率及原生代理槽冷却。没有 ANS 时不启用这些挂钩。详见 [适配范围与验证](docs/ars-n-spells.md)。
 
 ## 当前内容
 

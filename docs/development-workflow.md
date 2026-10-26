@@ -105,7 +105,7 @@ $env:JAVA_HOME = '你的 JDK 17 路径'
 ./gradlew.bat :jarJar :reobfJarJar :sourcesJar --offline --console=plain
 ```
 
-发布用 Forge 重混淆后的最终产物；不要部署 dev JAR 或未重混淆 JAR。两端共享 `VERSION`，实际移植范围记录清楚。Cataclysm 附属目前仅有 NeoForge；不要宣称已有 Forge 版本。
+发布用 Forge 重混淆后的最终产物；不要部署 dev JAR 或未重混淆 JAR。两端共享 `VERSION`，实际移植范围记录清楚。Cataclysm 附属从 0.1.1 起也提供 Forge 1.20.1；平台差异和验证边界见其 `forge/README.md`。
 
 ### 可选联动
 
