@@ -160,3 +160,22 @@ The user authorized publishing Conflux 0.1.31, Iron & Nouveau 0.17.28 and Goety 
 All six API receipts are `uploaded`. Plan: `build/curseforge/20261027-042508-8bf1f43e/plan.json`; receipts/log: `build/curseforge/release-20261027-adams/`. Release type is `release`, with `isMarkedForManualRelease=false`. Acceptance by the API does not establish moderation/public availability. Core was uploaded before the dependent providers. AAP remains optional; the providers' runtime requirement is Conflux 0.1.31 or newer in the 0.1.x series.
 
 The publication step did not change game-instance files and did not push Git. The prior NeoForge test-instance deployment remains recorded under the local `releases/adams-compat-20261027/` handoff directory.
+
+
+## 2026-10-27: native augment extensions release
+
+The user authorized uploading this completed batch. All ten verified binary artifacts matched the prior handoff hashes; no rebuilds or game tests were repeated. The Upload API accepted these Release files:
+
+| Project | NeoForge 1.21.1 file ID | Forge 1.20.1 file ID |
+| --- | ---: | ---: |
+| Ars Conflux 0.1.32 | 9337659 | 9337660 |
+| Mowzie & Nouveau 0.1.1 | 9337662 | 9337663 |
+| Aquamirae & Nouveau 0.1.1 | 9337665 | 9337667 |
+| BOMD & Nouveau 0.1.1 | 9337669 | 9337672 |
+| Cataclysm & Nouveau 0.1.2 | 9337673 | 9337675 |
+
+BOMD corresponding-source attachments were also accepted: NeoForge `9337681` (parent `9337669`) and Forge `9337683` (parent `9337672`). Each contains the platform source plus the complete tracked project, build scripts, wrappers, license notices and build instructions from BOMD commit `3618cedbd8fc29681e9cffa3589686a960ed01f2`, built against Conflux `932b4d4c27dcfe65e082637c823391834da83519`.
+
+Binary plan: `build/curseforge/20261027-051442-3ca0ba63/plan.json`. Source plan and twelve successful receipts: `build/curseforge/release-20261027-augment-extensions/`. The local `releases/augment-extensions-20261027/manifest.json` records hashes and file IDs.
+
+All receipts are `uploaded`, with automatic publication after approval (`isMarkedForManualRelease=false`). API acceptance does not establish completed moderation or public availability. This upload step did not change instance files or push Git.
