@@ -14,7 +14,7 @@
     "irons_spellbooks": "irons-spells-n-spellbooks",
     "goety": "goety",
     "bosses_of_mass_destruction": {"slug": "bosses-of-mass-destruction-forge", "project_id": 941573},
-    "cataclysm": "l_ender-s-cataclysm",
+    "cataclysm": {"slug": "lendercataclysm", "project_id": 551586},
     "not_enough_glyphs": "not-enough-glyphs",
     "ars_elemental": "ars-elemental",
     "hex_ars_link": "hex-ars-linker"
@@ -38,8 +38,9 @@
     },
     "cataclysm": {
       "directory": "Cataclysm-Nouveau", "name": "Cataclysm & Nouveau", "modid": "cataclysm_nouveau",
-      "artifact": "cataclysm-nouveau", "project_id": null, "platforms": ["neoforge"],
-      "extra_tasks": {"neoforge": [":verifyDistributions"]}
+      "artifact": "cataclysm-nouveau", "project_id": 1767646, "platforms": ["neoforge", "forge"],
+      "build_tasks": {"forge": [":jar", ":reobfJar", ":sourcesJar"]},
+      "extra_tasks": {"neoforge": [":verifyDistributions"], "forge": [":verifyDistributions"]}
     }
   }
 }

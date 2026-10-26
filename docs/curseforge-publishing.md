@@ -14,7 +14,7 @@ Python 3.11+、PowerShell 与本地构建环境即可，不需要额外 Python �
 | iron | [Iron & Nouveau](https://www.curseforge.com/minecraft/mc-mods/irons-nouveau) | 1726248 | 双版本 |
 | goety | [Goety & Nouveau](https://www.curseforge.com/minecraft/mc-mods/goety-nouveau) | 1739392 | 双版本 |
 | bomd | [BOMD & Nouveau](https://www.curseforge.com/minecraft/mc-mods/bomd-nouveau) | 1739402 | 双版本 |
-| cataclysm | Cataclysm & Nouveau | 尚需填写 | 仅 NeoForge |
+| cataclysm | Cataclysm & Nouveau | 1767646 | 双版本 |
 
 从 [CurseForge 作者后台](https://authors.curseforge.com/) 的 API Tokens 页面生成 **上传 Token**，双击 `Set-CurseForge-Token.cmd`，或在本机执行：
 
@@ -50,7 +50,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-curseforge-token
 .\tools\publish-curseforge.ps1 -Plan .\build\curseforge\某批次\plan.json -CheckApi
 ```
 
-默认构建不会启动客户端、GameTest 或重复玩法验证，只打包发行与源码包；**上传的是二进制发行 JAR**，源码包暂不自动上传。Forge 显式执行 `jarJar` 和 `reobfJarJar`，不选择 dev JAR。Cataclysm 配置带 `verifyDistributions`，保留素材打包检查。
+默认构建不会启动客户端、GameTest 或重复玩法验证，只打包发行与源码包；**上传的是二进制发行 JAR**，源码包暂不自动上传。Forge 默认显式执行 `jarJar` 和 `reobfJarJar`，不选择 dev JAR。项目可用 `build_tasks` 按平台覆盖任务；灾变 Forge 使用 `jar`／`reobfJar`，并保留 `verifyDistributions`。Cataclysm 配置带 `verifyDistributions`，保留素材打包检查。
 
 可用 `-NeoJavaHome` / `-ForgeJavaHome` 覆盖 JDK；`-Offline` 使用缓存依赖；`-ManualRelease` 让审核通过后等待手动发布。需要保持平时构建隔离和串行约定，别同时启动多份发布构建。
 
@@ -131,3 +131,17 @@ Plan: `build/curseforge/20261023-041031-8dbd5b0a/plan.json`. Both ledger entries
 四项台账均为 `uploaded`，上传进程退出码 0。`releaseType=release`，`isMarkedForManualRelease=false`，MC / 加载器 / Client + Server 标签由线上目录解析后提交；API 接收成功不代表审核已完成。Core 仍只要求 Ars，ANS 与 Iron 没有成为 Core 硬前置；Iron 依赖关系维持 Ars、Iron、Conflux 必需和 NEG 可选。
 
 本次没有推送 Git，也没有更改测试实例。
+
+
+## 2026-10-27：Conflux 0.1.30 / Cataclysm 0.1.1
+
+用户授权上传双平台版本并替换测试整合包。复用上一轮已验证的发行包，没有重新构建或运行游戏测试。计划 `build/curseforge/20261027-032631-6fc83723/plan.json`；四项台账均为 `uploaded`，API 返回：
+
+| 项目 | NeoForge 1.21.1 | Forge 1.20.1 |
+| --- | ---: | ---: |
+| Ars Conflux 0.1.30 | 9336474 | 9336476 |
+| Cataclysm & Nouveau 0.1.1 | 9336478 | 9336479 |
+
+均为 Release，审核通过后自动发布；API 接收不等于审核已完成。公开更新说明位于 `release-notes/conflux/0.1.30.md` 与 `release-notes/cataclysm/0.1.1.md`。补全灾变 Forge 发布配置，支持项目级 `build_tasks`，避免对未使用 Jar-in-Jar 的项目强行调用 `jarJar`。发布工具 19 项模拟测试通过。
+
+已更新 `1.21.1-万法归一` 与 `1.20.1-模组测试` 中的 Core／灾变附属，后者额外安装灾变 3.31 与 Lionfish API 3.0。旧 JAR 移至各实例 `codex-backups/cataclysm-conflux-20261027-0330/mods/`，核对新文件哈希及 modid 唯一性；Forge 与 Iron 的真实 JarJar 选择器检查通过。部署记录为 `build/curseforge/release-20261027-conflux-cataclysm/deployment.json`。没有修改万途归零实例，也没有推送 Git。

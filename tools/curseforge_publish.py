@@ -151,7 +151,7 @@ def build_projects(config, root, names, platforms, java_homes, offline):
             wrapper = directory / "gradlew.bat"
             if not wrapper.is_file():
                 raise PublishError(f"Missing build wrapper: {wrapper}")
-            tasks = list(target["tasks"]) + project.get("extra_tasks", {}).get(platform, [])
+            tasks = list(project.get("build_tasks", {}).get(platform, target["tasks"])) + project.get("extra_tasks", {}).get(platform, [])
             args = [str(wrapper), *tasks, "--console=plain"]
             if offline:
                 args.append("--offline")

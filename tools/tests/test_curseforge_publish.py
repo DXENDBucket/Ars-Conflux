@@ -218,6 +218,22 @@ modId="{dependency}"
                 publisher.build_projects(self.config, self.root, ["example"], ["neoforge", "forge"], {"21": homes["21"]}, False)
             run.assert_not_called()
 
+    def test_project_build_task_override_preserves_extra_checks(self):
+        home = self.root / "jdk17"
+        (home / "bin").mkdir(parents=True)
+        (home / "bin/java.exe").touch()
+        (self.repo / "forge/gradlew.bat").touch()
+        project = self.config["projects"]["example"]
+        project["build_tasks"] = {"forge": [":jar", ":reobfJar", ":sourcesJar"]}
+        project["extra_tasks"] = {"forge": [":verifyDistributions"]}
+        with patch.object(publisher.subprocess, "run", return_value=argparse.Namespace(returncode=0)) as run:
+            with contextlib.redirect_stdout(io.StringIO()):
+                publisher.build_projects(self.config, self.root, ["example"], ["forge"], {"17": str(home)}, True)
+        args = run.call_args.args[0]
+        self.assertIn(":reobfJar", args)
+        self.assertIn(":verifyDistributions", args)
+        self.assertNotIn(":jarJar", args)
+
     def test_version_resolution_excludes_bukkit_and_general_same_name(self):
         versions = [
             {"id": 12735, "name": "1.21.1", "gameVersionTypeID": 1},
