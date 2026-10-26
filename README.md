@@ -1,15 +1,18 @@
 # Ars Conflux
 
+
+0.1.32 adds optional native-augment extensions for AAP / NEG, weighted Controle delays, and the opt-in `AugmentSupport.withReductions` API. The new compatibility behavior defaults on and can be disabled with `compatibility.enable_augment_extensions = false` in `ars_conflux-startup.toml` on both sides before restarting. Details: [augment extensions](docs/augment-extensions.md).
+
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.31**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.32**。
 
 本地更新工具：双击 `Publish-CurseForge.cmd` 可构建并上传 Core 与附属的双版本发行包，设置方法见 [CurseForge 发布说明](docs/curseforge-publishing.md)。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.31-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.31-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.32-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.32-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 

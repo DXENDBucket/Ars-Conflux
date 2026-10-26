@@ -28,6 +28,7 @@ public final class ArsConflux {
         BuiltinCarriers.register();
         bus.addListener((net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent event) -> event.enqueueWork(() -> {
             dev.arsconflux.internal.adams.AdamsArsPlusCompat.register();
+            dev.arsconflux.internal.augments.OptionalAugmentExtensions.register();
             dev.arsconflux.api.glyph.AugmentEquivalence.refreshCompatibility();
         }));
         var conditions = net.neoforged.neoforge.registries.DeferredRegister.create(

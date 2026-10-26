@@ -29,6 +29,7 @@ public final class ArsConflux {
         BuiltinCarriers.register();
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent event) -> event.enqueueWork(() -> {
             dev.arsconflux.internal.adams.AdamsArsPlusCompat.register();
+            dev.arsconflux.internal.augments.OptionalAugmentExtensions.register();
             dev.arsconflux.api.glyph.AugmentEquivalence.refreshCompatibility();
         }));
         FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {

@@ -5,6 +5,10 @@ import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 
 public final class ArsAccess {
     private ArsAccess() {}
+    public static void augmentDescription(AbstractSpellPart part, AbstractAugment augment, String key) {
+        // Ars 4 has no mutable augment description map; retain its standard augment descriptions.
+    }
+
     public static java.util.List<AbstractSpellPart> parts(Spell spell) { return spell.recipe; }
     public static int spentCost(SpellResolver resolver) { return resolver.getResolveCost(); }
     public static SpellResolver resolver(EntityProjectileSpell carrier) { return carrier.spellResolver; }

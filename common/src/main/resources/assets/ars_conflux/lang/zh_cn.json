@@ -5,5 +5,7 @@
   "ars_conflux.glyph_desc.glyph_nearby_allies": "对自身周围的友军分别施放后续效果，不包含自身。扩散增加范围；选中的友军不会成为施法者或付款者。",
   "ars_conflux.cast.cooldown": "%s 正在冷却（剩余 %s 秒）。",
   "ars_conflux.cast.cooldown_unknown": "%s 正在冷却。",
-  "ars_conflux.cast.denied": "当前无法施放此法术。"
+  "ars_conflux.cast.denied": "当前无法施放此法术。",
+  "ars_conflux.augment.shock_duration_up": "延长剩余的触电状态。",
+  "ars_conflux.augment.shock_duration_down": "缩短剩余的触电状态。"
 }

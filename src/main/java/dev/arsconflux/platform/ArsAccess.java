@@ -6,6 +6,10 @@ import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 /** Ars version differences remain private to the loader implementation. */
 public final class ArsAccess {
     private ArsAccess() {}
+    public static void augmentDescription(AbstractSpellPart part, AbstractAugment augment, String key) {
+        part.augmentDescriptions.put(augment, net.minecraft.network.chat.Component.translatable(key));
+    }
+
     public static java.util.List<AbstractSpellPart> parts(Spell spell) { return spell.unsafeList(); }
     public static int spentCost(SpellResolver resolver) { return resolver.getExpendedCost(); }
     public static SpellResolver resolver(EntityProjectileSpell carrier) { return carrier.resolver(); }

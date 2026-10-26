@@ -42,7 +42,10 @@
     "OptionalAnsCarrierMixin",
     "OptionalAnsNativeCastMixin",
     "OptionalAnsProxyReleaseMixin",
-    "OptionalAdamsResolverMixin"
+    "OptionalAdamsResolverMixin",
+    "OptionalFlattenAugmentsMixin",
+    "OptionalPreciseDelayAugmentsMixin",
+    "OptionalDivineSmiteAugmentsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

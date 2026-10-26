@@ -43,6 +43,9 @@ neoForge {
     mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }
 }
 dependencies {
+    if (providers.gradleProperty('withAugmentProviders').getOrElse('false').toBoolean()) {
+        runtimeOnly fileTree(dir: 'libs/augment-extension-providers', include: '*.jar')
+    }
     if (providers.gradleProperty('withAdamsProviders').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/adams-ars-plus-providers', include: '*.jar')
     }
@@ -56,7 +59,9 @@ dependencies {
     if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/glyph-state-preview', include: '*.jar')
     }
-    runtimeOnly fileTree(dir: 'libs', include: '*.jar')
+    runtimeOnly fileTree(dir: 'libs', include: '*.jar', excludes:
+            providers.gradleProperty('withAugmentProviders').getOrElse('false').toBoolean()
+                    ? ['ars.jar','curios.jar','geckolib.jar'] : [])
     // Only the independent optional-integration test runtime loads Hex and Linker.
     if (providers.gradleProperty('withHexLinker').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/hex-link', include: '*.jar')
