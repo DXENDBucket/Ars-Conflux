@@ -145,3 +145,18 @@ Plan: `build/curseforge/20261023-041031-8dbd5b0a/plan.json`. Both ledger entries
 均为 Release，审核通过后自动发布；API 接收不等于审核已完成。公开更新说明位于 `release-notes/conflux/0.1.30.md` 与 `release-notes/cataclysm/0.1.1.md`。补全灾变 Forge 发布配置，支持项目级 `build_tasks`，避免对未使用 Jar-in-Jar 的项目强行调用 `jarJar`。发布工具 19 项模拟测试通过。
 
 已更新 `1.21.1-万法归一` 与 `1.20.1-模组测试` 中的 Core／灾变附属，后者额外安装灾变 3.31 与 Lionfish API 3.0。旧 JAR 移至各实例 `codex-backups/cataclysm-conflux-20261027-0330/mods/`，核对新文件哈希及 modid 唯一性；Forge 与 Iron 的真实 JarJar 选择器检查通过。部署记录为 `build/curseforge/release-20261027-conflux-cataclysm/deployment.json`。没有修改万途归零实例，也没有推送 Git。
+
+
+## 2026-10-27: Adam's Ars Plus compatibility release
+
+The user authorized publishing Conflux 0.1.31, Iron & Nouveau 0.17.28 and Goety & Nouveau 0.1.1 for both loaders. The six existing binaries exactly matched the verified release manifest; no builds or game tests were rerun for this upload.
+
+| Project | NeoForge 1.21.1 file ID | Forge 1.20.1 file ID |
+| --- | ---: | ---: |
+| Ars Conflux 0.1.31 | 9337032 | 9337036 |
+| Iron & Nouveau 0.17.28 | 9337041 | 9337045 |
+| Goety & Nouveau 0.1.1 | 9337048 | 9337049 |
+
+All six API receipts are `uploaded`. Plan: `build/curseforge/20261027-042508-8bf1f43e/plan.json`; receipts/log: `build/curseforge/release-20261027-adams/`. Release type is `release`, with `isMarkedForManualRelease=false`. Acceptance by the API does not establish moderation/public availability. Core was uploaded before the dependent providers. AAP remains optional; the providers' runtime requirement is Conflux 0.1.31 or newer in the 0.1.x series.
+
+The publication step did not change game-instance files and did not push Git. The prior NeoForge test-instance deployment remains recorded under the local `releases/adams-compat-20261027/` handoff directory.
