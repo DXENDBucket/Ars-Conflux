@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.function.Consumer;
 
 /** One preparation and release per explicit active use. Hits and passive resolvers never queue chants. */
 public final class ActiveCasts {
@@ -21,12 +22,14 @@ public final class ActiveCasts {
     public enum Deferral { UNNEEDED, QUEUED, DENIED }
     private record Participant(ActiveCastProvider provider, ActiveCastRequest request) {}
     private record Pending(ActiveCastRequest request, ServerLevel world, InteractionHand hand, ItemStack held,
-                           ItemStack snapshot, UUID token, long start, int ticks, List<Participant> participants, Runnable release) {
+                           ItemStack snapshot, UUID token, long start, int ticks, List<Participant> participants,
+                           Runnable release, ActiveCastGuard guard) {
         boolean valid() {
             var caster = request.caster();
             return caster.isAlive() && !caster.isRemoved() && caster.level() == world
                     && (!(caster instanceof ServerPlayer player) || !player.hasDisconnected() && !player.isSpectator())
-                    && caster.getItemInHand(hand) == held && ItemStack.matches(held, snapshot)
+                    && (!guard.retainHandItem() || caster.getItemInHand(hand) == held && ItemStack.matches(held, snapshot))
+                    && guard.valid().getAsBoolean()
                     && participants.stream().allMatch(p -> p.provider.chantingEnabled(p.request));
         }
         void sync(int remaining) { for (var p : participants) p.provider.chantProgress(p.request, token, ticks, remaining); }
@@ -37,6 +40,7 @@ public final class ActiveCasts {
         final LinkedHashSet<Spell> recipes = new LinkedHashSet<>();
         final LinkedHashMap<ResourceLocation, Runnable> releaseActions = new LinkedHashMap<>();
         boolean released;
+        boolean admittedSequence;
         Attempt(ActiveCastRequest request, ActiveCastPolicy policy) { this.request = request; this.policy = policy; recipes.add(request.spell()); }
     }
     private ActiveCasts() {}
@@ -112,6 +116,10 @@ public final class ActiveCasts {
         return defer(spell, caster, hand, source, ActiveCastPolicy.DEFAULT, release);
     }
     private static Deferral defer(Spell spell, LivingEntity caster, InteractionHand hand, ActiveCastSource source, ActiveCastPolicy policy, Runnable release) {
+        return defer(spell, caster, hand, source, policy, release, ActiveCastGuard.DEFAULT);
+    }
+    private static Deferral defer(Spell spell, LivingEntity caster, InteractionHand hand, ActiveCastSource source,
+                                  ActiveCastPolicy policy, Runnable release, ActiveCastGuard guard) {
         if (caster == null || !(caster.level() instanceof ServerLevel world)) return Deferral.UNNEEDED;
         var current = CURRENT.get();
         if (current != null && current.request.caster() == caster) return Deferral.UNNEEDED;
@@ -129,7 +137,7 @@ public final class ActiveCasts {
         if (ticks == 0) return Deferral.UNNEEDED;
         if (!caster.isAlive() || ACTIVE.size() >= 4096 || policy.cooldowns() && !allowed(spell, caster, source)) return Deferral.DENIED;
         var held = caster.getItemInHand(hand);
-        var pending = new Pending(request, world, hand, held, held.copy(), UUID.randomUUID(), world.getGameTime(), ticks, participants, release);
+        var pending = new Pending(request, world, hand, held, held.copy(), UUID.randomUUID(), world.getGameTime(), ticks, participants, release, guard);
         ACTIVE.put(caster.getUUID(), pending);
         pending.sync(ticks);
         return Deferral.QUEUED;
@@ -165,7 +173,9 @@ public final class ActiveCasts {
     }
     public static boolean allowDispatch(SpellResolver resolver) {
         var attempt = CURRENT.get();
-        return attempt == null || !attempt.policy.cooldowns() || ArsSpellAccess.caster(resolver.spellContext) != attempt.request.caster()
+        if (attempt != null && ArsSpellAccess.caster(resolver.spellContext) == attempt.request.caster())
+            attempt.policy.attach(resolver.spellContext);
+        return attempt == null || !attempt.policy.cooldowns() || attempt.admittedSequence || ArsSpellAccess.caster(resolver.spellContext) != attempt.request.caster()
                 || allowed(resolver.spell, attempt.request.caster(), attempt.request.source());
     }
     public static void dispatched(SpellResolver resolver, boolean success) {
@@ -177,6 +187,72 @@ public final class ActiveCasts {
     public static void arrowSpawned(net.minecraft.world.entity.Entity entity, boolean success) {
         if (success && CURRENT.get() != null && entity instanceof EntitySpellArrow arrow && ArsSpellAccess.resolver(arrow) != null)
             dispatched(ArsSpellAccess.resolver(arrow), true);
+    }
+
+    /** One admitted active use. Its later phases retain native effect/resource rules, but do
+     * not repeat preparation or provider-wide activation cooldowns. Caller owns cancellation. */
+    public static final class Sequence implements AutoCloseable {
+        private final List<Spell> plan;
+        private final ActiveCastRequest request;
+        private final ActiveCastPolicy policy;
+        private final ServerLevel world;
+        private final ActiveUseCommit commit = new ActiveUseCommit();
+        private Sequence(List<Spell> plan, ActiveCastRequest request, ActiveCastPolicy policy, ServerLevel world) {
+            this.plan = List.copyOf(plan); this.request = request; this.policy = policy; this.world = world;
+        }
+        public boolean open() { return commit.open(); }
+        public ActiveCastPolicy policy() { return policy; }
+        @Override public void close() { commit.close(); }
+    }
+
+    /** Prepare all declared phases together without executing a synthetic multi-form spell. */
+    public static Deferral prepareSequence(List<Spell> phases, LivingEntity caster, InteractionHand hand,
+            ActiveCastSource source, ActiveCastPolicy policy, ActiveCastGuard guard, Consumer<Sequence> release) {
+        if (caster == null || !(caster.level() instanceof ServerLevel world)) return Deferral.DENIED;
+        var previous = ACTIVE.get(caster.getUUID());
+        if (previous != null) {
+            if (previous.valid()) return Deferral.DENIED;
+            cancel(previous);
+        }
+        var plan = List.copyOf(phases);
+        var parts = new ArrayList<com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart>();
+        for (var phase : plan) parts.addAll(ArsSpellAccess.parts(phase));
+        // Providers only inspect this aggregate for timing/rejection; it is never validated or cast.
+        var aggregate = new Spell(parts);
+        if (policy.cooldowns() && !allowed(aggregate, caster, source)) return Deferral.DENIED;
+        var request = new ActiveCastRequest(aggregate, caster, source);
+        Runnable start = () -> {
+            if (!caster.isAlive() || caster.level() != world
+                    || policy.cooldowns() && !allowed(aggregate, caster, source)) return;
+            release.accept(new Sequence(plan, request, policy, world));
+        };
+        var result = policy.chanting() ? defer(aggregate, caster, hand, source, policy, start, guard) : Deferral.UNNEEDED;
+        if (result == Deferral.UNNEEDED) start.run();
+        return result;
+    }
+
+    /** Dispatch one phase of an admitted use. A failed dispatch never acknowledges activation. */
+    public static <T> T executeSequence(Sequence sequence, Spell phase, Supplier<T> action, T denied) {
+        var caster = sequence.request.caster();
+        if (!sequence.open() || !caster.isAlive() || caster.level() != sequence.world) return denied;
+        var previous = CURRENT.get();
+        var attempt = new Attempt(new ActiveCastRequest(phase, caster, sequence.request.source()), sequence.policy);
+        attempt.admittedSequence = true;
+        CURRENT.set(attempt);
+        T result;
+        try { result = action.get(); }
+        finally { if (previous == null) CURRENT.remove(); else CURRENT.set(previous); }
+        if (attempt.released && sequence.policy.cooldowns()) {
+            try {
+                sequence.commit.acknowledge(true, () -> {
+                    for (var provider : PROVIDERS.values()) if (sequence.plan.stream().anyMatch(provider::supports))
+                        provider.released(sequence.request, sequence.plan);
+                });
+            } finally {
+                for (var after : attempt.releaseActions.values()) after.run();
+            }
+        }
+        return result;
     }
     private static void cancel(Pending pending) { ACTIVE.remove(pending.request.caster().getUUID(), pending); pending.sync(0); }
     public static void tick() {

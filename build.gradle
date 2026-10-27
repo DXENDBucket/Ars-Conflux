@@ -43,6 +43,10 @@ neoForge {
     mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }
 }
 dependencies {
+    compileOnly fileTree(dir: 'libs/zero', include: '*.jar')
+    if (providers.gradleProperty('withZero').getOrElse('false').toBoolean()) {
+        runtimeOnly fileTree(dir: 'libs/zero', include: '*.jar')
+    }
     if (providers.gradleProperty('withAugmentProviders').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/augment-extension-providers', include: '*.jar')
     }
@@ -77,10 +81,11 @@ dependencies {
     }
     testImplementation platform('org.junit:junit-bom:5.13.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.ow2.asm:asm-tree:9.7.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
-tasks.withType(Test).configureEach { useJUnitPlatform() }
+tasks.withType(Test).configureEach { useJUnitPlatform(); maxHeapSize = '128m' }
 processResources {
     inputs.property 'version', project.version
     filesMatching('META-INF/neoforge.mods.toml') { expand(version: project.version) }

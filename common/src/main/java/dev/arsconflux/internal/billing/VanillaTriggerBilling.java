@@ -50,6 +50,10 @@ public final class VanillaTriggerBilling {
         return part instanceof AbstractEffect && !(part instanceof TriggerPaidGlyph)
                 && "ars_nouveau".equals(part.getRegistryName().getNamespace());
     }
+    /** External repeaters can omit a group's duplicate quote when Core owns its dispatch price. */
+    public static boolean ownsDispatch(SpellContext context, AbstractSpellPart part) {
+        return part instanceof TriggerPaidGlyph || enabled(context) && deferred(part);
+    }
     private static List<Group> groups(SpellContext context) {
         var parts = ArsAccess.parts(context.getSpell());
         var result = new ArrayList<Group>();

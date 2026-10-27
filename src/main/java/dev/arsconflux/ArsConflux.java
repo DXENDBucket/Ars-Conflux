@@ -30,6 +30,7 @@ public final class ArsConflux {
             dev.arsconflux.internal.adams.AdamsArsPlusCompat.register();
             dev.arsconflux.internal.augments.OptionalAugmentExtensions.register();
             dev.arsconflux.api.glyph.AugmentEquivalence.refreshCompatibility();
+            dev.arsconflux.internal.zero.ZeroHooks.register();
         }));
         var conditions = net.neoforged.neoforge.registries.DeferredRegister.create(
                 net.neoforged.neoforge.registries.NeoForgeRegistries.CONDITION_SERIALIZERS, MOD_ID);

@@ -7,6 +7,7 @@ public final class ConfluxConfig {
     public static final ModConfigSpec.BooleanValue VANILLA_TRIGGER_BILLING;
     public static final ModConfigSpec.BooleanValue HEX_CHANTING, HEX_COOLDOWNS;
     public static final ModConfigSpec.BooleanValue PRESERVE_COOLDOWNS_ON_DEATH;
+    public static final ModConfigSpec.BooleanValue ZERO_CHANTING, ZERO_COOLDOWNS;
     public enum ChantMode { MAXIMUM, SUM }
     public static final ModConfigSpec.EnumValue<ChantMode> CHANT_MODE;
     static {
@@ -35,6 +36,10 @@ public final class ConfluxConfig {
                 "False bypasses cooldowns only for this spell chain; mana and media billing are unchanged.")
                 .define("cooldowns", true);
         builder.pop();
+        builder.push("zero");
+        ZERO_CHANTING = builder.comment("Prepare all phases of one Zero staff/circlet use once using installed providers' chanting.").define("chanting", true);
+        ZERO_COOLDOWNS = builder.comment("Check the complete Zero phase plan at activation and commit its provider cooldowns once at the first acknowledged release.").define("cooldowns", true);
+        builder.pop();
         builder.push("addon_cooldowns");
         PRESERVE_COOLDOWNS_ON_DEATH = builder.comment("Keep opt-in addon cooldown deadlines after player death.",
                 "Non-death clones always keep deadlines. Native Iron/Goety stores are not changed.")
@@ -49,4 +54,6 @@ public final class ConfluxConfig {
     public static boolean vanillaTriggerBilling() {
         return SPEC.isLoaded() ? VANILLA_TRIGGER_BILLING.get() : VANILLA_TRIGGER_BILLING.getDefault();
     }
+    public static boolean zeroChanting() { return SPEC.isLoaded()?ZERO_CHANTING.get():ZERO_CHANTING.getDefault(); }
+    public static boolean zeroCooldowns() { return SPEC.isLoaded()?ZERO_COOLDOWNS.get():ZERO_COOLDOWNS.getDefault(); }
 }

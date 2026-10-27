@@ -1,3 +1,11 @@
+# 0.1.33
+
+- Add provider-neutral multi-dispatch active uses: prepare the declared plan once and acknowledge activation cooldowns once, while preserving per-trigger resources and native effect eligibility.
+- Add optional, version-gated Ars Zero 2.0.2 staff/circlet integration on NeoForge 1.21.1, and exclude dispatch-owned costs from its beam repeater quote.
+- Apply runtime block-capture safety, Select height and bounded Convergence source-accounting fixes without replacing the official Zero jar.
+- Make temporal targeting read the preceding actual execution, with separate input/output, stale-callback isolation and complete anchor/block-group cleanup. Native effects and visual helpers remain in use.
+- Add low-memory policy and released-bytecode checks. No game/client session is claimed by these checks. Forge shares the neutral API only; Zero integration is NeoForge-only in this release.
+
 # 0.1.29
 
 - Integrate Ars 'n Spells 3.4.0 exported Ars scrolls and inscribed items with the shared preparation and cooldown boundary on both loaders.

@@ -2,6 +2,8 @@
 
 日期：2026-10-27。目标为 Minecraft 1.21.1 / NeoForge。
 
+后续实施：0.1.33 已在独立 Core 工作树实现可选运行时接线与上述重点修正，见 [Ars Zero 适配范围与验证边界](ars-zero-compatibility.md)。以下保留审查发生时的记录，不将静态判断改写为运行验证。
+
 本次只读取发布 JAR、反编译相关类并核对字节码及现有 Conflux 实现。没有启动 Minecraft、GameTest 或 Gradle，没有安装、替换模组或修改功能代码。传奇怪物 dev.11 的运行验证继续按用户要求暂缓。
 
 ## 结论
