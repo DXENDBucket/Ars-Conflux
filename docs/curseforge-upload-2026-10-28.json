@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-28",
+  "state": "accepted-by-upload-api",
+  "moderation_complete_confirmed": false,
+  "plan": "build/curseforge/20261028-032728-d3e9daa5/plan.json",
+  "builds_reused": true,
+  "tests_rerun": false,
+  "git_pushed": false,
+  "entries": [
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "platform": "neoforge",
+      "version": "0.1.36",
+      "file": "ars-conflux-0.1.36-mc1.21.1-neoforge.jar",
+      "sha256": "52b630ef1d1c18540954a321ab458937695073ce31f61d97cef49a3e70e1f147",
+      "file_id": 9345944,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    },
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "platform": "forge",
+      "version": "0.1.36",
+      "file": "ars-conflux-0.1.36-mc1.20.1-forge.jar",
+      "sha256": "21d246224f8cbebd65d3a68ceb2e7d8b8813f30dfea5b43d7e3ebcf58c0e5f23",
+      "file_id": 9345945,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "neoforge",
+      "version": "0.1.3",
+      "file": "goety-nouveau-0.1.3-mc1.21.1-neoforge.jar",
+      "sha256": "1ca05d649734434402725fa1910b16fc53c1f0a5428543ffed6d850c303f3f3c",
+      "file_id": 9345946,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "forge",
+      "version": "0.1.3",
+      "file": "goety-nouveau-0.1.3-mc1.20.1-forge.jar",
+      "sha256": "862242f31c8c0b2b5f5b74266800babac101b476afc35bbb2105eae9fc3406a0",
+      "file_id": 9345947,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    }
+  ]
+}
