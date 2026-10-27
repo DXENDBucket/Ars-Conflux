@@ -6,6 +6,8 @@
   "mixins": [
     "ReflectedDamageCreditMixin",
     "ReflectedCarrierHitMixin",
+    "ProjectileControlTickMixin",
+    "ProjectileControlDataMixin",
     "HomingReflectionMixin",
     "ActiveCasterChantMixin",
     "ActiveBowChantMixin",

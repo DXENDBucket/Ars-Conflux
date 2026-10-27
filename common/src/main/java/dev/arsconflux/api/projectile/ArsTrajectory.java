@@ -44,6 +44,15 @@ public final class ArsTrajectory {
     static ArsTrajectory forVisual(Entity entity) {
         var reference=VISUALS.get(entity); return reference==null?null:reference.get();
     }
+    static ArsTrajectory forEntity(Entity entity) {
+        var motion=forVisual(entity); if(motion!=null)return motion;
+        var carrier=entity instanceof CarrierProxy proxy?proxy.confluxTrajectory():entity instanceof EntityProjectileSpell spell?spell:null;
+        return carrier==null?null:managed(carrier);
+    }
+    java.util.List<Entity> members() {
+        if(session==null)return java.util.List.of(visual);
+        return session.projectiles().stream().filter(entity->forEntity(entity)==this).toList();
+    }
     /** Adapter boundary for native carrier teleportation. Position remains controlled by the native adapter. */
     public static boolean redirect(EntityProjectileSpell carrier, ServerLevel destination) {
         var reference = MANAGED.get(carrier);
@@ -73,8 +82,14 @@ public final class ArsTrajectory {
         if (visual.isRemoved() || carrier.isRemoved()) return true;
         if (pendingDestination != null && !transfer(carrier.position())) return true;
         world = (ServerLevel)carrier.level();
-        if (!world.hasChunkAt(carrier.blockPosition()) || !world.hasChunkAt(BlockPos.containing(carrier.getNextHitPosition()))) return true;
+        if (!world.hasChunkAt(carrier.blockPosition())) return true;
+        if (ProjectileControls.beforeTick(this)) {
+            ++carrier.tickCount; ++carrier.age;
+            return carrier.age>carrier.getExpirationTime();
+        }
+        if (!world.hasChunkAt(BlockPos.containing(carrier.getNextHitPosition()))) return true;
         ++carrier.tickCount; carrier.tick();
+        ProjectileControls.afterTick(this);
         if (pendingDestination != null && !carrier.isRemoved() && !transfer(carrier.position())) return true;
         visual.setPos(carrier.position()); visual.setDeltaMovement(carrier.getDeltaMovement());
         // Orbit has no linear velocity; predict its next point for client movement.
@@ -99,7 +114,7 @@ public final class ArsTrajectory {
         visual.setPos(position);
         return true;
     }
-    public void close() { MANAGED.remove(carrier); VISUALS.remove(visual); visual.discard(); carrier.discard(); }
+    public void close() { ProjectileControls.close(this); MANAGED.remove(carrier); VISUALS.remove(visual); visual.discard(); carrier.discard(); }
     private final class ImpactResolver extends SpellResolver {
         private final Consumer<HitResult> impact;
         private final SpellResolver focusSource;

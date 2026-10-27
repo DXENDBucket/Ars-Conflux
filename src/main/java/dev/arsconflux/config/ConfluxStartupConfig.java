@@ -19,7 +19,7 @@ public final class ConfluxStartupConfig {
         builder.pop();
         builder.push("compatibility");
         AUGMENT_EXTENSIONS=builder.comment("Enable optional AAP/NEG augment extensions and weighted Controle delays. Requires restart; match client and server.").define("enable_augment_extensions",true);
-        ZERO = builder.comment("Enable optional Ars Zero 2.0.2 active-use, beam/geometry billing and managed-projectile shield reflection compatibility. Requires restart.").define("enable_zero_compatibility", true);
+        ZERO = builder.comment("Enable optional Ars Zero 2.0.2 active uses, repeat billing, shield reflection, projectile controls, impact directions and equivalent augments. Requires restart.").define("enable_zero_compatibility", true);
         ZERO_FIXES = builder.comment("Apply the reviewed Ars Zero 2.0.2 native safety, source accounting and client glyph-grid fixes. Requires restart.").define("enable_zero_native_fixes", true);
         ZERO_TEMPORAL = builder.comment("Use preceding-execution targets for Ars Zero temporal spells. Requires restart; match client and server.").define("zero_previous_phase_targets", true);
         builder.pop(); SPEC = builder.build();

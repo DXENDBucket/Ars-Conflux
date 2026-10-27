@@ -7,6 +7,19 @@ import java.util.List;
 /** Public source-extension bridge, independent of any particular spell addon or external entrypoint. */
 public final class ResolverContexts {
     private ResolverContexts() {}
+    /** Dispatch a native continuation with its actual incoming direction, retaining source extensions,
+     * attribution and payment. Store the snapshot so delayed/cloned children keep it after scope exit. */
+    public static void resolveFrom(SpellResolver resolver,net.minecraft.world.level.Level world,
+                                   net.minecraft.world.phys.HitResult hit,net.minecraft.world.phys.Vec3 direction) {
+        var context=resolver.spellContext;
+        var incoming=TriggerGeometry.canonical(direction);
+        if(incoming==net.minecraft.world.phys.Vec3.ZERO)TriggerGeometry.clear(context);
+        else TriggerGeometry.write(context,incoming);
+        ((dev.arsconflux.mixin.SpellContextAccess)context).arsConflux$level(world);
+        var frame=CastContext.of(context,hit,null).withIncomingDirection(incoming);
+        CastContexts.bind(context,frame);
+        TriggerGeometry.scoped(incoming,()->CastContexts.run(frame,()->resolver.onResolveEffect(world,hit)));
+    }
     private static List<ResolverExtension> extensions(SpellResolver resolver) {
         return resolver.spellContext.attachments.values().stream()
                 .filter(ResolverExtension.class::isInstance).map(ResolverExtension.class::cast).toList();

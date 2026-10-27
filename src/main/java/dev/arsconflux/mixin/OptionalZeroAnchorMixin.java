@@ -23,6 +23,11 @@ public abstract class OptionalZeroAnchorMixin {
     }
     @WrapMethod(method="restoreEntityPhysics")
     private static void arsConflux$restore(MultiPhaseCastContext context,Operation<Void> original) {
-        ZeroTemporal.restore(context,c->original.call(c));
+        var touched=context==null?java.util.List.<com.github.ars_zero.common.spell.SpellResult>of():java.util.List.copyOf(ZeroTemporal.physicsResults(context));
+        try { ZeroTemporal.restore(context,c->original.call(c)); }
+        finally {
+            for(var result:touched)if(result!=null && result.targetEntity!=null)
+                dev.arsconflux.api.projectile.ProjectileControls.release(result.targetEntity,context);
+        }
     }
 }

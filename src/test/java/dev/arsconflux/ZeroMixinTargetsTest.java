@@ -99,7 +99,7 @@ class ZeroMixinTargetsTest {
                 }
             }
         }
-        assertEquals(22,checkedMixins);
+        assertEquals(28,checkedMixins);
         assertTrue(checkedMethods>=30); assertTrue(checkedSites>=9);
     }
 }

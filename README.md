@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.36 connects Zero Push/Anchor/Remove Gravity to shared projectile controls, carries Beam/Voxel impact directions into delayed continuations, and recognizes Zero's optional high-tier augments. See [motion and direction API](docs/projectile-controls.md).
+
 0.1.35 extends Zero's repeat-billing correction to Geometrize and connects its reflective Arcane Shield to managed Conflux flights. The shared [reflection API](docs/projectile-reflection.md) keeps the original resource account while transferring damage credit; unsupported fixed trajectories are absorbed.
 
 0.1.34 fixes the Ars Zero staff/circlet glyph grid: every category starts a row, page counts include category icons, and addon categories and provider ordering are retained.
@@ -11,14 +13,14 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.35**。
+Mod ID：`ars_conflux`。作者 EndXiom，使用 [MIT 许可证](LICENSE)。当前版本 **0.1.36**。
 
 本地更新工具：双击 `Publish-CurseForge.cmd` 可构建并上传 Core 与附属的双版本发行包，设置方法见 [CurseForge 发布说明](docs/curseforge-publishing.md)。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.35-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.35-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.36-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.36-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 

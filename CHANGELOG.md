@@ -1,3 +1,11 @@
+# 0.1.36
+
+- Add shared opt-in projectile velocity, temporary hold and gravity-suppression controls for ordinary Ars projectiles and managed native replacements. Synchronize paired carriers and same-flight native salvos; holds do not reset lifetime, attribution or payment.
+- Connect Zero 2.0.2 Push, Anchor and Remove Gravity through those controls. Preserve native target validation, rotation, physics restoration and non-managed entity behavior.
+- Add resolver continuation dispatch with an explicit, persistent incoming-direction snapshot; Beam and both base/arcane Voxel dispatches now use their actual direction, masking stale directions for stationary voxels.
+- Register Zero's optional Amplify/AOE II and III as 2/4 base-equivalent units without enabling them or altering their native costs and numeric modifiers.
+- Common APIs build on both loaders; Zero adapters remain version-gated and NeoForge-only. Low-memory targeted state/bytecode validation, without a Minecraft launch.
+
 # 0.1.35
 
 - Reuse the dispatch-owned group filter for Ars Zero Geometrize's forwarded per-block quote, including native trigger-billed Ars effects and creative-mode exemption. Retain Zero's base fee, native multiplier and unmanaged effects.
