@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 public final class CastContexts {
     private static final ResourceLocation KEY = CarrierRegistry.id("ars_conflux:cast_origin");
     private static final ThreadLocal<CastContext> CURRENT = new ThreadLocal<>();
-    private record Origin(UUID chain, LivingEntity caster, LivingEntity damageOwner, ResourceAccount account) implements IContextAttachment {
+    private record Origin(UUID chain, LivingEntity caster, LivingEntity damageOwner, ResourceAccount account,boolean reflected) implements IContextAttachment {
         public ResourceLocation id() { return KEY; }
     }
     private CastContexts() {}
@@ -36,8 +36,23 @@ public final class CastContexts {
         Origin inherited = context.ars() == null ? null : context.ars().getAttachment(KEY);
         Origin existing = ars.getAttachment(KEY);
         UUID chain = inherited != null ? inherited.chain() : existing != null ? existing.chain() : UUID.randomUUID();
-        ars.attachments.put(KEY, new Origin(chain, context.caster(), context.damageOwner(), context.account()));
+        boolean reflected=inherited!=null?inherited.reflected():existing!=null && existing.reflected();
+        ars.attachments.put(KEY, new Origin(chain, context.caster(), context.damageOwner(), context.account(),reflected));
         TriggerGeometry.write(ars, context.incomingDirection());
+    }
+    /** Fork attribution for one flight without changing the caster, permissions, account or siblings. */
+    public static CastContext reflected(CastContext original,LivingEntity owner) {
+        var ars=original.ars()==null?null:original.ars().clone();
+        var result=new CastContext(ars,original.caster(),original.executor(),owner,original.target(),original.incomingDirection(),original.account());
+        if(ars!=null) {
+            bind(ars,original);
+            Origin origin=ars.getAttachment(KEY);
+            ars.attachments.put(KEY,new Origin(origin.chain(),origin.caster(),owner,origin.account(),true));
+        }
+        return result;
+    }
+    public static boolean isReflected(SpellContext ars) {
+        Origin origin=ars==null?null:ars.getAttachment(KEY); return origin!=null && origin.reflected();
     }
     public static boolean sameChain(SpellContext a, SpellContext b) {
         if (a == null || b == null) return false;

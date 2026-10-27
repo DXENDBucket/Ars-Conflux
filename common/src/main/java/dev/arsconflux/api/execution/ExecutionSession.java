@@ -63,8 +63,13 @@ public final class ExecutionSession<P> {
     public boolean usesWorld(ServerLevel level) { return world == level || originWorld == level; }
     /** Explicitly register a provider-owned visual, including visuals not derived from Projectile. */
     public void trackProjectile(Entity entity) {
-        if (active() && entity.level() == world && !entity.isRemoved()) projectiles.add(entity);
+        if (active() && entity.level() == world && !entity.isRemoved()) {
+            projectiles.add(entity); dev.arsconflux.api.projectile.ProjectileReflections.track(entity,this);
+        }
     }
+    public java.util.List<Entity> projectiles() { return projectiles.stream().filter(e->!e.isRemoved()).toList(); }
+    /** ProjectileReflections verifies the flight cohort before transferring only damage credit. */
+    public void reflectDamageOwner(LivingEntity owner) { context=CastContexts.reflected(context,owner); }
     /** Internal spawn hook: only capture projectiles produced by driver.start, not impact-created children. */
     public void captureProjectile(Entity entity) {
         if (capturingProjectiles && entity instanceof Projectile) trackProjectile(entity);
@@ -154,7 +159,10 @@ public final class ExecutionSession<P> {
         state = reason == EndReason.COMPLETED ? State.COMPLETED : State.CANCELLED;
         scope.run(() -> {
             try { driver.close(this, reason); } finally {
-                try { continuation.close(); } finally { projectiles.clear(); }
+                try { continuation.close(); } finally {
+                    for(var entity:projectiles)dev.arsconflux.api.projectile.ProjectileReflections.untrack(entity,this);
+                    projectiles.clear();
+                }
             }
         });
     }

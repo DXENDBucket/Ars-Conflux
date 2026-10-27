@@ -4,6 +4,9 @@
   "package": "dev.arsconflux.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ReflectedDamageCreditMixin",
+    "ReflectedCarrierHitMixin",
+    "HomingReflectionMixin",
     "ActiveCasterChantMixin",
     "ActiveBowChantMixin",
     "ActiveCooldownDispatchMixin",

@@ -28,6 +28,7 @@ import java.util.WeakHashMap;
  * The supplied Ars carrier remains off-world, and must not be spawned separately. */
 public final class ArsTrajectory {
     private static final Map<EntityProjectileSpell, WeakReference<ArsTrajectory>> MANAGED = new WeakHashMap<>();
+    private static final Map<Entity, WeakReference<ArsTrajectory>> VISUALS = new WeakHashMap<>();
     private final Entity visual;
     private final EntityProjectileSpell carrier;
     private ExecutionSession<?> session;
@@ -35,6 +36,14 @@ public final class ArsTrajectory {
     public ArsTrajectory(Entity visual, EntityProjectileSpell carrier) { this.visual = visual; this.carrier = carrier; }
     public EntityProjectileSpell carrier() { return carrier; }
     public Vec3 incomingDirection() { return TriggerGeometry.direction(carrier); }
+    static ArsTrajectory managed(EntityProjectileSpell carrier) {
+        var reference=MANAGED.get(carrier); return reference==null?null:reference.get();
+    }
+    ExecutionSession<?> owningSession() { return session; }
+    Entity visual() { return visual; }
+    static ArsTrajectory forVisual(Entity entity) {
+        var reference=VISUALS.get(entity); return reference==null?null:reference.get();
+    }
     /** Adapter boundary for native carrier teleportation. Position remains controlled by the native adapter. */
     public static boolean redirect(EntityProjectileSpell carrier, ServerLevel destination) {
         var reference = MANAGED.get(carrier);
@@ -55,6 +64,7 @@ public final class ArsTrajectory {
         boolean spawned = world.addFreshEntity(visual);
         if (spawned) {
             MANAGED.put(carrier, new WeakReference<>(this));
+            VISUALS.put(visual, new WeakReference<>(this));
             if (session != null) session.trackProjectile(visual);
         }
         return spawned;
@@ -89,7 +99,7 @@ public final class ArsTrajectory {
         visual.setPos(position);
         return true;
     }
-    public void close() { MANAGED.remove(carrier); visual.discard(); carrier.discard(); }
+    public void close() { MANAGED.remove(carrier); VISUALS.remove(visual); visual.discard(); carrier.discard(); }
     private final class ImpactResolver extends SpellResolver {
         private final Consumer<HitResult> impact;
         private final SpellResolver focusSource;

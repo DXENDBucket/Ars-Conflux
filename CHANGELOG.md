@@ -1,3 +1,11 @@
+# 0.1.35
+
+- Reuse the dispatch-owned group filter for Ars Zero Geometrize's forwarded per-block quote, including native trigger-billed Ars effects and creative-mode exemption. Retain Zero's base fee, native multiplier and unmanaged effects.
+- Add a provider-neutral managed-projectile reflection API, synchronizing visible projectiles and off-world Ars carriers, forking resolver attribution, preserving the original resource account and clearing stale homing targets.
+- Connect Zero 2.0.2's reflective Arcane Shield to this API without replacing native shield durability, visuals or absorption. Unsupported fixed/owner-relative trajectories and independent multi-flight sessions are absorbed.
+- Scope reflected native damage credit without replacing native damage source types; ordinary unmanaged projectiles keep the original shield behavior. The common API is available on both loaders; Zero remains optional and NeoForge-only.
+- Targeted pure-Java and released-bytecode checks plus both loader builds; no Minecraft client or server launch is claimed.
+
 # 0.1.34
 
 - Fix Ars Zero 2.0.2 staff/circlet glyph-category placement: start each type on its own row with the native category icon at the left.

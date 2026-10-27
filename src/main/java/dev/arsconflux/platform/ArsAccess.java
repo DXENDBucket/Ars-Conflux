@@ -15,6 +15,7 @@ public final class ArsAccess {
     public static SpellResolver resolver(EntityProjectileSpell carrier) { return carrier.resolver(); }
     public static SpellResolver resolver(com.hollingsworth.arsnouveau.common.entity.EntitySpellArrow arrow) { return arrow.resolver(); }
     public static void resolver(EntityProjectileSpell carrier, SpellResolver resolver) { carrier.setResolver(resolver); }
+    public static void reflected(EntityProjectileSpell carrier) { carrier.redirected = true; }
     public static boolean startsWithAugment(Spell spell) { return !spell.isEmpty() && spell.get(0) instanceof AbstractAugment; }
     public static boolean canSpend(com.hollingsworth.arsnouveau.api.spell.wrapped_caster.IWrappedCaster source, int amount) {
         return source.enoughMana(amount);

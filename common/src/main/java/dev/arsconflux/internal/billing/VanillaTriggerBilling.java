@@ -100,6 +100,12 @@ public final class VanillaTriggerBilling {
 
     /** Ars effects return void: normal dispatch is a paid attempt, not a claim of world mutation. */
     public static void resolve(AbstractEffect effect, SpellResolver resolver, HitResult hit, Runnable action) {
+        if(dev.arsconflux.api.context.CastContexts.isReflected(resolver.spellContext)) {
+            var frame=dev.arsconflux.api.context.CastContext.of(resolver.spellContext,hit,null);
+            dev.arsconflux.api.context.CastContexts.run(frame,()->resolvePaid(effect,resolver,hit,action));
+        } else resolvePaid(effect,resolver,hit,action);
+    }
+    private static void resolvePaid(AbstractEffect effect, SpellResolver resolver, HitResult hit, Runnable action) {
         var context = resolver.spellContext;
         if (!(ArsSpellAccess.level(context) instanceof ServerLevel)
                 || !enabled(context) || !deferred(effect)) { action.run(); return; }

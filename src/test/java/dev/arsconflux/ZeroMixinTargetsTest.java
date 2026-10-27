@@ -30,7 +30,7 @@ class ZeroMixinTargetsTest {
         assertTrue(Files.isRegularFile(jar),"Use the official Ars Zero 2.0.2 jar in libs/zero/ars-zero.jar");
         int checkedMethods=0,checkedSites=0,checkedMixins=0;
         try(var zip=new ZipFile(jar.toFile()); var files=Files.walk(Path.of("build/classes/java/main/dev/arsconflux/mixin"))) {
-            for(var path:files.filter(p -> p.getFileName().toString().startsWith("OptionalZero") && p.toString().endsWith(".class")).toList()) {
+            for(var path:files.filter(p -> p.getFileName().toString().startsWith("OptionalZero") && p.toString().endsWith(".class") && !p.getFileName().toString().contains("$")).toList()) {
                 var mixin=read(Files.readAllBytes(path));
                 var meta=mixin.invisibleAnnotations.stream().filter(a -> a.desc.equals(MIXIN)).findFirst().orElseThrow();
                 var targetName=(String)list(property(meta,"targets")).getFirst();
@@ -99,7 +99,7 @@ class ZeroMixinTargetsTest {
                 }
             }
         }
-        assertEquals(20,checkedMixins);
+        assertEquals(22,checkedMixins);
         assertTrue(checkedMethods>=30); assertTrue(checkedSites>=9);
     }
 }
