@@ -1,3 +1,10 @@
+# 0.1.34
+
+- Fix Ars Zero 2.0.2 staff/circlet glyph-category placement: start each type on its own row with the native category icon at the left.
+- Paginate the actual grid instead of slicing 70 glyphs before accounting for headings; keep all glyphs reachable through arrows, wheel scrolling and search.
+- Retain actual Ars/addon category predicates and Conflux provider order; deduplicate known/default starting glyphs and remove previous-page widgets completely.
+- Client-only optional Zero fix, under the existing native-fixes switch. Targeted layout and released-bytecode checks pass; no client session launched for verification.
+
 # 0.1.33
 
 - Add provider-neutral multi-dispatch active uses: prepare the declared plan once and acknowledge activation cooldowns once, while preserving per-trigger resources and native effect eligibility.

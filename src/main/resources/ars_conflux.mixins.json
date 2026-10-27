@@ -72,6 +72,7 @@
     "defaultRequire": 1
   },
   "client": [
+    "client.OptionalZeroGlyphLayoutMixin",
     "GlyphFormatterOrderMixin",
     "GlyphFormatterPagesMixin",
     "client.GlyphIconRenderMixin",

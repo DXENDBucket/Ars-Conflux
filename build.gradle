@@ -43,6 +43,7 @@ neoForge {
     mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }
 }
 dependencies {
+    compileOnly fileTree(dir: 'libs/compile-only', include: '*.jar')
     compileOnly fileTree(dir: 'libs/zero', include: '*.jar')
     if (providers.gradleProperty('withZero').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/zero', include: '*.jar')

@@ -29,7 +29,7 @@ class ZeroMixinTargetsTest {
         Path jar=Path.of("libs/zero/ars-zero.jar");
         assertTrue(Files.isRegularFile(jar),"Use the official Ars Zero 2.0.2 jar in libs/zero/ars-zero.jar");
         int checkedMethods=0,checkedSites=0,checkedMixins=0;
-        try(var zip=new ZipFile(jar.toFile()); var files=Files.list(Path.of("build/classes/java/main/dev/arsconflux/mixin"))) {
+        try(var zip=new ZipFile(jar.toFile()); var files=Files.walk(Path.of("build/classes/java/main/dev/arsconflux/mixin"))) {
             for(var path:files.filter(p -> p.getFileName().toString().startsWith("OptionalZero") && p.toString().endsWith(".class")).toList()) {
                 var mixin=read(Files.readAllBytes(path));
                 var meta=mixin.invisibleAnnotations.stream().filter(a -> a.desc.equals(MIXIN)).findFirst().orElseThrow();
@@ -38,9 +38,18 @@ class ZeroMixinTargetsTest {
                 ClassNode target;
                 try(var input=zip.getInputStream(entry)) { target=read(input.readAllBytes()); }
                 assertTrue(Files.readString(Path.of("src/main/resources/ars_conflux.mixins.json"))
-                        .contains("\""+path.getFileName().toString().replace(".class","")+"\""));
+                        .contains("\""+mixin.name.substring("dev/arsconflux/mixin/".length()).replace('/','.')+"\""));
                 checkedMixins++;
+                for(var field:mixin.fields) {
+                    var annotations=new ArrayList<AnnotationNode>();
+                    if(field.visibleAnnotations!=null)annotations.addAll(field.visibleAnnotations);
+                    if(field.invisibleAnnotations!=null)annotations.addAll(field.invisibleAnnotations);
+                    if(annotations.stream().anyMatch(a->a.desc.endsWith("/Shadow;")))
+                        assertTrue(target.fields.stream().anyMatch(f->f.name.equals(field.name) && f.desc.equals(field.desc)),mixin.name+" shadow "+field.name);
+                }
                 for(var handler:mixin.methods)for(var annotation:annotations(handler)) {
+                    if(annotation.desc.endsWith("/Shadow;"))
+                        assertTrue(target.methods.stream().anyMatch(m->m.name.equals(handler.name) && m.desc.equals(handler.desc)),mixin.name+" shadow "+handler.name);
                     if(annotation.desc.endsWith("/Accessor;")) {
                         String fieldName=(String)property(annotation,"value");
                         var field=target.fields.stream().filter(f -> f.name.equals(fieldName)).findFirst().orElseThrow();
@@ -90,7 +99,7 @@ class ZeroMixinTargetsTest {
                 }
             }
         }
-        assertEquals(19,checkedMixins);
+        assertEquals(20,checkedMixins);
         assertTrue(checkedMethods>=30); assertTrue(checkedSites>=9);
     }
 }
