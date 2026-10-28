@@ -85,7 +85,7 @@
       "license": "LGPLv3"
     }
   ],
-  "shared_instance_deployed": false,
+  "shared_instance_deployed": true,
   "artifacts": [
     {
       "loader": "neoforge",
@@ -131,5 +131,11 @@
   "build_logs": [
     "build-localization-neoforge.log",
     "forge/build-localization-forge.log"
-  ]
+  ],
+  "implementation_commit": "6820b73ba8521ca9e306ea2ca5e229d495b419fa",
+  "main_branch_merged": true,
+  "deployed_modid_unique": true,
+  "other_mods_unchanged": true,
+  "deployment_receipt": "releases/conflux-addon-localization-20261028/deployment.json",
+  "deployment_backup": "codex-backups\\conflux-addon-localization-20261028-193041\\mods\\ars-conflux-0.1.36-mc1.21.1-neoforge.jar"
 }
