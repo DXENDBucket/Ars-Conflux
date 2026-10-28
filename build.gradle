@@ -93,3 +93,9 @@ processResources {
 }
 tasks.named('jar') { from('LICENSE', 'THIRD_PARTY_NOTICES.md'); archiveFileName = "ars-conflux-${project.version}-mc1.21.1-neoforge.jar" }
 tasks.named('sourcesJar') { from('LICENSE') }
+
+// The optional-addon language supplements retain their separate LGPL notices.
+tasks.named('sourcesJar') { from('THIRD_PARTY_NOTICES.md') }
+['jar', 'sourcesJar'].each { archive ->
+    tasks.named(archive) { from('licenses') { into 'licenses' } }
+}

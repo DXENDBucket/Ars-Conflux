@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-28",
+  "version": "0.1.37",
+  "start_commit": "7e9e4fc25dd937961cbf01da2ab2b22a9486328a",
+  "scope": [
+    "ars_controle",
+    "ars_additions"
+  ],
+  "aap_excluded_from_distribution": "CurseForge ARR listing conflicts with LGPL metadata in inspected JARs; private draft outside tracked resources",
+  "checks": [
+    {
+      "modid": "ars_controle",
+      "loader": "neoforge",
+      "english_keys": 83,
+      "supplement_keys": 54,
+      "untranslated_prose": 0,
+      "format_placeholders_preserved": true,
+      "existing_chinese_corrections": [
+        "ars_controle.target.get.block"
+      ]
+    },
+    {
+      "modid": "ars_controle",
+      "loader": "forge",
+      "english_keys": 15,
+      "supplement_keys": 54,
+      "untranslated_prose": 0,
+      "format_placeholders_preserved": true,
+      "existing_chinese_corrections": []
+    },
+    {
+      "modid": "ars_additions",
+      "loader": "neoforge",
+      "english_keys": 235,
+      "supplement_keys": 218,
+      "untranslated_prose": 0,
+      "format_placeholders_preserved": true,
+      "existing_chinese_corrections": []
+    },
+    {
+      "modid": "ars_additions",
+      "loader": "forge",
+      "english_keys": 182,
+      "supplement_keys": 218,
+      "untranslated_prose": 0,
+      "format_placeholders_preserved": true,
+      "existing_chinese_corrections": []
+    }
+  ],
+  "game_tests_run": false,
+  "client_started": false,
+  "git_pushed": false,
+  "curseforge_uploaded": false,
+  "upstream": [
+    {
+      "loader": "neoforge",
+      "modid": "ars_controle",
+      "version": "1.21.1-1.6.16",
+      "file": "ars_controle-1.21.1-1.6.16.jar",
+      "sha256": "595990b532b7e8cf23a5897c39edcdd9add52f208be9517ff7304e3b35361441",
+      "license": "LGPLv3"
+    },
+    {
+      "loader": "neoforge",
+      "modid": "ars_additions",
+      "version": "1.21.1-21.3.0",
+      "file": "ars_additions-1.21.1-21.3.0.jar",
+      "sha256": "e634a3f0c39cd38007608cce1974a7c9bbad7d8202bfb6c75f17c2901f362c9b",
+      "license": "LGPLv3"
+    },
+    {
+      "loader": "forge",
+      "modid": "ars_controle",
+      "version": "1.1.1",
+      "file": "ars-controle-controle1201.jar",
+      "sha256": "26de7ef9923631e337def07b295b1d763c25d6e33ab801a08f1dd6ce45d13da1",
+      "license": "GNU Lesser General Public License v3.0"
+    },
+    {
+      "loader": "forge",
+      "modid": "ars_additions",
+      "version": "1.20.1-1.6.7",
+      "file": "ars-additions-additions1201.jar",
+      "sha256": "35639890eefa1ed6635f83ca16b80aeddaa400f2b2340567499e34667a63b428",
+      "license": "LGPLv3"
+    }
+  ],
+  "shared_instance_deployed": false,
+  "artifacts": [
+    {
+      "loader": "neoforge",
+      "file": "build/libs/ars-conflux-0.1.37-mc1.21.1-neoforge.jar",
+      "size": 419233,
+      "sha256": "977ec31f0ecbb304ae6496e89af5ea6e924a4ac48ba4e96653e365b8955576cc"
+    },
+    {
+      "loader": "neoforge",
+      "file": "build/libs/ars-conflux-0.1.37-sources.jar",
+      "size": 205148,
+      "sha256": "710e48eace75a965879f6fb071db6ba4da2123c3ae7db0fb06b2643fb22680fa"
+    },
+    {
+      "loader": "forge",
+      "file": "forge/build/libs/ars-conflux-0.1.37-mc1.20.1-forge.jar",
+      "size": 517242,
+      "sha256": "3ae866fc8037f239cc9fceed265254435f7913bb5c4f23b51b6e621ca1a88eaa"
+    },
+    {
+      "loader": "forge",
+      "file": "forge/build/libs/ars-conflux-0.1.37-sources.jar",
+      "size": 163498,
+      "sha256": "fdd2ca787da99f788883e46460072617b89230e207c00a27d240cd06351d6df0"
+    }
+  ],
+  "distribution_checks": true,
+  "forge_reobfuscated": true,
+  "executable_comparison": [
+    {
+      "loader": "neoforge",
+      "class_files_unchanged": 257,
+      "dependencies_unchanged": true,
+      "nested_libraries_unchanged": 0
+    },
+    {
+      "loader": "forge",
+      "class_files_unchanged": 197,
+      "dependencies_unchanged": true,
+      "nested_libraries_unchanged": 1
+    }
+  ],
+  "build_logs": [
+    "build-localization-neoforge.log",
+    "forge/build-localization-forge.log"
+  ]
+}

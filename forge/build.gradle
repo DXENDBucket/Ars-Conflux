@@ -109,3 +109,8 @@ tasks.named('jarJar') {
 }
 reobf { jarJar {} }
 tasks.named('sourcesJar') { from('../LICENSE') }
+
+tasks.named('sourcesJar') { from('../THIRD_PARTY_NOTICES.md') }
+['jar', 'jarJar', 'sourcesJar'].each { archive ->
+    tasks.named(archive) { from('../licenses') { into 'licenses' } }
+}

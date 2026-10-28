@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[4,)"
-license="MIT"
+license="MIT (code); LGPL-3.0 (optional-addon translations)"
 [[mixins]]
 config="ars_conflux.mixins.json"
 [[mods]]

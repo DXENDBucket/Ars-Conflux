@@ -2,6 +2,28 @@
 
 Ars Conflux code is licensed under the MIT License in `LICENSE`, copyright 2026 EndXiom. This does not relicense its dependencies.
 
+## Optional-addon Simplified Chinese language supplements
+
+The language resources at `assets/ars_controle/lang/zh_cn.json` and
+`assets/ars_additions/lang/zh_cn.json` contain Chinese translations and backfills
+of the corresponding addons' language entries. Their original text and existing
+translations remain copyright their respective contributors:
+
+- Ars Controle, by Qther and contributors: <https://github.com/Vonr/Ars-Controle>
+- Ars Additions, by Jarva and contributors: <https://github.com/Jarva/Ars-Additions>
+
+These two resource files are distributed under LGPL-3.0-only, separately from the
+MIT-licensed Conflux code. Translation additions and corrections: copyright 2026
+EndXiom. They do not relicense upstream artwork, code or other assets. The
+uncombined editable JSON files are included in the source distribution and in
+`common/src/main/resources/assets/` in this repository. Users may edit or replace
+them through ordinary Minecraft resource packs.
+
+The LGPL-3.0 and incorporated GPL-3.0 texts are supplied in
+`licenses/optional-addon-localizations/`. No addon executable classes, textures,
+models or sound files are bundled. See `docs/optional-addon-localizations.md` for
+the exact inspected versions and scope.
+
 ## Gradle wrapper
 
 The Gradle wrapper scripts and JAR retain their original copyright and Apache-2.0 notices. A copy of the wrapper license is provided beside each wrapper JAR in `gradle/wrapper/LICENSE`.
