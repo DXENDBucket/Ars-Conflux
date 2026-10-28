@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-29",
+  "state": "accepted-by-upload-api",
+  "moderation_complete_confirmed": false,
+  "plan": "build/curseforge/20261029-003711-c764885a/plan.json",
+  "builds_reused": true,
+  "git_pushed": false,
+  "game_tests_rerun": false,
+  "zero_localization_included": false,
+  "entries": [
+    {
+      "project_id": 1737308,
+      "platform": "neoforge",
+      "version": "0.1.37",
+      "file": "ars-conflux-0.1.37-mc1.21.1-neoforge.jar",
+      "sha256": "977ec31f0ecbb304ae6496e89af5ea6e924a4ac48ba4e96653e365b8955576cc",
+      "file_id": 9354321,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    },
+    {
+      "project_id": 1737308,
+      "platform": "forge",
+      "version": "0.1.37",
+      "file": "ars-conflux-0.1.37-mc1.20.1-forge.jar",
+      "sha256": "3ae866fc8037f239cc9fceed265254435f7913bb5c4f23b51b6e621ca1a88eaa",
+      "file_id": 9354326,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    }
+  ]
+}

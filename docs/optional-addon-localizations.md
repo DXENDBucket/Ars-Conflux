@@ -25,7 +25,9 @@ NeoForge 版 Controle 的 45 条英文原样占位已补齐；另外将目标提
 
 ## 本次未纳入的附属
 
-Ars Zero、Not Enough Glyphs、Ars Elemental 和 Hex-Ars Linker 在检查版本中已有完整的简体中文键覆盖，少量保留原文的项为品牌、格式或开发占位，不另复制一套翻译。原文本身为空的说明不擅自补写。
+Not Enough Glyphs、Ars Elemental 和 Hex-Ars Linker 在检查版本中已有完整的简体中文键覆盖，少量保留原文的项为品牌、格式或开发占位，不另复制一套翻译。原文本身为空的说明不擅自补写。
+
+Ars Zero 2.0.2 的英文／简体中文文件均有 325 个键，但后续复查发现 4 个法杖说明有英文而中文为空，另有独立的巫妖战利品手册条目（6 页）直接写英文。上轮只按键是否存在判断，不能据此称为汉化完整；这些缺译尚未纳入 0.1.37。
 
 Adam's Ars Plus 的简体中文缺失最明显，但其 [CurseForge 项目页](https://www.curseforge.com/minecraft/mc-mods/adams-ars-plus)标为 All Rights Reserved，所检查的发行 JAR 却声明 LGPL，公开源仓库也未提供独立 LICENSE 来解释差异。本轮未将其译文纳入源码或发行包；本地草稿仅保存在忽略的开发输出目录。Reliquified Ars Nouveau 同样未纳入本轮范围。
 
@@ -34,3 +36,7 @@ Adam's Ars Plus 的简体中文缺失最明显，但其 [CurseForge 项目页](h
 Conflux 代码继续使用 MIT。两份附属语言资源来自 LGPL-3.0-only 项目的文本，单独按 LGPL-3.0-only 提供，保留原作者及译者归属；完整 LGPL 与其纳入的 GPL 文本随二进制与源码包附带，见 [第三方声明](../THIRD_PARTY_NOTICES.md)。没有复制上游类、模型、贴图或声音。
 
 检查覆盖两个平台的英文／中文资源叠加、缺失键、重复键、乱码、参数身份与已有中文保留。打包后比对实际 JAR 的 JSON、许可文件、元数据及代码条目。文字变更不启动客户端、GameTest 或重跑施法验证；这不等于已人工查看每一处界面排版。
+
+## 0.1.37 上传记录
+
+2026-10-29，复用本轮已验证的双版本产物上传 CurseForge，项目 `1737308`。NeoForge 1.21.1 文件 ID `9354321`，Forge 1.20.1 文件 ID `9354326`，两项台账均为 `uploaded`，Release，审核通过后自动发布。API 接收不等于审核已完成；详细回执见 [发布记录](curseforge-conflux-0.1.37.json)。未重新构建或启动游戏测试，未包含上述 Zero 缺译。

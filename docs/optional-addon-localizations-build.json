@@ -50,7 +50,7 @@
   "game_tests_run": false,
   "client_started": false,
   "git_pushed": false,
-  "curseforge_uploaded": false,
+  "curseforge_uploaded": true,
   "upstream": [
     {
       "loader": "neoforge",
@@ -137,5 +137,11 @@
   "deployed_modid_unique": true,
   "other_mods_unchanged": true,
   "deployment_receipt": "releases/conflux-addon-localization-20261028/deployment.json",
-  "deployment_backup": "codex-backups\\conflux-addon-localization-20261028-193041\\mods\\ars-conflux-0.1.36-mc1.21.1-neoforge.jar"
+  "deployment_backup": "codex-backups\\conflux-addon-localization-20261028-193041\\mods\\ars-conflux-0.1.36-mc1.21.1-neoforge.jar",
+  "curseforge_upload_date": "2026-10-29",
+  "curseforge_receipt": "docs/curseforge-conflux-0.1.37.json",
+  "curseforge_files": {
+    "neoforge": 9354321,
+    "forge": 9354326
+  }
 }
