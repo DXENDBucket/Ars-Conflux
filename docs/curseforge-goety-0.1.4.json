@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-28",
+  "state": "accepted-by-upload-api",
+  "moderation_complete_confirmed": false,
+  "plan": "build/curseforge/20261028-140820-22b27b5f/plan.json",
+  "builds_reused": true,
+  "git_pushed": false,
+  "entries": [
+    {
+      "project_id": 1739392,
+      "platform": "neoforge",
+      "version": "0.1.4",
+      "file": "goety-nouveau-0.1.4-mc1.21.1-neoforge.jar",
+      "sha256": "85585dd52cad41a35375ac41556009c963aa9b4c6a878a166fd99396fbf9598b",
+      "file_id": 9349911,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    },
+    {
+      "project_id": 1739392,
+      "platform": "forge",
+      "version": "0.1.4",
+      "file": "goety-nouveau-0.1.4-mc1.20.1-forge.jar",
+      "sha256": "8469796cb6998d66e6fa6db554e3110f2aa3cbde29c3074f11dd72a913ec911a",
+      "file_id": 9349912,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    }
+  ]
+}
