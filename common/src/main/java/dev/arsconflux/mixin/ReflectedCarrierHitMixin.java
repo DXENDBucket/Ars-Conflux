@@ -18,10 +18,12 @@ public abstract class ReflectedCarrierHitMixin implements ReflectionStamp {
     @WrapMethod(method="onHit",remap=true)
     private void conflux$collision(HitResult hit,Operation<Void> original) {
         long previous=conflux$collisionStart; conflux$collisionStart=conflux$version;
-        try { original.call(hit); } finally { conflux$collisionStart=previous; }
+        try { dev.arsconflux.api.projectile.TrajectoryContacts.collide((EntityProjectileSpell)(Object)this,hit,()->original.call(hit)); }
+        finally { conflux$collisionStart=previous; }
     }
     @Inject(method="attemptRemoval",at=@At("HEAD"),cancellable=true)
     private void conflux$keepReflected(CallbackInfo ci) {
-        if(conflux$collisionStart>=0 && conflux$version!=conflux$collisionStart)ci.cancel();
+        if(conflux$collisionStart>=0 && conflux$version!=conflux$collisionStart
+                || dev.arsconflux.api.projectile.TrajectoryContacts.retains((EntityProjectileSpell)(Object)this))ci.cancel();
     }
 }

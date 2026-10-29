@@ -33,8 +33,17 @@ public final class ArsTrajectory {
     private final EntityProjectileSpell carrier;
     private ExecutionSession<?> session;
     private ServerLevel pendingDestination;
+    private java.util.function.Predicate<TrajectoryContact> contactPolicy;
     public ArsTrajectory(Entity visual, EntityProjectileSpell carrier) { this.visual = visual; this.carrier = carrier; }
     public EntityProjectileSpell carrier() { return carrier; }
+    /** Opt in before start. True retains the existing carrier after this contact's removal attempt.
+     * It does not reset motion, lifetime, hit lists or other form state. Existing adapters stay unchanged. */
+    public ArsTrajectory contactPolicy(java.util.function.Predicate<TrajectoryContact> policy){
+        if(MANAGED.containsKey(carrier))throw new IllegalStateException("Configure contact policy before start");
+        contactPolicy=java.util.Objects.requireNonNull(policy);return this;
+    }
+    boolean hasContactPolicy(){return contactPolicy!=null;}
+    boolean retainContact(TrajectoryContact contact){return contactPolicy!=null && contactPolicy.test(contact);}
     public Vec3 incomingDirection() { return TriggerGeometry.direction(carrier); }
     static ArsTrajectory managed(EntityProjectileSpell carrier) {
         var reference=MANAGED.get(carrier); return reference==null?null:reference.get();
