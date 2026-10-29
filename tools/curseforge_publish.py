@@ -86,6 +86,31 @@ def relation_for(modid, required, mapping):
     return result
 
 
+def check_mixin_refmaps(path):
+    path = Path(path)
+    try:
+        with zipfile.ZipFile(path) as jar:
+            names = jar.namelist()
+            for name in names:
+                if not name.endswith(".json") or "mixins" not in Path(name).name.lower():
+                    continue
+                config = json.loads(jar.read(name))
+                if not isinstance(config, dict):
+                    raise PublishError(f"Invalid Mixin config {name}: {path.name}")
+                refmap_name = config.get("refmap")
+                if not refmap_name:
+                    continue
+                if not isinstance(refmap_name, str):
+                    raise PublishError(f"Invalid Mixin refmap name in {name}: {path.name}")
+                if refmap_name not in names:
+                    raise PublishError(f"Missing Mixin refmap {refmap_name}: {path.name}")
+                refmap = json.loads(jar.read(refmap_name))
+                if not isinstance(refmap, dict) or not isinstance(refmap.get("mappings"), dict):
+                    raise PublishError(f"Invalid Mixin refmap {refmap_name}: {path.name}")
+    except (OSError, UnicodeError, zipfile.BadZipFile, json.JSONDecodeError) as error:
+        raise PublishError(f"Invalid Mixin resources in release JAR: {path.name}") from error
+
+
 def inspect_jar(path, modid, version, platform, mapping):
     target = PLATFORMS[platform]
     entry = "META-INF/neoforge.mods.toml" if platform == "neoforge" else "META-INF/mods.toml"
@@ -95,6 +120,7 @@ def inspect_jar(path, modid, version, platform, mapping):
             names = jar.namelist()
     except (OSError, KeyError, zipfile.BadZipFile, tomllib.TOMLDecodeError) as error:
         raise PublishError(f"Invalid {platform} release JAR: {path.name}") from error
+    check_mixin_refmaps(path)
     if "LICENSE" not in names:
         raise PublishError(f"Missing LICENSE: {path.name}")
     if not any(name.endswith(".class") for name in names):
@@ -371,6 +397,7 @@ def upload_plan(path, ledger_path, token, sender=None):
         positive_id(entry["project_id"])
         if digest(entry["file"]) != entry["sha256"]:
             raise PublishError(f"Staged file changed: {entry['filename']}")
+        check_mixin_refmaps(entry["file"])
     entries = resolved_entries(plan, token) if sender is None else plan["entries"]
     sender = sender or upload_file
     ledger_path = Path(ledger_path)

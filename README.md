@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.38 fixes a Forge 1.20.1 startup regression in 0.1.37: restored Gradle compilation caches now include the generated Mixin refmap. Forge packaging and release preparation reject missing refmaps. The NeoForge build is version-aligned; gameplay and translations are unchanged.
+
 0.1.37 adds Simplified Chinese language supplements for Ars Controle and Ars Additions, including missing spell descriptions, UI messages and guide pages. Forge receives the translations missing from its older addon releases. No addon becomes mandatory and casting behavior is unchanged. See [localization coverage and licensing](docs/optional-addon-localizations.md).
 
 0.1.36 connects Zero Push/Anchor/Remove Gravity to shared projectile controls, carries Beam/Voxel impact directions into delayed continuations, and recognizes Zero's optional high-tier augments. See [motion and direction API](docs/projectile-controls.md).
@@ -15,14 +17,14 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，代码使用 [MIT 许可证](LICENSE)，附属译文单独保留 LGPL-3.0 声明。当前版本 **0.1.37**。
+Mod ID：`ars_conflux`。作者 EndXiom，代码使用 [MIT 许可证](LICENSE)，附属译文单独保留 LGPL-3.0 声明。当前版本 **0.1.38**。
 
 本地更新工具：双击 `Publish-CurseForge.cmd` 可构建并上传 Core 与附属的双版本发行包，设置方法见 [CurseForge 发布说明](docs/curseforge-publishing.md)。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.37-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.37-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.38-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.38-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 

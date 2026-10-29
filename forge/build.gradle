@@ -53,6 +53,18 @@ minecraft {
     }
 }
 mixin { add sourceSets.main, 'ars_conflux.refmap.json'; config 'ars_conflux.mixins.json' }
+// MixinGradle writes annotation-processor output outside the classes directory.
+// Declare it explicitly so FROM-CACHE restores the refmap as well as the classes.
+tasks.named('compileJava', JavaCompile) {
+    outputs.file(layout.buildDirectory.file('tmp/compileJava/compileJava-refmap.json'))
+            .withPropertyName('mixinRefmap')
+    // MixinGradle's compile-task post-action creates this renamed archive input.
+    // That action is also skipped on FROM-CACHE, so both files must be restored.
+    outputs.file(layout.buildDirectory.file('tmp/compileJava/ars_conflux.refmap.json'))
+            .withPropertyName('packagedMixinRefmap')
+    outputs.file(layout.buildDirectory.file('tmp/compileJava/compileJava-mappings.tsrg'))
+            .withPropertyName('mixinMappings')
+}
 dependencies {
     if (providers.gradleProperty('withAdamsArsPlus').getOrElse('false').toBoolean()) {
         runtimeOnly fg.deobf('local:adams-ars-plus:adams1201')
@@ -114,3 +126,26 @@ tasks.named('sourcesJar') { from('../THIRD_PARTY_NOTICES.md') }
 ['jar', 'jarJar', 'sourcesJar'].each { archive ->
     tasks.named(archive) { from('../licenses') { into 'licenses' } }
 }
+
+def verifyPackagedRefmap = { File archive ->
+    new java.util.zip.ZipFile(archive).withCloseable { zip ->
+        def entry = zip.getEntry('ars_conflux.refmap.json')
+        if (entry == null) throw new GradleException("Missing ars_conflux.refmap.json in ${archive.name}")
+        def refmap = zip.getInputStream(entry).withCloseable { stream ->
+            new groovy.json.JsonSlurper().parse(stream, 'UTF-8')
+        }
+        def execution = refmap.mappings?.get('dev/arsconflux/mixin/ExecutionProjectilesMixin')?.get('addFreshEntity')
+        if (execution != 'Lnet/minecraft/server/level/ServerLevel;m_7967_(Lnet/minecraft/world/entity/Entity;)Z'
+                || refmap.data?.searge?.get('dev/arsconflux/mixin/ExecutionProjectilesMixin')?.get('addFreshEntity') != execution) {
+            throw new GradleException("Missing production ServerLevel mapping in ${archive.name}")
+        }
+    }
+}
+['jar', 'jarJar'].each { archive ->
+    tasks.named(archive) { doLast { verifyPackagedRefmap(archiveFile.get().asFile) } }
+}
+tasks.register('verifyDistributions') {
+    dependsOn tasks.named('reobfJarJar')
+    doLast { verifyPackagedRefmap(tasks.named('jarJar').get().archiveFile.get().asFile) }
+}
+tasks.named('check') { dependsOn tasks.named('verifyDistributions') }

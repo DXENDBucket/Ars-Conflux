@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-29",
+  "version": "0.1.38",
+  "start_commit": "495e225d4a20d43b2f30f95f4315d833e3d84886",
+  "worktree": "C:\\Users\\57991\\Documents\\MinecraftDev\\parallel-workspaces\\conflux-forge-refmap-20261029\\Ars-Conflux",
+  "client_started": false,
+  "game_tests_run": false,
+  "production_server_started": false,
+  "curseforge_uploaded": false,
+  "shared_instance_deployed": false,
+  "git_pushed": false,
+  "publisher_tests": 23,
+  "forge_cache_restore_test": {
+    "task": "compileJava",
+    "outcome": "FROM-CACHE",
+    "verify_distributions": "passed"
+  },
+  "forge_refmap_matches_working_0_1_36": true,
+  "artifacts": [
+    {
+      "loader": "neoforge",
+      "file": "build/libs/ars-conflux-0.1.38-mc1.21.1-neoforge.jar",
+      "size": 419211,
+      "sha256": "cac64782cbd4a7e062e4d9218131d82bda2032d79a1d0ef0cf46f9f0fc6da9a9"
+    },
+    {
+      "loader": "neoforge",
+      "file": "build/libs/ars-conflux-0.1.38-sources.jar",
+      "size": 205126,
+      "sha256": "88c90db27ceccf90eb40aaaf09d5635eb7fd04ba8b4dbfac6f0534884e019fdb"
+    },
+    {
+      "loader": "forge",
+      "file": "forge/build/libs/ars-conflux-0.1.38-mc1.20.1-forge.jar",
+      "size": 518530,
+      "sha256": "3da8f24fa02e2dbcefd531ba0c51a0679274ff8affb032ac9cc2441f3784da3a"
+    },
+    {
+      "loader": "forge",
+      "file": "forge/build/libs/ars-conflux-0.1.38-sources.jar",
+      "size": 163476,
+      "sha256": "08fcd256a7f5841c04876e1156117e564af2f45aaf250e7827b2251ca973f6bc"
+    }
+  ],
+  "platform_checks": [
+    {
+      "loader": "neoforge",
+      "unchanged_classes": 257,
+      "json_content_unchanged": true,
+      "formatting_only_files": [
+        "assets/ars_additions/lang/zh_cn.json",
+        "assets/ars_controle/lang/zh_cn.json"
+      ],
+      "publish_preflight": "passed"
+    },
+    {
+      "loader": "forge",
+      "unchanged_classes": 197,
+      "json_content_unchanged": true,
+      "formatting_only_files": [
+        "assets/ars_additions/lang/zh_cn.json",
+        "assets/ars_controle/lang/zh_cn.json"
+      ],
+      "publish_preflight": "passed"
+    }
+  ]
+}
