@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-29",
+  "state": "accepted-by-upload-api",
+  "moderation_complete_confirmed": false,
+  "plan": "build/curseforge/20261029-122238-4d0af51e/plan.json",
+  "builds_reused": true,
+  "git_pushed": false,
+  "tests_rerun_for_upload": false,
+  "shared_instances_changed": false,
+  "entries": [
+    {
+      "project_id": 1767646,
+      "platform": "neoforge",
+      "version": "0.1.3",
+      "file": "cataclysm-nouveau-0.1.3-mc1.21.1-neoforge.jar",
+      "sha256": "daf4116f5a7969e86f29c14c3d903729950ed2cacccfd5c5cc092547e3b2463d",
+      "file_id": 9359036,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    },
+    {
+      "project_id": 1767646,
+      "platform": "forge",
+      "version": "0.1.3",
+      "file": "cataclysm-nouveau-0.1.3-mc1.20.1-forge.jar",
+      "sha256": "3b4dce34a226f24aa4dfdfddb26cf15b8f32c3674f7487dc3706a47de114f8db",
+      "file_id": 9359037,
+      "state": "uploaded",
+      "release_type": "release",
+      "manual_release": false
+    }
+  ]
+}
