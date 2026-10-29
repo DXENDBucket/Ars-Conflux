@@ -6,7 +6,7 @@
   "client_started": false,
   "game_tests_run": false,
   "production_server_started": false,
-  "curseforge_uploaded": false,
+  "curseforge_uploaded": true,
   "shared_instance_deployed": false,
   "git_pushed": false,
   "publisher_tests": 23,
@@ -63,5 +63,11 @@
       ],
       "publish_preflight": "passed"
     }
-  ]
+  ],
+  "curseforge_upload_date": "2026-10-29",
+  "curseforge_receipt": "docs/curseforge-conflux-0.1.38.json",
+  "curseforge_files": {
+    "neoforge": 9358880,
+    "forge": 9358881
+  }
 }

@@ -29,4 +29,9 @@
 5. NeoForge 双版本号对齐为 0.1.38，并完成打包检查。
 6. 当前 Iron、Goety、BOMD、Cataclysm、Aquamirae、Mowzie 的本地 Forge 发行包均含各自声明的 refmap。这仅说明本次检查未发现相同遗漏，不等于重新测试其全部运行行为。
 
-没有启动完整客户端、GameTest 或生产服务器；不声称已复现反馈者的完整启动过程。这里验证的是已确定的缺文件回归、缓存恢复路径与关键生产方法映射。构建产物和详细检查记录见 [验证记录](forge-refmap-hotfix-build.json)。本次不自动再次上传 CurseForge，也不替换共享测试实例。
+没有启动完整客户端、GameTest 或生产服务器；不声称已复现反馈者的完整启动过程。这里验证的是已确定的缺文件回归、缓存恢复路径与关键生产方法映射。构建产物和详细检查记录见 [验证记录](forge-refmap-hotfix-build.json)。修复交付时没有自动再次上传 CurseForge，也没有替换共享测试实例。
+
+
+## 0.1.38 发布记录
+
+2026-10-29，用户授权两个平台均上传，复用上述已验证产物。CurseForge Upload API 已接收项目 `1737308` 的 NeoForge 1.21.1 文件 `9358880` 与 Forge 1.20.1 文件 `9358881`；两项台账均为 `uploaded`，Release，审核通过后自动发布。API 接收不等于审核已完成，详细记录见 [发布回执](curseforge-conflux-0.1.38.json)。没有重新构建、重复启动游戏验证、改动共享实例或推送 Git。
