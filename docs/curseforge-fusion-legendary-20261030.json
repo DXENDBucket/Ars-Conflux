@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-30",
+  "plan": "build\\curseforge\\20261030-131036-ce686cdb\\plan.json",
+  "release_type": "release",
+  "manual_release": false,
+  "status": "API accepted all four files; moderation/public availability not confirmed",
+  "entries": [
+    {
+      "project": "legendary",
+      "project_id": 1773684,
+      "platform": "neoforge",
+      "version": "0.1.0-dev.13",
+      "filename": "legendary-nouveau-0.1.0-dev.13-mc1.21.1-neoforge.jar",
+      "sha256": "e00e4fb7ce6c4803fc2302c29ee5ff30823bf8d26e079cd67ede5a5fffb4e10f",
+      "file_id": 9369068,
+      "state": "uploaded"
+    },
+    {
+      "project": "legendary",
+      "project_id": 1773684,
+      "platform": "forge",
+      "version": "0.1.0-dev.13",
+      "filename": "legendary-nouveau-0.1.0-dev.13-mc1.20.1-forge.jar",
+      "sha256": "00a884596755a74f6c6f162cd42c11d9bf551a6ab1aadbd4065d291c24bc06a8",
+      "file_id": 9369069,
+      "state": "uploaded"
+    },
+    {
+      "project": "fusion",
+      "project_id": 1773676,
+      "platform": "neoforge",
+      "version": "0.1.5",
+      "filename": "ars-fusion-0.1.5-mc1.21.1-neoforge.jar",
+      "sha256": "e700ed06813a9bcdd335471665da965a3467c69e49d0b93670a2a0502f1990cf",
+      "file_id": 9369070,
+      "state": "uploaded"
+    },
+    {
+      "project": "fusion",
+      "project_id": 1773676,
+      "platform": "forge",
+      "version": "0.1.5",
+      "filename": "ars-fusion-0.1.5-mc1.20.1-forge.jar",
+      "sha256": "a8aa16aa745dbc6f542553e4bdc59228c14e36ca28b05dfbb56fbb65b63d62d1",
+      "file_id": 9369071,
+      "state": "uploaded"
+    }
+  ],
+  "builds_or_tests_repeated": false
+}

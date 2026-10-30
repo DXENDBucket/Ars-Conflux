@@ -196,3 +196,19 @@ All six ledger entries are `uploaded`, with Release type and automatic publicati
 Plan: `build/curseforge/20261030-091500-40b0664d/plan.json`. Receipts: `build/curseforge/release-20261030-timing-attributes/receipts.json`. Public notes: `release-notes/conflux/0.1.40.md`, `release-notes/iron/0.17.31.md`, `release-notes/goety/0.1.5.md`. Other configured addon builds already had successful receipts and were not uploaded again.
 
 The publication step did not change instance files or push Git. Withdrawn projectile-survival experimental builds were not selected.
+
+
+## 2026-10-30: first Legendary Monsters & Nouveau / Ars Fusion releases
+
+The user authorized the first upload for both new projects. Four existing binary artifacts matched the verified release manifests and were uploaded without rebuilding or repeating game tests.
+
+| Project | Version | NeoForge 1.21.1 | Forge 1.20.1 |
+| --- | --- | ---: | ---: |
+| Legendary Monsters & Nouveau (1773684) | 0.1.0-dev.13 | 9369068 | 9369069 |
+| Ars Fusion (1773676) | 0.1.5 | 9369070 | 9369071 |
+
+All ledger entries are `uploaded`, with Release type and automatic publication after approval (`isMarkedForManualRelease=false`). API acceptance does not confirm moderation or public availability. The Legendary version retains its development-series identifier.
+
+Plan: `build/curseforge/20261030-131036-ce686cdb/plan.json`. Full local receipts and logs: `build/curseforge/release-20261030-fusion-legendary/`. Portable receipt: `docs/curseforge-fusion-legendary-20261030.json`. Public release notes are in `release-notes/legendary/0.1.0-dev.13.md` and `release-notes/fusion/0.1.5.md`.
+
+Fusion requires Ars Nouveau only; its Iron, Iron & Nouveau and Conflux relationships remain optional. Co-installation with Iron & Nouveau requires version 0.17.32 or newer. Legendary requires Ars Nouveau, Conflux and Legendary Monsters. Both uploaded files retain the verified production refmaps. This upload did not change game-instance files or push Git.

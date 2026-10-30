@@ -1,46 +1,166 @@
 {
   "workspace_root": "..",
-  "default_projects": ["conflux", "iron"],
+  "default_projects": [
+    "conflux",
+    "iron"
+  ],
   "token_environment": "CURSEFORGE_API_TOKEN",
   "release_type": "release",
-  "environments": ["Client", "Server"],
+  "environments": [
+    "Client",
+    "Server"
+  ],
   "manual_release": false,
   "state_directory": "build/curseforge",
   "changelog_directory": "release-notes",
-  "java_homes": {"21": "", "17": ""},
+  "java_homes": {
+    "21": "",
+    "17": ""
+  },
   "dependencies": {
     "ars_nouveau": "ars-nouveau",
-    "ars_conflux": {"slug": "ars-conflux", "project_id": 1737308},
+    "ars_conflux": {
+      "slug": "ars-conflux",
+      "project_id": 1737308
+    },
     "irons_spellbooks": "irons-spells-n-spellbooks",
     "goety": "goety",
-    "bosses_of_mass_destruction": {"slug": "bosses-of-mass-destruction-forge", "project_id": 941573},
-    "cataclysm": {"slug": "lendercataclysm", "project_id": 551586},
+    "bosses_of_mass_destruction": {
+      "slug": "bosses-of-mass-destruction-forge",
+      "project_id": 941573
+    },
+    "cataclysm": {
+      "slug": "lendercataclysm",
+      "project_id": 551586
+    },
     "not_enough_glyphs": "not-enough-glyphs",
     "ars_elemental": "ars-elemental",
-    "hex_ars_link": "hex-ars-linker"
+    "hex_ars_link": "hex-ars-linker",
+    "legendary_monsters": "legendary-monsters",
+    "irons_nouveau": {
+      "slug": "irons-nouveau",
+      "project_id": 1726248
+    }
   },
   "projects": {
     "conflux": {
-      "directory": "Ars-Conflux", "name": "Ars Conflux", "modid": "ars_conflux",
-      "artifact": "ars-conflux", "project_id": 1737308, "platforms": ["neoforge", "forge"]
+      "directory": "Ars-Conflux",
+      "name": "Ars Conflux",
+      "modid": "ars_conflux",
+      "artifact": "ars-conflux",
+      "project_id": 1737308,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ]
     },
     "iron": {
-      "directory": "Irons-Nouveau", "name": "Iron & Nouveau", "modid": "irons_nouveau",
-      "artifact": "irons-nouveau", "project_id": 1726248, "platforms": ["neoforge", "forge"]
+      "directory": "Irons-Nouveau",
+      "name": "Iron & Nouveau",
+      "modid": "irons_nouveau",
+      "artifact": "irons-nouveau",
+      "project_id": 1726248,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ]
     },
     "goety": {
-      "directory": "Goety-Nouveau", "name": "Goety & Nouveau", "modid": "goety_nouveau",
-      "artifact": "goety-nouveau", "project_id": 1739392, "platforms": ["neoforge", "forge"]
+      "directory": "Goety-Nouveau",
+      "name": "Goety & Nouveau",
+      "modid": "goety_nouveau",
+      "artifact": "goety-nouveau",
+      "project_id": 1739392,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ]
     },
     "bomd": {
-      "directory": "BOMD-Nouveau", "name": "BOMD & Nouveau", "modid": "bomd_nouveau",
-      "artifact": "bomd-nouveau", "project_id": 1739402, "platforms": ["neoforge", "forge"]
+      "directory": "BOMD-Nouveau",
+      "name": "BOMD & Nouveau",
+      "modid": "bomd_nouveau",
+      "artifact": "bomd-nouveau",
+      "project_id": 1739402,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ]
     },
     "cataclysm": {
-      "directory": "Cataclysm-Nouveau", "name": "Cataclysm & Nouveau", "modid": "cataclysm_nouveau",
-      "artifact": "cataclysm-nouveau", "project_id": 1767646, "platforms": ["neoforge", "forge"],
-      "build_tasks": {"forge": [":jar", ":reobfJar", ":sourcesJar"]},
-      "extra_tasks": {"neoforge": [":verifyDistributions"], "forge": [":verifyDistributions"]}
+      "directory": "Cataclysm-Nouveau",
+      "name": "Cataclysm & Nouveau",
+      "modid": "cataclysm_nouveau",
+      "artifact": "cataclysm-nouveau",
+      "project_id": 1767646,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ],
+      "build_tasks": {
+        "forge": [
+          ":jar",
+          ":reobfJar",
+          ":sourcesJar"
+        ]
+      },
+      "extra_tasks": {
+        "neoforge": [
+          ":verifyDistributions"
+        ],
+        "forge": [
+          ":verifyDistributions"
+        ]
+      }
+    },
+    "legendary": {
+      "directory": "Legendary-Monsters-Nouveau",
+      "name": "Legendary Monsters & Nouveau",
+      "modid": "legendary_nouveau",
+      "artifact": "legendary-nouveau",
+      "project_id": 1773684,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ],
+      "build_tasks": {
+        "forge": [
+          ":jar",
+          ":reobfJar",
+          ":sourcesJar"
+        ]
+      },
+      "extra_tasks": {
+        "neoforge": [
+          ":verifyDistributions"
+        ],
+        "forge": [
+          ":verifyDistributions"
+        ]
+      }
+    },
+    "fusion": {
+      "directory": "Ars-Fusion",
+      "name": "Ars Fusion",
+      "modid": "ars_fusion",
+      "artifact": "ars-fusion",
+      "project_id": 1773676,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ],
+      "build_tasks": {
+        "forge": [
+          ":jar",
+          ":reobfJar",
+          ":sourcesJar"
+        ]
+      },
+      "extra_tasks": {
+        "forge": [
+          ":verifyRelease"
+        ]
+      }
     }
   }
 }
