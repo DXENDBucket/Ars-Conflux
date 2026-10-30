@@ -46,6 +46,8 @@
     "SpellContextAccess",
     "SpellResolverAccess",
     "ArsTriggerBillingMixin",
+    "DiscountRingPercentageMixin",
+    "NativeManaDiscountMixin",
     "ResolverInheritanceMixin",
     "OptionalNegResolverMixin",
     "OptionalPropagationMixin",

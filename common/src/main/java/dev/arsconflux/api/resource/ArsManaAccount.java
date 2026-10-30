@@ -11,6 +11,7 @@ public record ArsManaAccount(IWrappedCaster source, Object poolOwner, boolean fr
         this(source, source instanceof LivingCaster living ? living.livingEntity : source,
                 source instanceof LivingCaster living && living.livingEntity instanceof Player player && player.isCreative());
     }
+    public int quoteCost(int raw) {return source instanceof LivingCaster living?ArsManaDiscounts.quote(living.livingEntity,raw):raw;}
     public Object reservationKey() { return ResourcePoolKey.of("ars_nouveau:mana", poolOwner); }
     public boolean canSpend(int amount) { return amount == 0 || ArsAccess.canSpend(source, amount); }
     public void spend(int amount) { ArsAccess.spend(source, amount); }

@@ -7,5 +7,7 @@ public interface ResourceAccount {
     Object reservationKey();
     boolean canSpend(int amount);
     void spend(int amount);
+    /** Transform a raw quote once; canSpend/spend always receive final already-quoted amounts. */
+    default int quoteCost(int raw) { return raw; }
     default boolean free() { return false; }
 }

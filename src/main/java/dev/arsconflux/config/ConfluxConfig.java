@@ -4,6 +4,8 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class ConfluxConfig {
     public static final ModConfigSpec SPEC;
+    public static final ModConfigSpec.BooleanValue PERCENTAGE_DISCOUNT_RINGS;
+    public static final ModConfigSpec.DoubleValue LESSER_RING_REDUCTION, GREATER_RING_REDUCTION;
     public static final ModConfigSpec.BooleanValue SCHOOL_DAMAGE_RULES;
     public static final ModConfigSpec.BooleanValue VANILLA_TRIGGER_BILLING;
     public static final ModConfigSpec.BooleanValue HEX_CHANTING, HEX_COOLDOWNS;
@@ -13,6 +15,14 @@ public final class ConfluxConfig {
     public static final ModConfigSpec.EnumValue<ChantMode> CHANT_MODE;
     static {
         var builder = new ModConfigSpec.Builder();
+        builder.push("mana_discounts");
+        PERCENTAGE_DISCOUNT_RINGS=builder.comment("Convert the two native Ars discount rings from flat discounts to percentage mana reductions.",
+                "Applies to native Ars costs and opt-in mana quotes. Soul energy and other resources keep their own rules.",
+                "False restores native flat discounts and removes the converted trigger discounts.").define("percentage_discount_rings",true);
+        LESSER_RING_REDUCTION=builder.comment("Mana reduction per equipped lesser discount ring; 0.10 means 10 percent.").defineInRange("lesser_ring_reduction",0.10,0,1);
+        GREATER_RING_REDUCTION=builder.comment("Mana reduction per equipped greater discount ring; 0.20 means 20 percent.",
+                "Ring percentages add, capped at 100 percent. Positive fractional mana costs round up.").defineInRange("greater_ring_reduction",0.20,0,1);
+        builder.pop();
         builder.push("schools");
         SCHOOL_DAMAGE_RULES=builder.comment("Apply explicitly declared school damage multipliers from server datapacks. Default false preserves existing balance.",
                 "Undeclared abilities always retain their original damage. Native damage types, armor rules and original school memberships are unchanged.").define("damage_rules",false);
@@ -51,6 +61,9 @@ public final class ConfluxConfig {
                 .define("preserve_on_death", true);
         builder.pop(); SPEC = builder.build();
     }
+    public static boolean percentageDiscountRings() {return SPEC.isLoaded()?PERCENTAGE_DISCOUNT_RINGS.get():PERCENTAGE_DISCOUNT_RINGS.getDefault();}
+    public static double lesserRingReduction() {return SPEC.isLoaded()?LESSER_RING_REDUCTION.get():LESSER_RING_REDUCTION.getDefault();}
+    public static double greaterRingReduction() {return SPEC.isLoaded()?GREATER_RING_REDUCTION.get():GREATER_RING_REDUCTION.getDefault();}
     private ConfluxConfig() {}
     public static boolean schoolDamageRules() {return SPEC.isLoaded()?SCHOOL_DAMAGE_RULES.get():SCHOOL_DAMAGE_RULES.getDefault();}
     public static boolean preserveCooldownsOnDeath() { return SPEC.isLoaded() ? PRESERVE_COOLDOWNS_ON_DEATH.get() : PRESERVE_COOLDOWNS_ON_DEATH.getDefault(); }

@@ -138,7 +138,7 @@ public final class VanillaTriggerBilling {
                 }
                 public void spend(int amount) { quote.expendMana(); }
             };
-            if (!new ResourceCharge(account, spent).trigger(() -> { action.run(); return true; })) context.stop();
+            if (!ResourceCharge.exact(account, spent).trigger(() -> { action.run(); return true; })) context.stop();
         } finally { NativePaymentCleanup.finish(quoteContext); }
     }
 }

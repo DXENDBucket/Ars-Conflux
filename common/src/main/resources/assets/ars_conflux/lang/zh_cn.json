@@ -12,5 +12,6 @@
   "ars_conflux.augment.shock_duration_down": "缩短剩余的触电状态。",
   "commands.ars_conflux.schools.undeclared": "%s 未声明 Conflux 流派。",
   "attribute.ars_conflux.confluence_spell_power": "汇流法术强度",
-  "attribute.ars_conflux.school_power_format": "“%s”流派法术强度"
+  "attribute.ars_conflux.school_power_format": "“%s”流派法术强度",
+  "ars_conflux.tooltip.percentage_mana_discount": "魔力消耗降低 %s%%。"
 }

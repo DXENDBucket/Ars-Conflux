@@ -42,4 +42,24 @@ final class ResourceTransactionsTest {
         assertEquals(2, new ResourceCharge(pool, 30).affordableCount(Integer.MAX_VALUE));
         assertEquals(0, new ResourceCharge(pool, Integer.MAX_VALUE).affordableCount(Integer.MAX_VALUE));
     }
+    @Test void percentageQuoteIsFrozenAndBothBudgetAndDebitUseIt() {
+        var balance=new AtomicInteger(140);var rate=new AtomicInteger(30);var quotes=new AtomicInteger();
+        ResourceAccount pool=new ResourceAccount(){
+            public Object reservationKey(){return balance;}
+            public int quoteCost(int raw){quotes.incrementAndGet();return (raw*(100-rate.get())+99)/100;}
+            public boolean canSpend(int amount){return balance.get()>=amount;}
+            public void spend(int amount){balance.addAndGet(-amount);}
+        };
+        var charge=new ResourceCharge(pool,100);
+        assertEquals(70,charge.amount());assertEquals(100,charge.originalAmount());assertEquals(2,charge.affordableCount(5));
+        rate.set(0);assertTrue(charge.trigger(()->charge.trigger(()->true)));assertEquals(0,balance.get());
+        assertEquals(1,quotes.get());assertEquals(70,ResourceCharge.exact(pool,70).amount());assertEquals(1,quotes.get());
+    }
+    @Test void decimalPercentageRoundingAndFullReductionAreSafe() {
+        assertEquals(7,ArsManaDiscounts.apply(10,new java.math.BigDecimal("0.3")));
+        assertEquals(1,ArsManaDiscounts.apply(1,new java.math.BigDecimal("0.9")));
+        assertEquals(0,ArsManaDiscounts.apply(123,java.math.BigDecimal.ONE));
+        assertEquals(0,ArsManaDiscounts.apply(0,new java.math.BigDecimal("0.2")));
+        assertEquals(Integer.MAX_VALUE,ArsManaDiscounts.apply(Integer.MAX_VALUE,java.math.BigDecimal.ZERO));
+    }
 }

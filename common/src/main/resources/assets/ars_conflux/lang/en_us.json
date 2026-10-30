@@ -12,5 +12,6 @@
   "ars_conflux.augment.shock_duration_down": "Decreases the remaining Shocked duration.",
   "commands.ars_conflux.schools.undeclared": "%s has no Conflux school declaration.",
   "attribute.ars_conflux.confluence_spell_power": "Confluence Spell Power",
-  "attribute.ars_conflux.school_power_format": "%s School Spell Power"
+  "attribute.ars_conflux.school_power_format": "%s School Spell Power",
+  "ars_conflux.tooltip.percentage_mana_discount": "Reduces mana costs by %s%%."
 }
