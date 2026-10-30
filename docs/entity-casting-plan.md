@@ -5,12 +5,16 @@
 Core 基线：0.1.43 / `93cf3e9340662c335de70249614e5a9d56fe7b3b`。
 首个迁移来源：相邻 `Beneath-The-Dying-Sun` 项目已有的生物施法实现。
 
+独立通用 AI 附属定名：**Ars Instinct**，modid **`ars_instinct`**，计划工程目录 `MinecraftDev/Ars-Instinct`。本次仅确定名称与边界，尚未创建工程或公共项目，也未完成名称查重。
+
 ## 1. 已确定的边界
 
 - 优先完善现有通用能力，暂停新增 Apprentice's Codex / Spell Engine 联动。
 - 附属为单个魔符提供大致能力标签；允许多个标签、允许不声明。
 - 术式用法继续使用简单规则：起始形态 + 第一个关键能力，不引入完整术式推理器。
-- Core 提供标签、资源和执行接口。具体追敌、选槽权重、警戒、仇恨与自动安装 Goal 留在整合包或专门的 AI 使用方。
+- Core 提供标签、资源和执行接口；Ars Instinct 提供简单编排判断、多槽选择、攒蓝、瞄准、友军治疗、近战/施法切换的通用 Goal 或控制器。
+- Ars Instinct 只直接依赖 Ars Nouveau + Ars Conflux，不硬依赖 Iron、Goety 或落日之下。各法术附属通过标签和公共接口参与，纯 Ars 编排也可使用。
+- Core 不包含 AI 决策或自动安装 Goal。Ars Instinct 默认不接管所有生物，由配置、数据或其他模组显式接入；接入策略、生物配装/数值、警戒仇恨和特殊行为留在整合包或冒险内容模组。
 - 复用落日之下已有实现，尤其继续使用原生 Ars Mana 附件，不新增第二套平行魔力存储。
 - 通用能力不依赖 Iron / Goety。附属自己的属性、费用和原生限制仍由对应附属解释。
 - 同步维护 1.21.1 NeoForge / 1.20.1 Forge 的公共语义；平台差异通过平台层处理，不使用假玩家伪装非玩家施法。
@@ -23,9 +27,9 @@ Core 基线：0.1.43 / `93cf3e9340662c335de70249614e5a9d56fe7b3b`。
 | beneathsun/magic/ManaPools | 查询、扣费、恢复、真实存量转移 | 抽取或适配到 Core 统一资源入口，保持原生底层 |
 | beneathsun/compat/ars/FixedSpellCaster | 真实生物执行、固定工具的原生 Ars resolver | 抽出执行基础；封存/编辑限制留物品玩法层 |
 | beneathsun/compat/ars/SealedSpellTools | 工具识别、使用许可、预检、非玩家 Iron 冷却 | 通用执行转 Core；Iron 规则转 Iron provider；物种等级规则留整合包 |
-| beneathsun/compat/ars/ProgramTactics | 依据形态/第一个效果选敌我、需要治疗等 | 消费通用标签，继续作为简单 AI 策略 |
-| beneathsun/compat/ars/ToolCombatCasting | 多槽候选、预算、攒蓝、共享冷却避让 | 通用查询复用 Core；选择与权重留 AI |
-| beneathsun/world/SpellMeleeGoal | 追敌、近战、抛物线瞄准、决策频率 | 保留整合包，可复用通用查询 |
+| beneathsun/compat/ars/ProgramTactics | 依据形态/第一个效果选敌我、需要治疗等 | 通用判断迁入 Ars Instinct，消费 Core 标签；特殊规则留整合包 |
+| beneathsun/compat/ars/ToolCombatCasting | 多槽候选、预算、攒蓝、共享冷却避让 | 通用选择迁入 Ars Instinct，预算/计时查询复用 Core；物种权重由调用方提供 |
+| beneathsun/world/SpellMeleeGoal | 追敌、近战、抛物线瞄准、决策频率 | 通用 Goal 迁入 Ars Instinct，安装范围与特化由调用方决定 |
 
 当前 EntityMana 里巨型水母 500、末影人 240 等硬编码、特定 Iron 属性、工具配装、首槽权重和连续重复惩罚都不原样搬进 Core。
 
@@ -114,7 +118,7 @@ data/irons_nouveau/conflux/glyph_abilities/glyph_fire_breath.json
 
 第一版不加入嵌套标签、复杂选择器、每个法术的结构化 AI 配置或动态数值提供者。标签查询首先供服务端使用；本阶段不增加客户端展示或同步协议。
 
-## 4. 标签在落日之下的消费方式
+## 4. 标签在 Ars Instinct 与落日之下的消费方式
 
 保留现有简单模型：
 
@@ -165,7 +169,7 @@ Goety 保留灵魂能量/Ars Mana 的现有配置语义。普通生物没有玩�
 
 ### 批次 A：标签闭环
 
-交付 Core 查询 + 数据覆盖，并由 Iron 给落日之下当前识别的能力提供默认标签；落日之下替换 ProgramTactics 中相应的用途/敌我硬编码。
+交付 Core 查询 + 数据覆盖，并由 Iron 给落日之下当前识别的能力提供默认标签；Ars Instinct 抽取简单 AI 判断，落日之下作为首个调用方，替换 ProgramTactics 中相应的用途/敌我硬编码。第一批先建立这条闭环，不要求同时完成全部魔力和冷却迁移。
 
 验收：
 

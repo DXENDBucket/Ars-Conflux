@@ -2,7 +2,7 @@
 
 先读 [开发与测试流程](docs/development-workflow.md)，交接使用 [任务模板](docs/agent-handoff-template.md)。
 
-- Conflux 是跨附属的中立 API；原模组特有语义留在各附属，整合包流程和 AI 留在整合包核心。
+- Conflux 是跨附属的中立 API；原模组特有语义留在各附属。通用施法 AI 放在独立的 Ars Instinct（`ars_instinct`），通过 Core 标签/资源/执行接口接入；整合包保留流程、生物设计、安装策略与特殊行为。Core 不自动给生物安装 AI。
 - 正在做附属任务的 agent 不修改本仓库受版本控制文件。需要 API 扩展时记录需求，交给独立 Core 任务。明确以 Core 为目标的任务按用户授权推进。
 - 附属并行构建使用各自固定提交的 Core worktree，避免共享 `build/`、`run/`。Core 副本源码只读，自己的忽略构建目录可写。
 - 根目录维护 NeoForge 1.21.1 / Java 21，`forge/` 维护 Forge 1.20.1 / Java 17，共享版本来自 `VERSION`。
