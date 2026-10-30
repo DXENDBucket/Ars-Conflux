@@ -1,4 +1,6 @@
 {
+  "attribute.ars_conflux.cooldown_reduction": "通用法术冷却缩减",
+  "attribute.ars_conflux.cast_time_reduction": "通用法术吟唱缩减",
   "ars_conflux.validation.one_payload": "同一法术段只能使用一个替换弹射物魔符。",
   "ars_conflux.glyph_name.glyph_nearby_allies": "周围友军",
   "item.ars_conflux.glyph_nearby_allies": "周围友军",

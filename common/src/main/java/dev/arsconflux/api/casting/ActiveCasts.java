@@ -133,7 +133,8 @@ public final class ActiveCasts {
         }
         var durations = new ArrayList<Integer>();
         for (var p : participants) durations.addAll(p.provider.chantTicks(request));
-        int ticks = ChantDurations.combine(durations, dev.arsconflux.config.ConfluxConfig.sumChants());
+        int ticks = CastingTiming.chantTicks(caster,
+                ChantDurations.combine(durations, dev.arsconflux.config.ConfluxConfig.sumChants()));
         if (ticks == 0) return Deferral.UNNEEDED;
         if (!caster.isAlive() || ACTIVE.size() >= 4096 || policy.cooldowns() && !allowed(spell, caster, source)) return Deferral.DENIED;
         var held = caster.getItemInHand(hand);

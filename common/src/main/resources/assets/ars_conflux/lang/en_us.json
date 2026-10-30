@@ -1,4 +1,6 @@
 {
+  "attribute.ars_conflux.cooldown_reduction": "Conflux Cooldown Reduction",
+  "attribute.ars_conflux.cast_time_reduction": "Conflux Cast Time Reduction",
   "ars_conflux.validation.one_payload": "Only one replacement projectile glyph is allowed per phrase.",
   "ars_conflux.glyph_name.glyph_nearby_allies": "Nearby Allies",
   "item.ars_conflux.glyph_nearby_allies": "Nearby Allies",

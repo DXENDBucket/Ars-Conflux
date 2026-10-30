@@ -34,8 +34,13 @@ public final class PersistentCooldowns {
             if (actor == null || !(actor.level() instanceof ServerLevel)) return 0;
             return Math.max(0, actor.getPersistentData().getCompound(dataKey).getLong(entry) - now(actor));
         }
-        /** Extend only, never shorten another source's deadline. This is a raw storage operation. */
+        /** Start/extend a cooldown from provider-effective ticks, applying Conflux reduction once.
+         * Do not pre-scale this input. Existing deadlines are never re-evaluated or shortened. */
         public void extend(LivingEntity actor, String entry, long ticks) {
+            extendRaw(actor, entry, CastingTiming.cooldownTicks(actor, ticks));
+        }
+        /** Raw deadline operation for restoration or callers with an explicitly final duration. */
+        public void extendRaw(LivingEntity actor, String entry, long ticks) {
             if (actor == null || !(actor.level() instanceof ServerLevel) || ticks <= 0) return;
             var data = actor.getPersistentData().getCompound(dataKey);
             long clock = now(actor), deadline = ticks > Long.MAX_VALUE-clock ? Long.MAX_VALUE : clock+ticks;
@@ -46,9 +51,11 @@ public final class PersistentCooldowns {
          * The key includes the caller-selected phase, so grant and recovery do not swallow one another. */
         public void commit(LivingEntity actor, String entry, String phase, long ticks) {
             if (!ActiveCasts.cooldownsEnabled(actor) || ticks <= 0) return;
-            var key = ResourceLocation.tryParse(id.getNamespace()+":"+id.getPath()+"/"+entry+"/"+phase+"/"+ticks);
+            long adjusted = CastingTiming.cooldownTicks(actor, ticks);
+            if (adjusted <= 0) return;
+            var key = ResourceLocation.tryParse(id.getNamespace()+":"+id.getPath()+"/"+entry+"/"+phase+"/"+adjusted);
             Objects.requireNonNull(key, "Invalid cooldown entry/phase");
-            if (!ActiveCasts.afterRelease(actor, key, () -> extend(actor, entry, ticks))) extend(actor, entry, ticks);
+            if (!ActiveCasts.afterRelease(actor, key, () -> extendRaw(actor, entry, adjusted))) extendRaw(actor, entry, adjusted);
         }
         /** Explicit state copy for external callers; the event hook additionally applies the death policy. */
         public void copyState(LivingEntity original, LivingEntity replacement) {
