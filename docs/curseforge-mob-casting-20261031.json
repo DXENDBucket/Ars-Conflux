@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-31",
+  "status": "Accepted by CurseForge Upload API; moderation not independently confirmed. Automatic release requested.",
+  "plan": "build/curseforge/20261031-042849-46296aea/plan.json",
+  "validation": "Previously validated artifacts reused. Full metadata, hash and declared Forge refmap preflight passed. Mowzie binary/source distribution checks passed. No repeated gameplay tests or client launch for publishing.",
+  "not_uploaded": [
+    "Ars Instinct: no configured CurseForge Project ID",
+    "Abyss Trials: no configured CurseForge Project ID"
+  ],
+  "files": [
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "version": "0.1.45",
+      "platform": "neoforge",
+      "filename": "ars-conflux-0.1.45-mc1.21.1-neoforge.jar",
+      "sha256": "0037be2e96711b797db542d4e68fb0e92d49c75b3853dfb26c4f3ea8950c3bc9",
+      "file_id": 9376815
+    },
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "version": "0.1.45",
+      "platform": "forge",
+      "filename": "ars-conflux-0.1.45-mc1.20.1-forge.jar",
+      "sha256": "4bcdfdede6ad339cbd2bae517e4ffc67fd9904ebf2fcbd06edbaf74cd1b00116",
+      "file_id": 9376818
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "version": "0.17.37",
+      "platform": "neoforge",
+      "filename": "irons-nouveau-0.17.37-mc1.21.1-neoforge.jar",
+      "sha256": "da0d324a3b63b00de56adc3f93fe9c4b17a4ef9dbffb932855fab387f204fcb0",
+      "file_id": 9376819
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "version": "0.17.37",
+      "platform": "forge",
+      "filename": "irons-nouveau-0.17.37-mc1.20.1-forge.jar",
+      "sha256": "8d12d1e304317a951633edc5357eb121a7d12b212c4d555833e7a22f5a7e4014",
+      "file_id": 9376821
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "version": "0.1.7",
+      "platform": "neoforge",
+      "filename": "goety-nouveau-0.1.7-mc1.21.1-neoforge.jar",
+      "sha256": "5568372db7dc843e140abd879872cbf159d5d48ec030e5e39b1d01cc35eee53d",
+      "file_id": 9376824
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "version": "0.1.7",
+      "platform": "forge",
+      "filename": "goety-nouveau-0.1.7-mc1.20.1-forge.jar",
+      "sha256": "c25c9cad8ba6baf0af3d276a5a7e550bf85854b026cd60bee786570223820d20",
+      "file_id": 9376825
+    },
+    {
+      "project": "mowzie",
+      "project_id": 1767659,
+      "version": "0.1.2",
+      "platform": "neoforge",
+      "filename": "mowzies-nouveau-0.1.2-mc1.21.1-neoforge.jar",
+      "sha256": "0512cbe7c9b7804700f40ca5691765afd92f6054ff7a2c9023f487ef550604fe",
+      "file_id": 9376826
+    },
+    {
+      "project": "mowzie",
+      "project_id": 1767659,
+      "version": "0.1.2",
+      "platform": "forge",
+      "filename": "mowzies-nouveau-0.1.2-mc1.20.1-forge.jar",
+      "sha256": "a33650a1e6785f12b0ab36eccc0b6e1acd3701fac039cbfee6a0ad00b5c3abd2",
+      "file_id": 9376827
+    },
+    {
+      "project": "fusion",
+      "project_id": 1773676,
+      "version": "0.1.6",
+      "platform": "neoforge",
+      "filename": "ars-fusion-0.1.6-mc1.21.1-neoforge.jar",
+      "sha256": "173ab5816e458e7c1fd56a78b0ba5664c2db34d2fc327b85fde1e1e2a2cf660a",
+      "file_id": 9376828
+    },
+    {
+      "project": "fusion",
+      "project_id": 1773676,
+      "version": "0.1.6",
+      "platform": "forge",
+      "filename": "ars-fusion-0.1.6-mc1.20.1-forge.jar",
+      "sha256": "5635cfa97bd4720a11d6d1fd2b5dfd924521a4a53df32733b9b771b2a1f02bef",
+      "file_id": 9376831
+    }
+  ]
+}
