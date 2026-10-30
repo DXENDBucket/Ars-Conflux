@@ -212,3 +212,17 @@ All ledger entries are `uploaded`, with Release type and automatic publication a
 Plan: `build/curseforge/20261030-131036-ce686cdb/plan.json`. Full local receipts and logs: `build/curseforge/release-20261030-fusion-legendary/`. Portable receipt: `docs/curseforge-fusion-legendary-20261030.json`. Public release notes are in `release-notes/legendary/0.1.0-dev.13.md` and `release-notes/fusion/0.1.5.md`.
 
 Fusion requires Ars Nouveau only; its Iron, Iron & Nouveau and Conflux relationships remain optional. Co-installation with Iron & Nouveau requires version 0.17.32 or newer. Legendary requires Ars Nouveau, Conflux and Legendary Monsters. Both uploaded files retain the verified production refmaps. This upload did not change game-instance files or push Git.
+
+## Percentage spell-power releases — 2026-10-30
+
+The user authorized uploading Core 0.1.42, Iron 0.17.33 and Goety 0.1.6 for both loaders. All six immutable binary snapshots matched `releases/conflux-spell-power-20261030/manifest.json`. No builds or game tests were repeated for the upload.
+
+| Project | NeoForge 1.21.1 | Forge 1.20.1 |
+| --- | --- | --- |
+| Ars Conflux 0.1.42 | 9369776 | 9369778 |
+| Iron & Nouveau 0.17.33 | 9369780 | 9369781 |
+| Goety & Nouveau 0.1.6 | 9369782 | 9369783 |
+
+All six ledger records are `uploaded`; the API accepted each file. Release type is Release, with automatic publication after approval. Moderation/public availability was not checked. Core was uploaded first; the two dependent updates require Core 0.1.42 or newer.
+
+Plan: `build/curseforge/20261030-154019-ab067754/plan.json`. Portable receipts: `docs/curseforge-spell-power-20261030.json`. Public notes: `release-notes/conflux/0.1.42.md`, `release-notes/iron/0.17.33.md`, `release-notes/goety/0.1.6.md`. This upload did not change instance files or push Git.

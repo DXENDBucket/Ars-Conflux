@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-30",
+  "state": "accepted-by-upload-api",
+  "moderation": "not verified",
+  "release_type": "release",
+  "manual_release": false,
+  "plan": "build/curseforge/20261030-154019-ab067754/plan.json",
+  "rebuilds_or_game_tests_for_upload": false,
+  "files": [
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "version": "0.1.42",
+      "platform": "neoforge",
+      "filename": "ars-conflux-0.1.42-mc1.21.1-neoforge.jar",
+      "sha256": "01e426b155faf113e96fcc2ebf82f2737aa51477ec528ce46e6e31de936db78b",
+      "file_id": 9369776,
+      "state": "uploaded",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/ars-conflux/files/9369776"
+    },
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "version": "0.1.42",
+      "platform": "forge",
+      "filename": "ars-conflux-0.1.42-mc1.20.1-forge.jar",
+      "sha256": "86702ebf292fd81ea5f0c0c1830edbd80f01c1a73c89b1b47d3b208d6a7a473d",
+      "file_id": 9369778,
+      "state": "uploaded",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/ars-conflux/files/9369778"
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "version": "0.17.33",
+      "platform": "neoforge",
+      "filename": "irons-nouveau-0.17.33-mc1.21.1-neoforge.jar",
+      "sha256": "66fdb056363841ae7f05bb2eb9357cf001c0c8e07f69e15b53a7e86d9f58b2b0",
+      "file_id": 9369780,
+      "state": "uploaded",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/irons-nouveau/files/9369780"
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "version": "0.17.33",
+      "platform": "forge",
+      "filename": "irons-nouveau-0.17.33-mc1.20.1-forge.jar",
+      "sha256": "51dda4d4fe9a4f4235dccd988c6698e7720db4225f8163c50e4961effab01281",
+      "file_id": 9369781,
+      "state": "uploaded",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/irons-nouveau/files/9369781"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "version": "0.1.6",
+      "platform": "neoforge",
+      "filename": "goety-nouveau-0.1.6-mc1.21.1-neoforge.jar",
+      "sha256": "b6e7fb2a7d7e0069309e409f96254eff1b736374dd3f0132bfc4eb2f8327cb89",
+      "file_id": 9369782,
+      "state": "uploaded",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/goety-nouveau/files/9369782"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "version": "0.1.6",
+      "platform": "forge",
+      "filename": "goety-nouveau-0.1.6-mc1.20.1-forge.jar",
+      "sha256": "51bd0ac91dd10ecc2709e27d1a903ee5b74f9ab054c47d7a2d1ab1ac529cc424",
+      "file_id": 9369783,
+      "state": "uploaded",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/goety-nouveau/files/9369783"
+    }
+  ]
+}
