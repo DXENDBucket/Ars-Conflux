@@ -1,0 +1,6 @@
+{
+  "school": "example:radiance",
+  "target_entity": "minecraft:zombie",
+  "priority": 10,
+  "multiplier": 1.5
+}

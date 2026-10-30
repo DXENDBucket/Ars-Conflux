@@ -16,6 +16,9 @@ configurations {
     gameTestCompileOnly.extendsFrom compileOnly
     gameTestRuntimeOnly.extendsFrom runtimeOnly
 }
+// School data tests exercise namespaced Minecraft IDs/JSON without launching a game.
+sourceSets.test.compileClasspath += sourceSets.main.compileClasspath
+sourceSets.test.runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.compileClasspath
 neoForge {
     version = '21.1.250'
     addModdingDependenciesTo sourceSets.gameTest

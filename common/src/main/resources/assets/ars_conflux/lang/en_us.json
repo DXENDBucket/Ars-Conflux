@@ -9,5 +9,6 @@
   "ars_conflux.cast.cooldown_unknown": "%s is cooling down.",
   "ars_conflux.cast.denied": "This spell cannot be cast right now.",
   "ars_conflux.augment.shock_duration_up": "Increases the remaining Shocked duration.",
-  "ars_conflux.augment.shock_duration_down": "Decreases the remaining Shocked duration."
+  "ars_conflux.augment.shock_duration_down": "Decreases the remaining Shocked duration.",
+  "commands.ars_conflux.schools.undeclared": "%s has no Conflux school declaration."
 }

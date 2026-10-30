@@ -26,9 +26,15 @@ public final class NativeSpellDamage {
 
     /** Attach a transient context; null explicitly removes an earlier attachment. Server-thread only. */
     public static <T extends Entity> T bind(T entity, CastContext context) {
+        return bind(entity,context,dev.arsconflux.api.school.SchoolDamage.current());
+    }
+
+    /** Optional per-payload school snapshot. Explicit EMPTY retains undeclared behavior. */
+    public static <T extends Entity> T bind(T entity, CastContext context, dev.arsconflux.api.school.SchoolWeights schools) {
         Objects.requireNonNull(entity, "entity");
-        if (context == null) CONTEXTS.remove(entity);
-        else CONTEXTS.put(entity, context);
+        Objects.requireNonNull(schools, "schools");
+        if (context == null) { CONTEXTS.remove(entity); dev.arsconflux.api.school.SchoolDamage.unbind(entity); }
+        else { CONTEXTS.put(entity, context); dev.arsconflux.api.school.SchoolDamage.bind(entity,schools); }
         return entity;
     }
 
@@ -44,11 +50,15 @@ public final class NativeSpellDamage {
     /** Opt in only the synchronous action. Delayed children must be bound or explicitly passed context.
      * Nested calls restore the previous scope, including on exceptions. Null masks an outer scope. */
     public static <T> T during(CastContext context, Supplier<T> action) {
+        return during(context,context==null?dev.arsconflux.api.school.SchoolWeights.EMPTY:dev.arsconflux.api.school.SchoolDamage.current(),action);
+    }
+
+    public static <T> T during(CastContext context, dev.arsconflux.api.school.SchoolWeights schools, Supplier<T> action) {
         var previous = SCOPE.get();
         if (context == null) SCOPE.remove();
         else SCOPE.set(context);
         try {
-            return action.get();
+            return dev.arsconflux.api.school.SchoolDamage.during(schools,action);
         } finally {
             if (previous == null) SCOPE.remove();
             else SCOPE.set(previous);
@@ -59,7 +69,12 @@ public final class NativeSpellDamage {
      * A shared guard avoids duplicate scaling when provider hooks and the scoped hurt hook overlap.
      * Call only for amounts not already processed by Ars or another bridge. */
     public static boolean hurt(CastContext context, Entity target, DamageSource source, float amount, Hit original) {
-        return dev.arsconflux.api.projectile.ImpactTriggers.damage(target, () -> apply(context, target, source, amount, original));
+        return hurt(context,dev.arsconflux.api.school.SchoolDamage.resolve(source),target,source,amount,original);
+    }
+
+    public static boolean hurt(CastContext context, dev.arsconflux.api.school.SchoolWeights schools, Entity target, DamageSource source, float amount, Hit original) {
+        return dev.arsconflux.api.projectile.ImpactTriggers.damage(target, () ->
+                dev.arsconflux.api.school.SchoolDamage.during(schools,()->apply(context,target,source,amount,original)));
     }
     private static boolean apply(CastContext context, Entity target, DamageSource source, float amount, Hit original) {
         if (context == null || target.level().isClientSide || DISPATCHING.get())
@@ -83,12 +98,14 @@ public final class NativeSpellDamage {
     /** Lifecycle cleanup for transient entity attachments. */
     public static void unload(Level world) {
         CONTEXTS.keySet().removeIf(entity -> entity.level() == world);
+        dev.arsconflux.api.school.SchoolDamage.unload(world);
     }
 
     public static void stop() {
         CONTEXTS.clear();
         SCOPE.remove();
         DISPATCHING.remove();
+        dev.arsconflux.api.school.SchoolDamage.stop();
     }
 
     private NativeSpellDamage() {}

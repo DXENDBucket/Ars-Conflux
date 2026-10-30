@@ -25,6 +25,7 @@ public final class ArsConflux {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.CLIENT,
                 dev.arsconflux.config.ConfluxClientConfig.SPEC,"ars_conflux-client.toml");
         dev.arsconflux.platform.TimingAttributes.register(bus);
+        dev.arsconflux.platform.SchoolPlatform.register();
         dev.arsconflux.glyph.OptionalGlyphs.register();
         BuiltinCarriers.register();
         bus.addListener((net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent event) -> event.enqueueWork(() -> {

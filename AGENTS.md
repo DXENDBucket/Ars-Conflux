@@ -9,3 +9,5 @@
 - 用户希望减少频繁测试。按实际改动选必要验证，收拢后执行；通过后不无理由重复全矩阵。
 - 不把服务端 GameTest 或资源路径检查说成客户端外观已验证。
 - 只提交自己本任务的文件；外部推送、发布和共享实例部署依任务授权，不由本约定自动授权。
+
+- School declarations are optional and per effect/payload, not per whole CastContext. Preserve native Ars School membership and DamageSource; only explicit namespaced weight declarations participate. Core provides no preset schools. Default damage rules off. Data reload is atomic, empty overrides mask code defaults, and delayed native payloads carry immutable snapshots through NativeSpellDamage overloads.

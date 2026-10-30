@@ -9,5 +9,6 @@
   "ars_conflux.cast.cooldown_unknown": "%s 正在冷却。",
   "ars_conflux.cast.denied": "当前无法施放此法术。",
   "ars_conflux.augment.shock_duration_up": "延长剩余的触电状态。",
-  "ars_conflux.augment.shock_duration_down": "缩短剩余的触电状态。"
+  "ars_conflux.augment.shock_duration_down": "缩短剩余的触电状态。",
+  "commands.ars_conflux.schools.undeclared": "%s 未声明 Conflux 流派。"
 }

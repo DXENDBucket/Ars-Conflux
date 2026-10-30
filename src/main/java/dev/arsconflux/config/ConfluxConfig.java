@@ -4,6 +4,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class ConfluxConfig {
     public static final ModConfigSpec SPEC;
+    public static final ModConfigSpec.BooleanValue SCHOOL_DAMAGE_RULES;
     public static final ModConfigSpec.BooleanValue VANILLA_TRIGGER_BILLING;
     public static final ModConfigSpec.BooleanValue HEX_CHANTING, HEX_COOLDOWNS;
     public static final ModConfigSpec.BooleanValue PRESERVE_COOLDOWNS_ON_DEATH;
@@ -12,6 +13,10 @@ public final class ConfluxConfig {
     public static final ModConfigSpec.EnumValue<ChantMode> CHANT_MODE;
     static {
         var builder = new ModConfigSpec.Builder();
+        builder.push("schools");
+        SCHOOL_DAMAGE_RULES=builder.comment("Apply explicitly declared school damage multipliers from server datapacks. Default false preserves existing balance.",
+                "Undeclared abilities always retain their original damage. Native damage types, armor rules and original school memberships are unchanged.").define("damage_rules",false);
+        builder.pop();
         builder.push("ars_trigger_billing");
         VANILLA_TRIGGER_BILLING = builder.comment(
                 "Move native Ars effects and their written augments from launch cost to each effect dispatch.",
@@ -47,6 +52,7 @@ public final class ConfluxConfig {
         builder.pop(); SPEC = builder.build();
     }
     private ConfluxConfig() {}
+    public static boolean schoolDamageRules() {return SPEC.isLoaded()?SCHOOL_DAMAGE_RULES.get():SCHOOL_DAMAGE_RULES.getDefault();}
     public static boolean preserveCooldownsOnDeath() { return SPEC.isLoaded() ? PRESERVE_COOLDOWNS_ON_DEATH.get() : PRESERVE_COOLDOWNS_ON_DEATH.getDefault(); }
     public static boolean hexChanting() { return SPEC.isLoaded() ? HEX_CHANTING.get() : HEX_CHANTING.getDefault(); }
     public static boolean hexCooldowns() { return SPEC.isLoaded() ? HEX_COOLDOWNS.get() : HEX_COOLDOWNS.getDefault(); }

@@ -1,0 +1,6 @@
+{
+  "weights": {
+    "example:radiance": 7,
+    "example:decay": 3
+  }
+}

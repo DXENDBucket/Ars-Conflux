@@ -39,6 +39,9 @@ public abstract class ArsTriggerBillingMixin {
             target = "Lcom/hollingsworth/arsnouveau/api/spell/AbstractEffect;onResolve(Lnet/minecraft/world/phys/HitResult;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lcom/hollingsworth/arsnouveau/api/spell/SpellStats;Lcom/hollingsworth/arsnouveau/api/spell/SpellContext;Lcom/hollingsworth/arsnouveau/api/spell/SpellResolver;)V", remap = false))
     private void arsConflux$dispatch(AbstractEffect effect, HitResult hit, Level level, LivingEntity caster,
             SpellStats stats, SpellContext context, SpellResolver resolver, Operation<Void> original) {
-        VanillaTriggerBilling.resolve(effect, resolver, hit, () -> original.call(effect, hit, level, caster, stats, context, resolver));
+        dev.arsconflux.api.school.SchoolDamage.during(dev.arsconflux.api.school.GlyphSchools.get(effect),()->{
+            VanillaTriggerBilling.resolve(effect, resolver, hit, () -> original.call(effect, hit, level, caster, stats, context, resolver));
+            return null;
+        });
     }
 }

@@ -1,0 +1,6 @@
+{
+  "school": "ars_conflux:sun",
+  "target_entity": "minecraft:cow",
+  "priority": 10,
+  "multiplier": 2
+}
