@@ -1,0 +1,397 @@
+{
+  "date": "2026-10-31",
+  "authorization": "User requested repaired CurseForge releases and shared pack deployment.",
+  "api_result": "accepted for all uploads; moderation/public availability unconfirmed",
+  "runtime_validation": "Not run per user request; compilation and static checks only.",
+  "uploads": [
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "platform": "neoforge",
+      "version": "0.1.47",
+      "filename": "ars-conflux-0.1.47-mc1.21.1-neoforge.jar",
+      "sha256": "3bfbb1c4c796ebef6dd4dde54aeea914379d5958d5f83ad26990bfc536bc9ed7",
+      "file_id": 9378157,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "platform": "forge",
+      "version": "0.1.47",
+      "filename": "ars-conflux-0.1.47-mc1.20.1-forge.jar",
+      "sha256": "ffac159c0f648c64b669b78a7a63f2e8e01e019ce9919b6f01e16d475d0465dc",
+      "file_id": 9378158,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "platform": "neoforge",
+      "version": "0.17.38",
+      "filename": "irons-nouveau-0.17.38-mc1.21.1-neoforge.jar",
+      "sha256": "3c18534c0e4d9f0ab06ba844c9c7d51a169472d2069496c8f6375fc0461ee31b",
+      "file_id": 9378160,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "platform": "forge",
+      "version": "0.17.38",
+      "filename": "irons-nouveau-0.17.38-mc1.20.1-forge.jar",
+      "sha256": "f2201f48eedff968923d9d9f2803b44454425935e859c008dfcc17fccb2091ae",
+      "file_id": 9378161,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "neoforge",
+      "version": "0.1.9",
+      "filename": "goety-nouveau-0.1.9-mc1.21.1-neoforge.jar",
+      "sha256": "af4750ce6f19e9928cb95498258c30a32c7a3f458172349dd7a458eb15ad7ed5",
+      "file_id": 9378162,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "forge",
+      "version": "0.1.9",
+      "filename": "goety-nouveau-0.1.9-mc1.20.1-forge.jar",
+      "sha256": "dba7ae93e2fce050c4dd29fa7f89bbe362533819fe452e9e2292ec9fde36b262",
+      "file_id": 9378163,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "bomd",
+      "project_id": 1739402,
+      "platform": "neoforge",
+      "version": "0.1.2",
+      "filename": "bomd-nouveau-0.1.2-mc1.21.1-neoforge.jar",
+      "sha256": "a7046f15c4190eb99bca22768ba9e0e95f546e85cdd14564616087fb261ba1ba",
+      "file_id": 9378164,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "bomd",
+      "project_id": 1739402,
+      "platform": "forge",
+      "version": "0.1.2",
+      "filename": "bomd-nouveau-0.1.2-mc1.20.1-forge.jar",
+      "sha256": "fbac024cb30e53140cd8a1433e5b7a0c4caa2e928c127d504e8ab85147d69365",
+      "file_id": 9378166,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "cataclysm",
+      "project_id": 1767646,
+      "platform": "neoforge",
+      "version": "0.1.5",
+      "filename": "cataclysm-nouveau-0.1.5-mc1.21.1-neoforge.jar",
+      "sha256": "028ce6947545e460b581349863e9034ca28e9ec4a21ce06706cf9e6663278f90",
+      "file_id": 9378167,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "cataclysm",
+      "project_id": 1767646,
+      "platform": "forge",
+      "version": "0.1.5",
+      "filename": "cataclysm-nouveau-0.1.5-mc1.20.1-forge.jar",
+      "sha256": "f3c36272a1ae16ccf40a82b2ee644d7e2c24f20ba87f4142418cbcede3c1aee3",
+      "file_id": 9378168,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "aquamirae",
+      "project_id": 1767657,
+      "platform": "neoforge",
+      "version": "0.1.2",
+      "filename": "aquamirae-nouveau-0.1.2-mc1.21.1-neoforge.jar",
+      "sha256": "2d7002190f0e28d65202e3c3ae278193baa1955d021dd893f6131cfb3b58a978",
+      "file_id": 9378170,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "aquamirae",
+      "project_id": 1767657,
+      "platform": "forge",
+      "version": "0.1.2",
+      "filename": "aquamirae-nouveau-0.1.2-mc1.20.1-forge.jar",
+      "sha256": "00ccbfbbeb9c3fc6c4b425778878508d72f59d861a0852f3ba440d63fbf5d065",
+      "file_id": 9378177,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "mowzie",
+      "project_id": 1767659,
+      "platform": "neoforge",
+      "version": "0.1.3",
+      "filename": "mowzies-nouveau-0.1.3-mc1.21.1-neoforge.jar",
+      "sha256": "f1ab317cbf0cebc0e56764730d55ddf09d54cd4742f314bb86dfc29cce4a7b5c",
+      "file_id": 9378180,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "mowzie",
+      "project_id": 1767659,
+      "platform": "forge",
+      "version": "0.1.3",
+      "filename": "mowzies-nouveau-0.1.3-mc1.20.1-forge.jar",
+      "sha256": "f36d1dca0f2b8168e7db1371a5c9088d74a5d63ae90f84162830dfee6ab18630",
+      "file_id": 9378182,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "legendary",
+      "project_id": 1773684,
+      "platform": "neoforge",
+      "version": "0.1.0-dev.14",
+      "filename": "legendary-nouveau-0.1.0-dev.14-mc1.21.1-neoforge.jar",
+      "sha256": "9036bc6dd5b808a3899913da34d0ba3f8e8afeae8b24f8782f023842a4ea703f",
+      "file_id": 9378184,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "legendary",
+      "project_id": 1773684,
+      "platform": "forge",
+      "version": "0.1.0-dev.14",
+      "filename": "legendary-nouveau-0.1.0-dev.14-mc1.20.1-forge.jar",
+      "sha256": "b12bf39ca9e7693deefaccce2c381836c7c8f64157d4d0bb84727bad9870f630",
+      "file_id": 9378185,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "neoforge",
+      "version": "0.1.10",
+      "filename": "goety-nouveau-0.1.10-mc1.21.1-neoforge.jar",
+      "sha256": "4d6f18bddb7a07dfe7cf61d50605923ea6b1223d2e31b89780545154d6cf3eb7",
+      "file_id": 9378244,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "forge",
+      "version": "0.1.10",
+      "filename": "goety-nouveau-0.1.10-mc1.20.1-forge.jar",
+      "sha256": "2aa95729775864703bb96dc81ecc8c94b287c35d71ccfdf9d014a0c35f98196f",
+      "file_id": 9378245,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "neoforge",
+      "version": "0.1.11",
+      "filename": "goety-nouveau-0.1.11-mc1.21.1-neoforge.jar",
+      "sha256": "a5bb4a6b9293de56cb9d5355a3bcd04ebacce57e8ae359234a0e9a7aacb4d306",
+      "file_id": 9378347,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "forge",
+      "version": "0.1.11",
+      "filename": "goety-nouveau-0.1.11-mc1.20.1-forge.jar",
+      "sha256": "f59f9001c7f3a6db71459c351a64a59c863164a31ceb6882f7cde1537ab1e81f",
+      "file_id": 9378350,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "bomd_sources",
+      "project_id": 1739402,
+      "platform": "neoforge",
+      "version": "0.1.2",
+      "filename": "bomd-nouveau-0.1.2-mc1.21.1-neoforge-sources.jar",
+      "sha256": "5e3cb9ab374ec601de4f358b4af3e80d977ff78b1dd928ed305c43fadcb67551",
+      "file_id": 9378234,
+      "moderation": "not_checked",
+      "parent_file_id": 9378164
+    },
+    {
+      "project": "bomd_sources",
+      "project_id": 1739402,
+      "platform": "forge",
+      "version": "0.1.2",
+      "filename": "bomd-nouveau-0.1.2-mc1.20.1-forge-sources.jar",
+      "sha256": "da5c69ef6b19a0496ce8f715aa6384d1fcbaa04308d09ab96caf44d2ccc8847d",
+      "file_id": 9378235,
+      "moderation": "not_checked",
+      "parent_file_id": 9378166
+    }
+  ],
+  "latest_binary_files": [
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "platform": "neoforge",
+      "version": "0.1.47",
+      "filename": "ars-conflux-0.1.47-mc1.21.1-neoforge.jar",
+      "sha256": "3bfbb1c4c796ebef6dd4dde54aeea914379d5958d5f83ad26990bfc536bc9ed7",
+      "file_id": 9378157,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "conflux",
+      "project_id": 1737308,
+      "platform": "forge",
+      "version": "0.1.47",
+      "filename": "ars-conflux-0.1.47-mc1.20.1-forge.jar",
+      "sha256": "ffac159c0f648c64b669b78a7a63f2e8e01e019ce9919b6f01e16d475d0465dc",
+      "file_id": 9378158,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "platform": "neoforge",
+      "version": "0.17.38",
+      "filename": "irons-nouveau-0.17.38-mc1.21.1-neoforge.jar",
+      "sha256": "3c18534c0e4d9f0ab06ba844c9c7d51a169472d2069496c8f6375fc0461ee31b",
+      "file_id": 9378160,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "platform": "forge",
+      "version": "0.17.38",
+      "filename": "irons-nouveau-0.17.38-mc1.20.1-forge.jar",
+      "sha256": "f2201f48eedff968923d9d9f2803b44454425935e859c008dfcc17fccb2091ae",
+      "file_id": 9378161,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "neoforge",
+      "version": "0.1.11",
+      "filename": "goety-nouveau-0.1.11-mc1.21.1-neoforge.jar",
+      "sha256": "a5bb4a6b9293de56cb9d5355a3bcd04ebacce57e8ae359234a0e9a7aacb4d306",
+      "file_id": 9378347,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "platform": "forge",
+      "version": "0.1.11",
+      "filename": "goety-nouveau-0.1.11-mc1.20.1-forge.jar",
+      "sha256": "f59f9001c7f3a6db71459c351a64a59c863164a31ceb6882f7cde1537ab1e81f",
+      "file_id": 9378350,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "bomd",
+      "project_id": 1739402,
+      "platform": "neoforge",
+      "version": "0.1.2",
+      "filename": "bomd-nouveau-0.1.2-mc1.21.1-neoforge.jar",
+      "sha256": "a7046f15c4190eb99bca22768ba9e0e95f546e85cdd14564616087fb261ba1ba",
+      "file_id": 9378164,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "bomd",
+      "project_id": 1739402,
+      "platform": "forge",
+      "version": "0.1.2",
+      "filename": "bomd-nouveau-0.1.2-mc1.20.1-forge.jar",
+      "sha256": "fbac024cb30e53140cd8a1433e5b7a0c4caa2e928c127d504e8ab85147d69365",
+      "file_id": 9378166,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "cataclysm",
+      "project_id": 1767646,
+      "platform": "neoforge",
+      "version": "0.1.5",
+      "filename": "cataclysm-nouveau-0.1.5-mc1.21.1-neoforge.jar",
+      "sha256": "028ce6947545e460b581349863e9034ca28e9ec4a21ce06706cf9e6663278f90",
+      "file_id": 9378167,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "cataclysm",
+      "project_id": 1767646,
+      "platform": "forge",
+      "version": "0.1.5",
+      "filename": "cataclysm-nouveau-0.1.5-mc1.20.1-forge.jar",
+      "sha256": "f3c36272a1ae16ccf40a82b2ee644d7e2c24f20ba87f4142418cbcede3c1aee3",
+      "file_id": 9378168,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "aquamirae",
+      "project_id": 1767657,
+      "platform": "neoforge",
+      "version": "0.1.2",
+      "filename": "aquamirae-nouveau-0.1.2-mc1.21.1-neoforge.jar",
+      "sha256": "2d7002190f0e28d65202e3c3ae278193baa1955d021dd893f6131cfb3b58a978",
+      "file_id": 9378170,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "aquamirae",
+      "project_id": 1767657,
+      "platform": "forge",
+      "version": "0.1.2",
+      "filename": "aquamirae-nouveau-0.1.2-mc1.20.1-forge.jar",
+      "sha256": "00ccbfbbeb9c3fc6c4b425778878508d72f59d861a0852f3ba440d63fbf5d065",
+      "file_id": 9378177,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "mowzie",
+      "project_id": 1767659,
+      "platform": "neoforge",
+      "version": "0.1.3",
+      "filename": "mowzies-nouveau-0.1.3-mc1.21.1-neoforge.jar",
+      "sha256": "f1ab317cbf0cebc0e56764730d55ddf09d54cd4742f314bb86dfc29cce4a7b5c",
+      "file_id": 9378180,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "mowzie",
+      "project_id": 1767659,
+      "platform": "forge",
+      "version": "0.1.3",
+      "filename": "mowzies-nouveau-0.1.3-mc1.20.1-forge.jar",
+      "sha256": "f36d1dca0f2b8168e7db1371a5c9088d74a5d63ae90f84162830dfee6ab18630",
+      "file_id": 9378182,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "legendary",
+      "project_id": 1773684,
+      "platform": "neoforge",
+      "version": "0.1.0-dev.14",
+      "filename": "legendary-nouveau-0.1.0-dev.14-mc1.21.1-neoforge.jar",
+      "sha256": "9036bc6dd5b808a3899913da34d0ba3f8e8afeae8b24f8782f023842a4ea703f",
+      "file_id": 9378184,
+      "moderation": "not_checked"
+    },
+    {
+      "project": "legendary",
+      "project_id": 1773684,
+      "platform": "forge",
+      "version": "0.1.0-dev.14",
+      "filename": "legendary-nouveau-0.1.0-dev.14-mc1.20.1-forge.jar",
+      "sha256": "b12bf39ca9e7693deefaccce2c381836c7c8f64157d4d0bb84727bad9870f630",
+      "file_id": 9378185,
+      "moderation": "not_checked"
+    }
+  ],
+  "npc_feature_commits": {
+    "Goety-Nouveau": "5efe3171c00d08bcfc3a674990eed1cc669d75ee",
+    "Abyss-Trials": "85251c2ab8e6b0995ba1794659c452b12cf2fc09"
+  },
+  "pack_deployment": "Shared Wanfa Guiyi NeoForge instance; nine updated mod IDs, backed up and SHA-256 verified. Abyss Trials dev24 is local only, no CurseForge project supplied."
+}

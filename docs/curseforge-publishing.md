@@ -226,3 +226,25 @@ The user authorized uploading Core 0.1.42, Iron 0.17.33 and Goety 0.1.6 for both
 All six ledger records are `uploaded`; the API accepted each file. Release type is Release, with automatic publication after approval. Moderation/public availability was not checked. Core was uploaded first; the two dependent updates require Core 0.1.42 or newer.
 
 Plan: `build/curseforge/20261030-154019-ab067754/plan.json`. Portable receipts: `docs/curseforge-spell-power-20261030.json`. Public notes: `release-notes/conflux/0.1.42.md`, `release-notes/iron/0.17.33.md`, `release-notes/goety/0.1.6.md`. This upload did not change instance files or push Git.
+
+
+## Allied execution and NPC equipment releases — 2026-10-31
+
+The user authorized uploading repaired projects on both loaders and replacing the shared NeoForge test instance. All published archives matched the reviewed snapshots. The API accepted the files; moderation/public availability is unconfirmed.
+
+| Project | Latest version | NeoForge 1.21.1 | Forge 1.20.1 |
+| --- | --- | ---: | ---: |
+| conflux | 0.1.47 | 9378157 | 9378158 |
+| iron | 0.17.38 | 9378160 | 9378161 |
+| goety | 0.1.11 | 9378347 | 9378350 |
+| bomd | 0.1.2 | 9378164 | 9378166 |
+| cataclysm | 0.1.5 | 9378167 | 9378168 |
+| aquamirae | 0.1.2 | 9378170 | 9378177 |
+| mowzie | 0.1.3 | 9378180 | 9378182 |
+| legendary | 0.1.0-dev.14 | 9378184 | 9378185 |
+
+Goety 0.1.9 and 0.1.10 were also accepted during this batch; 0.1.11 is the final version. It includes allied-facing fixes, real non-player Curios lookup, and explicit NPC staff-qualification providers with native branch ordering. The full upload history is in [the portable receipt](curseforge-executor-facing-20261031.json).
+
+BOMD 0.1.2 corresponding LGPL sources were accepted as additional files: NeoForge 9378234 (parent 9378164) and Forge 9378235 (parent 9378166). They include the full tracked BOMD / Conflux source snapshots, wrappers, build scripts, license notices, build instructions and local dependency hashes. Sources inherit parent version tags, following the [CurseForge Upload API](https://support.curseforge.com/support/solutions/articles/9000197321-curseforge-api).
+
+The shared Wanfa Guiyi instance received these eight latest NeoForge releases and local Abyss Trials 0.1.0-dev.24. Old jars were backed up outside `mods`; one active jar per updated mod ID and installed SHA-256 hashes were verified. Huanxing now has real unholy Curios, the updated Bulwark protection program, and all native staff qualifications. No Minecraft client, server or GameTest was launched; no Git push was performed.
