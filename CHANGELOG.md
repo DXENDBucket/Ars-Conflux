@@ -1,3 +1,8 @@
+# 0.1.44
+
+- Add optional, namespaced glyph ability hints with immutable queries, code defaults and atomic server data-pack overrides, including explicit empty overrides and restoration after removal.
+- Provide initial native Ars combat/healing hints without changing schools, damage types, casting permissions or globally installing AI. Shared API/reload wiring on both loaders; reusable AI is the independent Ars Instinct addon.
+
 # 0.1.36
 
 - Add shared opt-in projectile velocity, temporary hold and gravity-suppression controls for ordinary Ars projectiles and managed native replacements. Synchronize paired carriers and same-flight native salvos; holds do not reset lifetime, attribution or payment.

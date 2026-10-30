@@ -1,11 +1,13 @@
 # 通用生物施法与魔符能力标签规划
 
-日期：2026-10-31。状态：规划，尚未实现。
+日期：2026-10-31。状态：首批已实现（Core 0.1.44 / Ars Instinct 0.1.0），后续资源生命周期提取仍在规划中。
 
 Core 基线：0.1.43 / `93cf3e9340662c335de70249614e5a9d56fe7b3b`。
 首个迁移来源：相邻 `Beneath-The-Dying-Sun` 项目已有的生物施法实现。
 
-独立通用 AI 附属定名：**Ars Instinct**，modid **`ars_instinct`**，计划工程目录 `MinecraftDev/Ars-Instinct`。本次仅确定名称与边界，尚未创建工程或公共项目，也未完成名称查重。
+独立通用 AI 附属定名：**Ars Instinct**，modid **`ars_instinct`**，计划工程目录 `MinecraftDev/Ars-Instinct`。本地工程已建立并纳入 Git；尚未创建公共项目或发布。
+
+首批实现：Core 标签注册/重载，Instinct 通用控制器与 Ground Goal，原生工具后端，Iron 首批能力提示，落日之下选槽与目标判断接入。整合包继续保留 EntityMana、固定工具执行、非玩家 Iron 计时和物种数值；并未宣称完成下表全部迁移。
 
 ## 1. 已确定的边界
 
@@ -69,6 +71,7 @@ boolean has(AbstractSpellPart glyph, ResourceLocation tag);
 | ars_conflux:summoning | 产生召唤物 |
 | ars_conflux:mobility | 移动、冲锋、传送等机动能力 |
 | ars_conflux:utility | 其他工具用途 |
+| ars_conflux:area | 有作用范围，例如自选型群体治疗 |
 | ars_conflux:channeling | 运行期间持续执行的能力，不是单纯吟唱时间较长 |
 | ars_conflux:receiver_self | 可将能力施加给自身 |
 | ars_conflux:receiver_ally | 可将能力交给友军接受/执行 |
@@ -90,7 +93,7 @@ boolean has(AbstractSpellPart glyph, ResourceLocation tag);
 data/irons_nouveau/conflux/glyph_abilities/glyph_fire_breath.json
 ```
 
-示例内容（表示设计格式，尚未发货）：
+已实现的数据格式：
 
 ```json
 {
