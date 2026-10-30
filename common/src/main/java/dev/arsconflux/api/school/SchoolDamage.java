@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 public final class SchoolDamage {
     private static final Map<Entity,SchoolWeights> PAYLOADS=new WeakHashMap<>();
     private static final ThreadLocal<SchoolWeights> SCOPE=new ThreadLocal<>();
+    public static boolean hasScope() {return SCOPE.get()!=null;}
     public static SchoolWeights current() { var weights=SCOPE.get();return weights==null?SchoolWeights.EMPTY:weights; }
     public static <T> T during(SchoolWeights weights,Supplier<T> action) {
         Objects.requireNonNull(weights);var previous=SCOPE.get();SCOPE.set(weights);
@@ -34,9 +35,13 @@ public final class SchoolDamage {
     }
     /** Called once at the Ars Pre event boundary, after its normal flat bonus and before native mitigation. */
     public static void apply(SpellDamageEvent.Pre event) {
-        if(!ConfluxConfig.schoolDamageRules()||event.isCanceled()||event.target==null||event.target.level().isClientSide||!Float.isFinite(event.damage)||event.damage<=0)return;
-        var scoped=SCOPE.get();var weights=scoped==null?resolve(event.damageSource):scoped;if(weights.isEmpty())return;
-        event.damage=(float)Math.min(Float.MAX_VALUE,event.damage*multiplier(weights,event.target));
+        if(event.isCanceled()||event.target==null||event.target.level().isClientSide||!Float.isFinite(event.damage)||event.damage<=0
+                ||!dev.arsconflux.api.damage.SpellPower.useArsEvent(event.damageSource))return;
+        var scoped=SCOPE.get();var weights=scoped==null?resolve(event.damageSource):scoped;
+        double factor=dev.arsconflux.api.damage.SpellPower.multiplier(event.caster,weights);
+        if(factor<=0){event.damage=0;return;}
+        if(ConfluxConfig.schoolDamageRules())factor*=multiplier(weights,event.target);
+        event.damage=(float)Math.min(Float.MAX_VALUE,event.damage*factor);
     }
     public static void unload(Level world) {PAYLOADS.keySet().removeIf(entity->entity.level()==world);}
     public static void stop() {PAYLOADS.clear();SCOPE.remove();SchoolData.clear();}

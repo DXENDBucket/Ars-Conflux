@@ -41,6 +41,7 @@
     "OptionalAdditionsRetaliateMixin",
     "OptionalControlePrismMixin",
     "ScopedSpellDamageMixin",
+    "SpellPowerTickMixin",
     "OptionalHexActiveCastMixin",
     "OptionalHexActiveSpawnMixin",
     "ImpactEntityDamageMixin",
@@ -57,6 +58,7 @@
   },
   "refmap": "ars_conflux.refmap.json",
   "client": [
+    "client.SchoolPowerLanguageMixin",
     "client.LegacyBookGlyphPagesMixin",
     "client.GlyphIconRenderMixin",
     "client.GlyphGuiStateMixin",

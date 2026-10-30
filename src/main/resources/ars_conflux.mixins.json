@@ -70,6 +70,7 @@
     "OptionalControlePrismMixin",
     "OptionalControleFilterMixin",
     "ScopedSpellDamageMixin",
+    "SpellPowerTickMixin",
     "OptionalHexActiveCastMixin",
     "OptionalHexActiveSpawnMixin",
     "ImpactEntityDamageMixin",
@@ -85,6 +86,7 @@
     "defaultRequire": 1
   },
   "client": [
+    "client.SchoolPowerLanguageMixin",
     "client.OptionalZeroGlyphLayoutMixin",
     "GlyphFormatterOrderMixin",
     "GlyphFormatterPagesMixin",

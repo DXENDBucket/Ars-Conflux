@@ -5,3 +5,5 @@
 执行 /reload 后，用 /conflux schools glyph ars_nouveau:glyph_harm 查看权重。在 ars_conflux-server.toml 设置 [schools] damage_rules = true 才启用克制倍率；默认关闭。具体 JSON 格式与 API 见 ../../docs/schools.md。
 
 示例只改 Harm：辉耀 70%＋凋亡 30%，辉耀对僵尸倍率 1.5，得到总体倍率 1.35。你可以重命名文件／命名空间并修改定义、权重和规则，建立自己的完整分类。此示例不会自动装入测试整合包，也不会附带在发行 JAR 中。
+
+如需给这些流派添加百分比法强属性，另在 `ars_conflux-startup.toml` 中声明 `schools.power_attributes = ["example:radiance", "example:decay"]`，客户端与服务器保持一致并重启。定义／权重仍支持热重载；说明见 `docs/spell-power.md`。

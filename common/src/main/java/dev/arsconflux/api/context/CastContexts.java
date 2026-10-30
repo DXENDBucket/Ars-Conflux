@@ -63,7 +63,7 @@ public final class CastContexts {
     public static <T> T scoped(CastContext context, Supplier<T> action) {
         var previous = CURRENT.get();
         if (context == null) CURRENT.remove(); else CURRENT.set(context);
-        try { return action.get(); }
+        try { return dev.arsconflux.api.damage.SpellPower.during(context, dev.arsconflux.api.school.SchoolDamage.current(), action); }
         finally { if (previous == null) CURRENT.remove(); else CURRENT.set(previous); }
     }
     public static void run(CastContext context, Runnable action) {

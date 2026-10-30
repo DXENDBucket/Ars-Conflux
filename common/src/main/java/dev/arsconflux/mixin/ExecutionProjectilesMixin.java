@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ExecutionProjectilesMixin {
     @Inject(method = "addFreshEntity", at = @At("RETURN"))
     private void arsConflux$track(Entity entity, CallbackInfoReturnable<Boolean> ci) {
+        if (ci.getReturnValueZ()) dev.arsconflux.api.damage.SpellPower.spawned(entity);
         var session = ExecutionSessions.current();
         if (ci.getReturnValueZ() && session != null) session.captureProjectile(entity);
     }

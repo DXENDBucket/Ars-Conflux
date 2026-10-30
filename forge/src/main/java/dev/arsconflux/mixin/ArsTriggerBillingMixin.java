@@ -35,8 +35,12 @@ public abstract class ArsTriggerBillingMixin {
     private void arsConflux$dispatch(AbstractEffect effect, HitResult hit, Level level, LivingEntity caster,
             SpellStats stats, SpellContext context, SpellResolver resolver, Operation<Void> original) {
         dev.arsconflux.api.school.SchoolDamage.during(dev.arsconflux.api.school.GlyphSchools.get(effect),()->{
-            VanillaTriggerBilling.resolve(effect, resolver, hit, () -> original.call(effect, hit, level, caster, stats, context, resolver));
-            return null;
+            return dev.arsconflux.api.damage.SpellPower.during(
+                    dev.arsconflux.api.context.CastContexts.resolve(context,hit,null),
+                    dev.arsconflux.api.school.SchoolDamage.current(),()->{
+                VanillaTriggerBilling.resolve(effect, resolver, hit, () -> original.call(effect, hit, level, caster, stats, context, resolver));
+                return null;
+            });
         });
     }
 }

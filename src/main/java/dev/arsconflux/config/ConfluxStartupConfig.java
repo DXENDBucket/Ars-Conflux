@@ -5,6 +5,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 /** Registry-affecting optional content must be configured before addon constructors run. */
 public final class ConfluxStartupConfig {
     public static final ModConfigSpec SPEC;
+    public static final ModConfigSpec.ConfigValue<java.util.List<? extends String>> SCHOOL_POWER_ATTRIBUTES;
     public static final ModConfigSpec.BooleanValue ELEMENTAL_PHALANX, NEARBY_ALLIES, AUGMENT_EXTENSIONS;
     public static final ModConfigSpec.BooleanValue ZERO, ZERO_FIXES, ZERO_TEMPORAL;
     static {
@@ -22,6 +23,11 @@ public final class ConfluxStartupConfig {
         ZERO = builder.comment("Enable optional Ars Zero 2.0.2 active uses, repeat billing, shield reflection, projectile controls, impact directions and equivalent augments. Requires restart.").define("enable_zero_compatibility", true);
         ZERO_FIXES = builder.comment("Apply the reviewed Ars Zero 2.0.2 native safety, source accounting and client glyph-grid fixes. Requires restart.").define("enable_zero_native_fixes", true);
         ZERO_TEMPORAL = builder.comment("Use preceding-execution targets for Ars Zero temporal spells. Requires restart; match client and server.").define("zero_previous_phase_targets", true);
+        builder.pop();
+        builder.push("schools");
+        SCHOOL_POWER_ATTRIBUTES=builder.comment("School IDs to register percentage spell-power attributes for, e.g. example:radiance.",
+                "Empty by default. Requires restart and matching client/server lists. Data definitions and glyph weights still support reload.")
+                .defineListAllowEmpty("power_attributes", java.util.List.of(), value -> value instanceof String text && net.minecraft.resources.ResourceLocation.tryParse(text)!=null);
         builder.pop(); SPEC = builder.build();
     }
     public static boolean nearbyAllies() {return SPEC.isLoaded()?NEARBY_ALLIES.get():NEARBY_ALLIES.getDefault();}
@@ -29,6 +35,7 @@ public final class ConfluxStartupConfig {
     public static boolean zero() { return SPEC.isLoaded()?ZERO.get():ZERO.getDefault(); }
     public static boolean zeroFixes() { return SPEC.isLoaded()?ZERO_FIXES.get():ZERO_FIXES.getDefault(); }
     public static boolean zeroTemporal() { return SPEC.isLoaded()?ZERO_TEMPORAL.get():ZERO_TEMPORAL.getDefault(); }
+    public static java.util.List<? extends String> schoolPowerAttributes() {return SPEC.isLoaded()?SCHOOL_POWER_ATTRIBUTES.get():SCHOOL_POWER_ATTRIBUTES.getDefault();}
     private ConfluxStartupConfig() {}
     public static boolean elementalPhalanx() {
         return SPEC.isLoaded() ? ELEMENTAL_PHALANX.get() : ELEMENTAL_PHALANX.getDefault();

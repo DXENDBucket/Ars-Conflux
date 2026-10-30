@@ -19,6 +19,10 @@ public final class ProjectileDispatch {
         if (forms.isEmpty()) return false;
         if (forms.size() != 1) return true; // Ambiguous payload: fail closed even on a raw/generated recipe.
         var profile = CarrierRegistry.of(projectile);
-        return profile != null && forms.get(0).replace(projectile, profile);
+        if(profile==null)return false;
+        var form=forms.get(0);
+        var schools=form instanceof com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart part
+                ?dev.arsconflux.api.school.GlyphSchools.get(part):dev.arsconflux.api.school.SchoolWeights.EMPTY;
+        return dev.arsconflux.api.school.SchoolDamage.during(schools,()->form.replace(projectile,profile));
     }
 }

@@ -11,3 +11,5 @@
 - 只提交自己本任务的文件；外部推送、发布和共享实例部署依任务授权，不由本约定自动授权。
 
 - School declarations are optional and per effect/payload, not per whole CastContext. Preserve native Ars School membership and DamageSource; only explicit namespaced weight declarations participate. Core provides no preset schools. Default damage rules off. Data reload is atomic, empty overrides mask code defaults, and delayed native payloads carry immutable snapshots through NativeSpellDamage overloads.
+
+- Percentage spell power uses zero-based attributes and one shared formula; sum general + weighted school bonuses before clamping the final multiplier to zero. School attributes are fixed at startup, with no presets. Ars Pre and raw native hurt are exclusive scaling boundaries. Preserve caster/executor/damage-owner roles; feedback costs explicitly opt out. Do not turn ordinary summons into globally scaled melee sources.

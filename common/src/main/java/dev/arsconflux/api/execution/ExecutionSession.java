@@ -54,7 +54,10 @@ public final class ExecutionSession<P> {
         this.parameters = parameters; this.maxTicks = Math.max(1, maxTicks);
         this.driver = Objects.requireNonNull(driver); this.continuation = Objects.requireNonNull(continuation);
         this.permission = Objects.requireNonNull(permission); Objects.requireNonNull(scope);
-        this.scope = action -> ExecutionSessions.scoped(this, () -> CastContexts.run(this.context, () -> scope.run(action)));
+        var schools=dev.arsconflux.api.school.SchoolDamage.current();
+        this.scope = action -> dev.arsconflux.api.school.SchoolDamage.during(schools, () -> {
+            ExecutionSessions.scoped(this, () -> CastContexts.run(this.context, () -> scope.run(action)));return null;
+        });
         started = world.getGameTime();
     }
     public UUID id() { return id; }

@@ -35,6 +35,7 @@ public final class NativeSpellDamage {
         Objects.requireNonNull(schools, "schools");
         if (context == null) { CONTEXTS.remove(entity); dev.arsconflux.api.school.SchoolDamage.unbind(entity); }
         else { CONTEXTS.put(entity, context); dev.arsconflux.api.school.SchoolDamage.bind(entity,schools); }
+        SpellPower.bind(entity,context==null?null:new SpellPower.Profile(context,schools));
         return entity;
     }
 
@@ -85,9 +86,9 @@ public final class NativeSpellDamage {
         float adjusted = (float)Math.max(0, amount + DamageAccess.bonus(caster));
         DISPATCHING.set(true);
         try {
-            var pre = DamageAccess.pre(source, caster, target, adjusted, context.ars());
+            var pre = SpellPower.arsEvent(() -> DamageAccess.pre(source, caster, target, adjusted, context.ars()));
             if (pre.isCanceled() || !Float.isFinite(pre.damage) || pre.damage <= 0) return false;
-            boolean hit = original.hurt(pre.damageSource, pre.damage);
+            boolean hit = SpellPower.handled(() -> original.hurt(pre.damageSource, pre.damage));
             if (hit) DamageAccess.post(pre.damageSource, caster, target, pre.damage, context.ars());
             return hit;
         } finally {
@@ -99,6 +100,7 @@ public final class NativeSpellDamage {
     public static void unload(Level world) {
         CONTEXTS.keySet().removeIf(entity -> entity.level() == world);
         dev.arsconflux.api.school.SchoolDamage.unload(world);
+        SpellPower.unload(world);
     }
 
     public static void stop() {
@@ -106,6 +108,7 @@ public final class NativeSpellDamage {
         SCOPE.remove();
         DISPATCHING.remove();
         dev.arsconflux.api.school.SchoolDamage.stop();
+        SpellPower.stop();
     }
 
     private NativeSpellDamage() {}

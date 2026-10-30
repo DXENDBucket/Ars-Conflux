@@ -56,7 +56,7 @@ public final class SchoolTestCases {
             NativeSpellDamage.hurt(frame,SchoolWeights.EMPTY,target,indirect,10,(s,n)->{h.assertTrue(n==16,"Explicit per-hit empty profile can override a classified payload");return true;});
             h.runAfterDelay(3,()->{
                 try {
-                    NativeSpellDamage.hurt(NativeSpellDamage.context(payload),target,indirect,10,(s,n)->{h.assertTrue(Math.abs(n-29.6)<0.001,"Delayed payload preserves immutable school profile outside dispatch scope");return true;});
+                    NativeSpellDamage.hurt(NativeSpellDamage.context(payload),target,indirect,10,(s,n)->{h.assertTrue(Math.abs(n-29.6)<0.001,"Delayed payload preserves immutable school profile outside dispatch scope: "+n);return true;});
                     h.assertTrue(SchoolDamage.current().isEmpty(),"School scope has no leak after delayed hit");
                     NativeSpellDamage.bind(payload,null);h.assertTrue(SchoolDamage.profile(payload).isEmpty(),"Unbinding releases school attachment");h.succeed();
                 } finally {ConfluxConfig.SCHOOL_DAMAGE_RULES.set(old);ConfluxConfig.VANILLA_TRIGGER_BILLING.set(billing);payload.discard();}

@@ -10,5 +10,7 @@
   "ars_conflux.cast.denied": "This spell cannot be cast right now.",
   "ars_conflux.augment.shock_duration_up": "Increases the remaining Shocked duration.",
   "ars_conflux.augment.shock_duration_down": "Decreases the remaining Shocked duration.",
-  "commands.ars_conflux.schools.undeclared": "%s has no Conflux school declaration."
+  "commands.ars_conflux.schools.undeclared": "%s has no Conflux school declaration.",
+  "attribute.ars_conflux.confluence_spell_power": "Confluence Spell Power",
+  "attribute.ars_conflux.school_power_format": "%s School Spell Power"
 }
