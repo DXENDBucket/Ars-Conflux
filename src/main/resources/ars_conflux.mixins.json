@@ -79,11 +79,7 @@
     "OptionalAdamsResolverMixin",
     "OptionalFlattenAugmentsMixin",
     "OptionalPreciseDelayAugmentsMixin",
-    "OptionalDivineSmiteAugmentsMixin",
-    "CarrierContactTraceMixin",
-    "OrbitContactMixin",
-    "OptionalMissileContactMixin",
-    "OptionalTrailContactMixin"
+    "OptionalDivineSmiteAugmentsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
