@@ -179,3 +179,20 @@ BOMD corresponding-source attachments were also accepted: NeoForge `9337681` (pa
 Binary plan: `build/curseforge/20261027-051442-3ca0ba63/plan.json`. Source plan and twelve successful receipts: `build/curseforge/release-20261027-augment-extensions/`. The local `releases/augment-extensions-20261027/manifest.json` records hashes and file IDs.
 
 All receipts are `uploaded`, with automatic publication after approval (`isMarkedForManualRelease=false`). API acceptance does not establish completed moderation or public availability. This upload step did not change instance files or push Git.
+
+
+## 2026-10-30: shared timing attributes
+
+The user authorized publishing the completed updates. All six binary snapshots match the verified `releases/timing-attributes-20261030/manifest.json`; no builds or game tests were repeated for this upload. The Upload API accepted:
+
+| Project | NeoForge 1.21.1 | Forge 1.20.1 |
+| --- | ---: | ---: |
+| Ars Conflux 0.1.40 | 9367795 | 9367796 |
+| Iron & Nouveau 0.17.31 | 9367799 | 9367800 |
+| Goety & Nouveau 0.1.5 | 9367801 | 9367803 |
+
+All six ledger entries are `uploaded`, with Release type and automatic publication after approval (`isMarkedForManualRelease=false`). API acceptance does not confirm completed moderation/public availability. Core was uploaded first. Both dependent updates require Conflux 0.1.40 or newer in the 0.1.x series.
+
+Plan: `build/curseforge/20261030-091500-40b0664d/plan.json`. Receipts: `build/curseforge/release-20261030-timing-attributes/receipts.json`. Public notes: `release-notes/conflux/0.1.40.md`, `release-notes/iron/0.17.31.md`, `release-notes/goety/0.1.5.md`. Other configured addon builds already had successful receipts and were not uploaded again.
+
+The publication step did not change instance files or push Git. Withdrawn projectile-survival experimental builds were not selected.
