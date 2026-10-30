@@ -95,9 +95,9 @@ public final class ProjectileControls {
         if(!control.lease.held(motion.carrier().level().getGameTime()))return false;
         var target=control.anchor.get();
         if(target!=null && !target.isRemoved()) {
-            motion.carrier().setYRot(target.getYRot()); motion.carrier().setXRot(target.getXRot());
+            motion.carrier().setYRot(target.getViewYRot(1)); motion.carrier().setXRot(target.getViewXRot(1));
             for(var member:motion.members()) {
-                member.setYRot(target.getYRot()); member.setXRot(target.getXRot()); member.hasImpulse=true;
+                member.setYRot(target.getViewYRot(1)); member.setXRot(target.getViewXRot(1)); member.hasImpulse=true;
             }
         }
         return true;

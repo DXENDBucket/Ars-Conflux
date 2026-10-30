@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.47 修正 Ars 执行者朝向：读取生物头部视角，避免友军转头时吐息、冲刺或持续光束仍沿身体方向执行。使用 Conflux 0.1.47 的共用视角方法；位置执行保留固定方向和入射方向优先级。本批仅构建，未部署或进行客户端验证。详见 [跨附属朝向核对](docs/executor-facing-audit.md)。
+
 0.1.46 adds configurable native Ars mana-attribute ceilings: maximum mana 1,000,000 and regeneration 100,000 by default, without granting either value. Existing larger modded limits are retained. See [mana attribute limits](docs/mana-attribute-limits.md).
 
 0.1.45 adds lazy native non-player mana lifecycle, combined first-activation budgets, provider-owned cooldown facts and optional glyph usefulness checks for Ars Instinct/content integrations. Core never installs mob AI. See [non-player casting](docs/mob-casting.md).

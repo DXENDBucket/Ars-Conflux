@@ -5,6 +5,7 @@ import dev.arsconflux.api.targeting.Allies;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.*;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -35,7 +36,7 @@ public final class ExecutionAnchor {
         }
         if(cast.target() instanceof BlockHitResult hit && hit.getType()==HitResult.Type.BLOCK) {
             Vec3 incoming=cast.incomingDirection();
-            Vec3 fallback=cast.caster()==null?new Vec3(0,0,1):cast.caster().getLookAngle();
+            Vec3 fallback=cast.caster()==null?new Vec3(0,0,1):viewDirection(cast.caster());
             return position(hit.getLocation(),incoming!=null && finite(incoming) && incoming.lengthSqr()>1e-10?incoming:fallback);
         }
         return null;
@@ -48,8 +49,10 @@ public final class ExecutionAnchor {
     public Basis basis(){return basis;}
     public Vec3 offset(){return offset;}
     public Pose sample(){
-        return entity==null?new Pose(point,direction):new Pose((basis==Basis.EYES?entity.getEyePosition():entity.position()).add(offset),unit(entity.getLookAngle()));
+        return entity==null?new Pose(point,direction):new Pose((basis==Basis.EYES?entity.getEyePosition():entity.position()).add(offset),viewDirection(entity));
     }
+    /** Current view direction; living executors use head yaw even when their body faces elsewhere. */
+    public static Vec3 viewDirection(Entity entity){return unit(Objects.requireNonNull(entity).getViewVector(1.0F));}
     public boolean valid(ServerLevel world,CastContext cast){
         if(entity!=null && (entity.level()!=world || !mayExecute(cast,entity)))return false;
         Vec3 origin=sample().origin();
