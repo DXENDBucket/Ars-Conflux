@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-31",
+  "core_commit": "c21d48a9d44830a4c7ad5553124a952af9c3af1b",
+  "runtime_validation": "Not run: build-only requested. No GameTest, client/server launch or shared instance replacement.",
+  "deployed": false,
+  "checks": "Both loaders compiled/packaged; metadata/Core minimum, licenses, Mixin classes/refmaps and removed workaround checked. Cataclysm/Legendary distribution verification passed.",
+  "artifacts": [
+    {
+      "project": "Ars-Conflux",
+      "version": "0.1.47",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "Ars-Conflux/build/libs/ars-conflux-0.1.47-mc1.21.1-neoforge.jar",
+      "sha256": "3bfbb1c4c796ebef6dd4dde54aeea914379d5958d5f83ad26990bfc536bc9ed7",
+      "sources": "Ars-Conflux/build/libs/ars-conflux-0.1.47-sources.jar",
+      "sources_sha256": "d7cee9f9a7ebde14a8204c4e5ceb26f29c4993be8a699f204f87b946eca5225c"
+    },
+    {
+      "project": "Ars-Conflux",
+      "version": "0.1.47",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "Ars-Conflux/forge/build/libs/ars-conflux-0.1.47-mc1.20.1-forge.jar",
+      "sha256": "ffac159c0f648c64b669b78a7a63f2e8e01e019ce9919b6f01e16d475d0465dc",
+      "sources": "Ars-Conflux/forge/build/libs/ars-conflux-0.1.47-sources.jar",
+      "sources_sha256": "2e61c076b2519c6e43dc8c00e14ab2cc7603da9fe4959c52efc41e2fd3389667"
+    },
+    {
+      "project": "Goety-Nouveau",
+      "version": "0.1.9",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "Goety-Nouveau/build/libs/goety-nouveau-0.1.9-mc1.21.1-neoforge.jar",
+      "sha256": "af4750ce6f19e9928cb95498258c30a32c7a3f458172349dd7a458eb15ad7ed5",
+      "sources": "Goety-Nouveau/build/libs/goety-nouveau-0.1.9-sources.jar",
+      "sources_sha256": "c74d33c9b3c9817d84245d90e81cbd93b6a5f2435c7d53fa344601d13ec22760"
+    },
+    {
+      "project": "Goety-Nouveau",
+      "version": "0.1.9",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "Goety-Nouveau/forge/build/libs/goety-nouveau-0.1.9-mc1.20.1-forge.jar",
+      "sha256": "dba7ae93e2fce050c4dd29fa7f89bbe362533819fe452e9e2292ec9fde36b262",
+      "sources": "Goety-Nouveau/forge/build/libs/goety-nouveau-0.1.9-sources.jar",
+      "sources_sha256": "56e137088510e987be4b65b43f7dd8e311fb26a266762bc0283a99474df53c8b"
+    },
+    {
+      "project": "Irons-Nouveau",
+      "version": "0.17.38",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "Irons-Nouveau/build/libs/irons-nouveau-0.17.38-mc1.21.1-neoforge.jar",
+      "sha256": "3c18534c0e4d9f0ab06ba844c9c7d51a169472d2069496c8f6375fc0461ee31b",
+      "sources": "Irons-Nouveau/build/libs/irons-nouveau-0.17.38-sources.jar",
+      "sources_sha256": "591e446cfadd40cabd20d4d6473fe7aeb92b1b3cea6ac445fd6e7a4a2afd9d03"
+    },
+    {
+      "project": "Irons-Nouveau",
+      "version": "0.17.38",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "Irons-Nouveau/forge/build/libs/irons-nouveau-0.17.38-mc1.20.1-forge.jar",
+      "sha256": "f2201f48eedff968923d9d9f2803b44454425935e859c008dfcc17fccb2091ae",
+      "sources": "Irons-Nouveau/forge/build/libs/irons-nouveau-0.17.38-sources.jar",
+      "sources_sha256": "8cd2bdba749b1414fb42a4b5a2fbe8cb8e21b99b00f864500badbe48eb6a0b25"
+    },
+    {
+      "project": "BOMD-Nouveau",
+      "version": "0.1.2",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "BOMD-Nouveau/build/libs/bomd-nouveau-0.1.2-mc1.21.1-neoforge.jar",
+      "sha256": "a7046f15c4190eb99bca22768ba9e0e95f546e85cdd14564616087fb261ba1ba",
+      "sources": "BOMD-Nouveau/build/libs/bomd-nouveau-0.1.2-sources.jar",
+      "sources_sha256": "9f01f1162adc45aa454e73e5150574f219c064c78dff3d62ad7101a1bf0b56ec"
+    },
+    {
+      "project": "BOMD-Nouveau",
+      "version": "0.1.2",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "BOMD-Nouveau/forge/build/libs/bomd-nouveau-0.1.2-mc1.20.1-forge.jar",
+      "sha256": "fbac024cb30e53140cd8a1433e5b7a0c4caa2e928c127d504e8ab85147d69365",
+      "sources": "BOMD-Nouveau/forge/build/libs/bomd-nouveau-0.1.2-sources.jar",
+      "sources_sha256": "de207b81362208a56ddc8942848ebd68e5498f1e53e4156e7fe5d3f3a6f46f43"
+    },
+    {
+      "project": "Cataclysm-Nouveau",
+      "version": "0.1.5",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "Cataclysm-Nouveau/build/libs/cataclysm-nouveau-0.1.5-mc1.21.1-neoforge.jar",
+      "sha256": "028ce6947545e460b581349863e9034ca28e9ec4a21ce06706cf9e6663278f90",
+      "sources": "Cataclysm-Nouveau/build/libs/cataclysm-nouveau-0.1.5-sources.jar",
+      "sources_sha256": "a2ece7e378be15382f8cb958f9b749440e6d708b86466a317a8bc95006bb8924"
+    },
+    {
+      "project": "Cataclysm-Nouveau",
+      "version": "0.1.5",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "Cataclysm-Nouveau/forge/build/libs/cataclysm-nouveau-0.1.5-mc1.20.1-forge.jar",
+      "sha256": "f3c36272a1ae16ccf40a82b2ee644d7e2c24f20ba87f4142418cbcede3c1aee3",
+      "sources": "Cataclysm-Nouveau/forge/build/libs/cataclysm-nouveau-0.1.5-sources.jar",
+      "sources_sha256": "108cd978fedb027d5d7fa929f3e2eb291ccbcd7292086738ca2c67b21b0e7e5b"
+    },
+    {
+      "project": "Aquamirae-Nouveau",
+      "version": "0.1.2",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "Aquamirae-Nouveau/build/libs/aquamirae-nouveau-0.1.2-mc1.21.1-neoforge.jar",
+      "sha256": "2d7002190f0e28d65202e3c3ae278193baa1955d021dd893f6131cfb3b58a978",
+      "sources": "Aquamirae-Nouveau/build/libs/aquamirae-nouveau-0.1.2-sources.jar",
+      "sources_sha256": "07af5898cc6493dd96c5f8aca6f34b267cf90528c8b9a144e3616002011d8207"
+    },
+    {
+      "project": "Aquamirae-Nouveau",
+      "version": "0.1.2",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "Aquamirae-Nouveau/forge/build/libs/aquamirae-nouveau-0.1.2-mc1.20.1-forge.jar",
+      "sha256": "00ccbfbbeb9c3fc6c4b425778878508d72f59d861a0852f3ba440d63fbf5d065",
+      "sources": "Aquamirae-Nouveau/forge/build/libs/aquamirae-nouveau-0.1.2-sources.jar",
+      "sources_sha256": "eb505924119da78679a95088e09fe9cef25542bfd1e2b6a8fbe49462a9b7468f"
+    },
+    {
+      "project": "Mowzies-Nouveau",
+      "version": "0.1.3",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "Mowzies-Nouveau/build/libs/mowzies-nouveau-0.1.3-mc1.21.1-neoforge.jar",
+      "sha256": "f1ab317cbf0cebc0e56764730d55ddf09d54cd4742f314bb86dfc29cce4a7b5c",
+      "sources": "Mowzies-Nouveau/build/libs/mowzies-nouveau-0.1.3-sources.jar",
+      "sources_sha256": "759601a47a9fad8a131fe2ae34c118fd745727bda0baf8540fbddc23412371a4"
+    },
+    {
+      "project": "Mowzies-Nouveau",
+      "version": "0.1.3",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "Mowzies-Nouveau/forge/build/libs/mowzies-nouveau-0.1.3-mc1.20.1-forge.jar",
+      "sha256": "f36d1dca0f2b8168e7db1371a5c9088d74a5d63ae90f84162830dfee6ab18630",
+      "sources": "Mowzies-Nouveau/forge/build/libs/mowzies-nouveau-0.1.3-sources.jar",
+      "sources_sha256": "dbfbef141758101db303fc24b0a0680eae0df0b0131d3357090d104617e45c03"
+    },
+    {
+      "project": "Legendary-Monsters-Nouveau",
+      "version": "0.1.0-dev.14",
+      "loader": "neoforge",
+      "minecraft": "1.21.1",
+      "jar": "Legendary-Monsters-Nouveau/build/libs/legendary-nouveau-0.1.0-dev.14-mc1.21.1-neoforge.jar",
+      "sha256": "9036bc6dd5b808a3899913da34d0ba3f8e8afeae8b24f8782f023842a4ea703f",
+      "sources": "Legendary-Monsters-Nouveau/build/libs/legendary-nouveau-0.1.0-dev.14-sources.jar",
+      "sources_sha256": "964487f96da8e43f325d329a0d63ff18c1519b6bfa37a8695cea6870e54f7d67"
+    },
+    {
+      "project": "Legendary-Monsters-Nouveau",
+      "version": "0.1.0-dev.14",
+      "loader": "forge",
+      "minecraft": "1.20.1",
+      "jar": "Legendary-Monsters-Nouveau/forge/build/libs/legendary-nouveau-0.1.0-dev.14-mc1.20.1-forge.jar",
+      "sha256": "b12bf39ca9e7693deefaccce2c381836c7c8f64157d4d0bb84727bad9870f630",
+      "sources": "Legendary-Monsters-Nouveau/forge/build/libs/legendary-nouveau-0.1.0-dev.14-sources.jar",
+      "sources_sha256": "67185424f8641069425ecf86bc19f27dc81ab8113b14c4cb5e69204148c6080d"
+    }
+  ]
+}
