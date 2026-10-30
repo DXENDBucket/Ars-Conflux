@@ -36,6 +36,8 @@ public final class NativeManaPlatform {
         @Override public void deserializeNBT(CompoundTag data){restored=!data.isEmpty();if(restored)cap.deserializeNBT(data);}
     }
     public static void register(IEventBus bus) {
+        bus.addListener((net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event)->event.enqueueWork(()->
+                dev.arsconflux.internal.billing.ManaAttributeLimits.apply(PerkAttributes.MAX_MANA.get(),PerkAttributes.MANA_REGEN_BONUS.get())));
         bus.addListener((EntityAttributeModificationEvent event)->{
             for(var type:event.getTypes())if(type!=EntityType.PLAYER){
                 if(!event.has(type,PerkAttributes.MAX_MANA.get()))event.add(type,PerkAttributes.MAX_MANA.get());

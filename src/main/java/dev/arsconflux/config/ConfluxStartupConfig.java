@@ -8,8 +8,15 @@ public final class ConfluxStartupConfig {
     public static final ModConfigSpec.ConfigValue<java.util.List<? extends String>> SCHOOL_POWER_ATTRIBUTES;
     public static final ModConfigSpec.BooleanValue ELEMENTAL_PHALANX, NEARBY_ALLIES, AUGMENT_EXTENSIONS;
     public static final ModConfigSpec.BooleanValue ZERO, ZERO_FIXES, ZERO_TEMPORAL;
+    public static final ModConfigSpec.BooleanValue MANA_ATTRIBUTE_LIMITS;
+    public static final ModConfigSpec.IntValue MAXIMUM_MANA_ATTRIBUTE,MAXIMUM_MANA_REGENERATION_ATTRIBUTE;
     static {
         var builder = new ModConfigSpec.Builder();
+        builder.push("mana_attribute_limits");
+        MANA_ATTRIBUTE_LIMITS=builder.comment("Raise native Ars mana attribute ceilings. Does not grant mana or regeneration. Never lowers a larger native/modded ceiling. Requires restart; match client/server.").define("enabled",true);
+        MAXIMUM_MANA_ATTRIBUTE=builder.comment("Upper bound allowed by the Ars maximum-mana attribute; independent of each actor's actual mana.").defineInRange("maximum_mana",1000000,0,Integer.MAX_VALUE);
+        MAXIMUM_MANA_REGENERATION_ATTRIBUTE=builder.comment("Upper bound allowed by the Ars mana-regeneration attribute, in mana per second.").defineInRange("maximum_regeneration",100000,0,Integer.MAX_VALUE);
+        builder.pop();
         builder.push("optional_content");
         ELEMENTAL_PHALANX = builder.comment(
                 "Register Ars Elemental's Carian Phalanx in normal games when its implementation is present.",
@@ -31,6 +38,9 @@ public final class ConfluxStartupConfig {
         builder.pop(); SPEC = builder.build();
     }
     public static boolean nearbyAllies() {return SPEC.isLoaded()?NEARBY_ALLIES.get():NEARBY_ALLIES.getDefault();}
+    public static boolean manaAttributeLimits(){return SPEC.isLoaded()?MANA_ATTRIBUTE_LIMITS.get():MANA_ATTRIBUTE_LIMITS.getDefault();}
+    public static int maximumManaAttribute(){return SPEC.isLoaded()?MAXIMUM_MANA_ATTRIBUTE.get():MAXIMUM_MANA_ATTRIBUTE.getDefault();}
+    public static int maximumManaRegenerationAttribute(){return SPEC.isLoaded()?MAXIMUM_MANA_REGENERATION_ATTRIBUTE.get():MAXIMUM_MANA_REGENERATION_ATTRIBUTE.getDefault();}
     public static boolean augmentExtensions() { return SPEC.isLoaded()?AUGMENT_EXTENSIONS.get():AUGMENT_EXTENSIONS.getDefault(); }
     public static boolean zero() { return SPEC.isLoaded()?ZERO.get():ZERO.getDefault(); }
     public static boolean zeroFixes() { return SPEC.isLoaded()?ZERO_FIXES.get():ZERO_FIXES.getDefault(); }

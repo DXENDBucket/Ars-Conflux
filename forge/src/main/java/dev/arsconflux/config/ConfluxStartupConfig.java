@@ -7,9 +7,16 @@ public final class ConfluxStartupConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.ConfigValue<java.util.List<? extends String>> SCHOOL_POWER_ATTRIBUTES;
     public static final ForgeConfigSpec.BooleanValue AUGMENT_EXTENSIONS;
+    public static final ForgeConfigSpec.BooleanValue MANA_ATTRIBUTE_LIMITS;
+    public static final ForgeConfigSpec.IntValue MAXIMUM_MANA_ATTRIBUTE,MAXIMUM_MANA_REGENERATION_ATTRIBUTE;
     private static final boolean EARLY_ALLIES=readEarly();
     static {
-        var b=new ForgeConfigSpec.Builder();b.push("optional_content");
+        var b=new ForgeConfigSpec.Builder();
+        b.push("mana_attribute_limits");
+        MANA_ATTRIBUTE_LIMITS=b.comment("Raise native Ars mana attribute ceilings. Does not grant mana or regeneration. Never lowers a larger native/modded ceiling. Requires restart; match client/server.").define("enabled",true);
+        MAXIMUM_MANA_ATTRIBUTE=b.comment("Upper bound allowed by the Ars maximum-mana attribute; independent of each actor's actual mana.").defineInRange("maximum_mana",1000000,0,Integer.MAX_VALUE);
+        MAXIMUM_MANA_REGENERATION_ATTRIBUTE=b.comment("Upper bound allowed by the Ars mana-regeneration attribute, in mana per second.").defineInRange("maximum_regeneration",100000,0,Integer.MAX_VALUE);
+        b.pop();b.push("optional_content");
         b.comment("Register Nearby Allies and its Scribe recipe. Requires restart; match client/server.").define("enable_nearby_allies",false);
         b.pop();b.push("compatibility");
         AUGMENT_EXTENSIONS=b.comment("Enable optional AAP/NEG augment extensions and weighted Controle delays. Requires restart; match client and server.").define("enable_augment_extensions",true);
@@ -28,6 +35,9 @@ public final class ConfluxStartupConfig {
         }
     }
     public static boolean nearbyAllies() {return EARLY_ALLIES;}
+    public static boolean manaAttributeLimits(){return SPEC.isLoaded()?MANA_ATTRIBUTE_LIMITS.get():MANA_ATTRIBUTE_LIMITS.getDefault();}
+    public static int maximumManaAttribute(){return SPEC.isLoaded()?MAXIMUM_MANA_ATTRIBUTE.get():MAXIMUM_MANA_ATTRIBUTE.getDefault();}
+    public static int maximumManaRegenerationAttribute(){return SPEC.isLoaded()?MAXIMUM_MANA_REGENERATION_ATTRIBUTE.get():MAXIMUM_MANA_REGENERATION_ATTRIBUTE.getDefault();}
     public static boolean augmentExtensions() {return SPEC.isLoaded()?AUGMENT_EXTENSIONS.get():AUGMENT_EXTENSIONS.getDefault();}
     public static java.util.List<String> schoolPowerAttributes() {
         var file=FMLPaths.CONFIGDIR.get().resolve("ars_conflux-startup.toml");

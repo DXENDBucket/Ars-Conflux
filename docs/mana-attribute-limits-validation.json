@@ -1,0 +1,38 @@
+{
+  "project": "Ars-Conflux",
+  "version": "0.1.46",
+  "artifacts": [
+    {
+      "file": "build/libs/ars-conflux-0.1.46-mc1.21.1-neoforge.jar",
+      "sha256": "0ae40c5ef83cda5966d9ae2ff995eea5f0496e8e2a5b747f51fb4eedfe127cb7"
+    },
+    {
+      "file": "build/libs/ars-conflux-0.1.46-sources.jar",
+      "sha256": "2def884b1b4f027ca05390242561ccd99b7b42dc654b7d2c47c6ced4d18b7675"
+    },
+    {
+      "file": "forge/build/libs/ars-conflux-0.1.46-mc1.20.1-forge.jar",
+      "sha256": "4f7e0a710393e2dd33ac7b3668b805181089293086324649c62951d3670e5bf7"
+    },
+    {
+      "file": "forge/build/libs/ars-conflux-0.1.46-sources.jar",
+      "sha256": "8f26bbe0d8667ea3adfbfa15cfce78ac7fe2ddfdab125946aa749420a4d20186"
+    }
+  ],
+  "verification": {
+    "integration_tests": "5/5; Abyss-Trials/build/weimeng-resources-gametest.log",
+    "without_optional_mods": "3/3; Abyss-Trials/build/weimeng-standalone-gametest.log",
+    "core_forge": "build and verifyDistributions passed; new accessor maps maxValue to f_22308_:D",
+    "goety_forge": "remapped binary + source package built; no Forge runtime test in this batch",
+    "client_visuals": "not manually verified"
+  },
+  "deployment": {
+    "instance": "1.21.1-\u4e07\u6cd5\u5f52\u4e00",
+    "backup": "mod-backups/weimeng-and-mana-limits-20261031-055442",
+    "core_startup_limits": {
+      "enabled": true,
+      "maximum_mana": 1000000,
+      "maximum_regeneration": 100000
+    }
+  }
+}

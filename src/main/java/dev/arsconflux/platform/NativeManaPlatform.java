@@ -24,6 +24,8 @@ public final class NativeManaPlatform {
     private static final ResourceLocation MAX=ResourceLocation.parse("ars_conflux:mob_base_mana"),REGEN=ResourceLocation.parse("ars_conflux:mob_base_regeneration");
     private static final class ManagedCap extends ManaCap {ManagedCap(LivingEntity actor){super(actor);}}
     public static void register(IEventBus bus) {
+        bus.addListener((net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent event)->event.enqueueWork(()->
+                dev.arsconflux.internal.billing.ManaAttributeLimits.apply(PerkAttributes.MAX_MANA.value(),PerkAttributes.MANA_REGEN_BONUS.value())));
         bus.addListener((EntityAttributeModificationEvent event)->{
             for(var type:event.getTypes())if(type!=EntityType.PLAYER){
                 if(!event.has(type,PerkAttributes.MAX_MANA))event.add(type,PerkAttributes.MAX_MANA);
