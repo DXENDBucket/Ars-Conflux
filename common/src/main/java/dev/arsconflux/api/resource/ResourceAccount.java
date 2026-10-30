@@ -9,5 +9,7 @@ public interface ResourceAccount {
     void spend(int amount);
     /** Transform a raw quote once; canSpend/spend always receive final already-quoted amounts. */
     default int quoteCost(int raw) { return raw; }
+    /** Physical capacity in final integer units; -1 means unknown, not infinite. Read-only. */
+    default long capacity() { return -1; }
     default boolean free() { return false; }
 }

@@ -1,3 +1,9 @@
+# 0.1.45
+
+- Provide lazy non-player native Ars mana lifecycle on both loaders, preserving saved empty pools, native attributes/events and provider ownership. Add species policy/per-entity overrides and a shared pool/transfer facade without touching native player ticks.
+- Combine first-activation resource budgets by physical reservation key, including deferred native Ars fees. Publish optional account capacities and quiet, final provider cooldown facts; unknown costs/capacities never become free or infinite.
+- Add optional per-glyph usefulness predicates. Correct native Harm proxy attribution inside managed non-player resolutions while preserving native DamageSource types.
+
 # 0.1.44
 
 - Add optional, namespaced glyph ability hints with immutable queries, code defaults and atomic server data-pack overrides, including explicit empty overrides and restoration after removal.

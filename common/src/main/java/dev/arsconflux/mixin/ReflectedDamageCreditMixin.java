@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ReflectedDamageCreditMixin {
     @Inject(method="getEntity",at=@At("RETURN"),cancellable=true)
     private void arsConflux$credit(CallbackInfoReturnable<Entity> ci) {
-        var declared=ci.getReturnValue(); var reflected=ProjectileReflections.damageOwner(declared);
+        var declared=ci.getReturnValue(); var reflected=dev.arsconflux.internal.mana.MobDamageCredit.resolve(ProjectileReflections.damageOwner(declared));
         if(reflected!=declared)ci.setReturnValue(reflected);
     }
 }

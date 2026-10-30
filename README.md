@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.45 adds lazy native non-player mana lifecycle, combined first-activation budgets, provider-owned cooldown facts and optional glyph usefulness checks for Ars Instinct/content integrations. Core never installs mob AI. See [non-player casting](docs/mob-casting.md).
+
 0.1.44 adds optional per-glyph ability hints with atomic server data-pack overrides. Reusable mob AI is provided separately by Ars Instinct; Core does not install goals or change target permissions. See [entity casting plan and current migration](docs/entity-casting-plan.md).
 
 0.1.43 converts the two native Ars mana-discount rings to configurable percentages by default (10% / 20%). Native Ars casting and addon Mana trigger quotes share the conversion; soul energy is unaffected. Disable the server option to restore native flat discounts. See [mana discounts](docs/mana-discounts.md).

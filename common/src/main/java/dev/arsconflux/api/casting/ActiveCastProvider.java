@@ -16,6 +16,8 @@ public interface ActiveCastProvider {
     default CastRejection rejection(ActiveCastRequest request) {
         return allowed(request) ? null : new CastRejection(null, -1);
     }
+    /** Optional quiet native timing facts for planners. Durations already include all reductions. */
+    default List<CooldownQuote> cooldowns(ActiveCastRequest request) { return List.of(); }
     /** An acknowledged release, not a successful future hit. Deduplicate native cooldown keys here. */
     default void released(ActiveCastRequest request, List<Spell> dispatchedRecipes) {}
     /** remaining == 0 closes the token, including cancellation. Never initiate a native cast here. */

@@ -83,6 +83,14 @@ public final class ActiveCasts {
         }
         return selected;
     }
+    /** Read-only provider facts; shared keys merge once using the longest native timing. */
+    public static List<CooldownQuote> cooldowns(Spell spell,LivingEntity caster,ActiveCastSource source) {
+        if(caster==null||!(caster.level() instanceof ServerLevel)||!cooldownsEnabled(caster))return List.of();
+        var request=new ActiveCastRequest(spell,caster,source);var result=new LinkedHashMap<ResourceLocation,CooldownQuote>();
+        for(var provider:providers(spell))for(var quote:provider.cooldowns(request))result.merge(quote.key(),quote,
+                (a,b)->new CooldownQuote(a.key(),Math.max(a.duration(),b.duration()),Math.max(a.remaining(),b.remaining())));
+        return List.copyOf(result.values());
+    }
     /** Defer a result-dependent commit until the enclosing active use is acknowledged.
      * Keys deduplicate repeated successes within that use. Nothing runs for an unacknowledged
      * use. False means no matching active use exists; the caller may commit immediately.

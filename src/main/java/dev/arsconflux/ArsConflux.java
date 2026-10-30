@@ -25,8 +25,10 @@ public final class ArsConflux {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.CLIENT,
                 dev.arsconflux.config.ConfluxClientConfig.SPEC,"ars_conflux-client.toml");
         dev.arsconflux.platform.TimingAttributes.register(bus);
+        dev.arsconflux.platform.NativeManaPlatform.register(bus);
         dev.arsconflux.platform.PowerAttributes.register(bus);
         dev.arsconflux.platform.SchoolPlatform.register();
+        dev.arsconflux.api.glyph.GlyphConditions.declare(net.minecraft.resources.ResourceLocation.tryParse("ars_nouveau:glyph_heal"),(actor,target)->!target.isInvertedHealAndHarm());
         dev.arsconflux.glyph.OptionalGlyphs.register();
         BuiltinCarriers.register();
         bus.addListener((net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent event) -> event.enqueueWork(() -> {

@@ -11,6 +11,10 @@ public final class ResourceTransactions {
     private static final ThreadLocal<Map<Object, Long>> RESERVED = ThreadLocal.withInitial(HashMap::new);
     private ResourceTransactions() {}
 
+    /** Read-only outstanding reservations, also usable by exact fractional native pool operations. */
+    public static long reserved(ResourceAccount account) {
+        return RESERVED.get().getOrDefault(account.reservationKey(),0L);
+    }
     public static boolean canSpend(ResourceAccount account, long amount) {
         if (amount < 0) throw new IllegalArgumentException("Negative resource request");
         if (account.free()) return true;

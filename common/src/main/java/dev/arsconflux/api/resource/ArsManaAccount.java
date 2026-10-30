@@ -13,6 +13,11 @@ public record ArsManaAccount(IWrappedCaster source, Object poolOwner, boolean fr
     }
     public int quoteCost(int raw) {return source instanceof LivingCaster living?ArsManaDiscounts.quote(living.livingEntity,raw):raw;}
     public Object reservationKey() { return ResourcePoolKey.of("ars_nouveau:mana", poolOwner); }
+    public long capacity() {
+        if(free)return Long.MAX_VALUE;
+        if(source instanceof LivingCaster living){var pool=ArsManaPools.of(living.livingEntity);return pool==null?0:(long)pool.maximum();}
+        return -1;
+    }
     public boolean canSpend(int amount) { return amount == 0 || ArsAccess.canSpend(source, amount); }
     public void spend(int amount) { ArsAccess.spend(source, amount); }
 }
