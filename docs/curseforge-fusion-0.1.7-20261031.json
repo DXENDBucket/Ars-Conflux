@@ -1,0 +1,23 @@
+{
+  "project": "Ars Fusion",
+  "project_id": 1773676,
+  "version": "0.1.7",
+  "source_commit": "430a0947288cf9da71850792f740367d1eb249da",
+  "plan": "C:\\Users\\57991\\Documents\\MinecraftDev\\Ars-Conflux\\build\\curseforge\\20261031-204423-c5c039f5\\plan.json",
+  "files": [
+    {
+      "file_id": 9383698,
+      "filename": "ars-fusion-0.1.7-mc1.21.1-neoforge.jar",
+      "sha256": "d087d06f665a48b4192a7e0d4c0418b16aa00a8f62bac476d14ab99dd1d29972",
+      "state": "uploaded"
+    },
+    {
+      "file_id": 9383699,
+      "filename": "ars-fusion-0.1.7-mc1.20.1-forge.jar",
+      "sha256": "d41b52a546cc4ab235bbcdb27483b8f1143431d69fbc8a5fa2b1368b90273aea",
+      "state": "uploaded"
+    }
+  ],
+  "release_mode": "automatic after CurseForge approval",
+  "moderation_status": "not independently checked"
+}
