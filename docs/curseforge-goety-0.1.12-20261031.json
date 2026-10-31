@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-31",
+  "status": "Accepted by CurseForge Upload API. Automatic release requested after approval; moderation not independently confirmed.",
+  "plan": "build\\curseforge\\20261031-104205-2822e937\\plan.json",
+  "validation": "Reused both previously validated Goety 0.1.12 artifacts, matched binary/source verification hashes, checked final metadata, required dependencies and Forge refmaps. No rebuild or repeated gameplay test.",
+  "not_uploaded": [
+    "Ars Instinct 0.1.4: no configured CurseForge Project ID",
+    "Abyss Trials 0.1.0-dev.36: no configured CurseForge Project ID"
+  ],
+  "other_projects": "All other configured projects current binary hashes already have uploaded ledger entries; no duplicate upload.",
+  "files": [
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "version": "0.1.12",
+      "platform": "neoforge",
+      "filename": "goety-nouveau-0.1.12-mc1.21.1-neoforge.jar",
+      "sha256": "dd5fe5a343bc4fcdedb6ee9bfda2423f3b55607a5ac6d98b4be2c1afd3129145",
+      "file_id": 9379916,
+      "moderation": "not_independently_checked"
+    },
+    {
+      "project": "goety",
+      "project_id": 1739392,
+      "version": "0.1.12",
+      "platform": "forge",
+      "filename": "goety-nouveau-0.1.12-mc1.20.1-forge.jar",
+      "sha256": "d1f648b796c33b765c7b99eb7af7b31fd69d0e41fa2882106375708e94c6bc90",
+      "file_id": 9379918,
+      "moderation": "not_independently_checked"
+    }
+  ]
+}
