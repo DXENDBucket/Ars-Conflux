@@ -36,12 +36,13 @@ class PublisherTests(unittest.TestCase):
         self.jar("neoforge")
         self.jar("forge")
 
-    def jar(self, platform, version="1.2.3", minecraft=None, dependency="ars_nouveau"):
+    def jar(self, platform, version="1.2.3", minecraft=None, dependency="ars_nouveau", minecraft_range=None):
         target = publisher.PLATFORMS[platform]
         path = self.repo / target["directory"] / "build/libs" / f"example-1.2.3-mc{target['minecraft']}-{platform}.jar"
         path.parent.mkdir(parents=True, exist_ok=True)
         required = 'type="required"' if platform == "neoforge" else "mandatory=true"
         mc = minecraft or target["minecraft"]
+        mc_range = minecraft_range or f"[{mc}]"
         meta = f'''license="MIT"
 [[mods]]
 modId="example"
@@ -51,7 +52,7 @@ modId="{platform}"
 {required}
 [[dependencies.example]]
 modId="minecraft"
-versionRange="[{mc}]"
+versionRange="{mc_range}"
 {required}
 [[dependencies.example]]
 modId="{dependency}"
@@ -138,6 +139,20 @@ modId="{dependency}"
         self.jar("forge", dependency="missing_mod")
         with self.assertRaisesRegex(publisher.PublishError, "dependency mapping"):
             self.plan()
+
+    def test_single_patch_half_open_minecraft_ranges_are_accepted(self):
+        self.jar("neoforge", minecraft_range="[1.21.1,1.21.2)")
+        self.jar("forge", minecraft_range="[1.20.1,1.20.2)")
+        self.assertEqual(2, len(publisher.load_json(self.plan())["entries"]))
+
+    def test_broader_or_exclusive_minecraft_ranges_are_rejected(self):
+        for value in ["[1.20,1.21)", "[1.20.0,1.20.2)", "[1.20.1,1.20.3)",
+                      "(1.20.1,1.20.2)", "[1.20.1,1.20.2]"]:
+            with self.subTest(value=value):
+                self.jar("forge", minecraft_range=value)
+                with self.assertRaisesRegex(publisher.PublishError, "Minecraft version"):
+                    self.plan()
+                self.assertFalse((self.root / "staged").exists())
 
     def test_missing_release_notes_not_synthesized_from_git(self):
         (self.notes / "example/1.2.3.md").unlink()

@@ -40,6 +40,14 @@
     "irons_nouveau": {
       "slug": "irons-nouveau",
       "project_id": 1726248
+    },
+    "goety_charms": {
+      "slug": "goety-charms",
+      "project_id": 1776245
+    },
+    "ars_instinct": {
+      "slug": "ars-instinct",
+      "project_id": 1776260
     }
   },
   "projects": {
@@ -159,6 +167,47 @@
       "extra_tasks": {
         "forge": [
           ":verifyRelease"
+        ]
+      }
+    },
+    "charms": {
+      "directory": "Goety-Charms",
+      "name": "Goety Charms",
+      "modid": "goety_charms",
+      "artifact": "goety-charms",
+      "project_id": 1776245,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ],
+      "build_tasks": {
+        "forge": [
+          ":jar",
+          ":reobfJar",
+          ":sourcesJar"
+        ]
+      },
+      "extra_tasks": {
+        "forge": [
+          ":verifyRelease"
+        ]
+      }
+    },
+    "instinct": {
+      "directory": "Ars-Instinct",
+      "name": "Ars Instinct",
+      "modid": "ars_instinct",
+      "artifact": "ars-instinct",
+      "project_id": 1776260,
+      "platforms": [
+        "neoforge",
+        "forge"
+      ],
+      "build_tasks": {
+        "forge": [
+          ":jar",
+          ":reobfJar",
+          ":sourcesJar"
         ]
       }
     }

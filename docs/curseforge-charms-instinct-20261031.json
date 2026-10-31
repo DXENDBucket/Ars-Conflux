@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-31",
+  "plan": "build/curseforge/20261031-224147-ac68676c/plan.json",
+  "release_type": "release",
+  "manual_release": false,
+  "status": "all four files accepted by Upload API; moderation/public visibility not checked",
+  "validation": "25 mocked publisher tests pass; recorded archive hashes reused; no mod build or game runtime launched",
+  "website_assets": "project icon, summary and description remain manual website fields; prepared asset bundles are in each project docs/curseforge",
+  "artifacts": [
+    {
+      "project": "charms",
+      "project_id": 1776245,
+      "version": "0.2.2",
+      "platform": "neoforge",
+      "filename": "goety-charms-0.2.2-mc1.21.1-neoforge.jar",
+      "sha256": "2fc0736aa8342b1aeec8886ded6f2c9366ad782f56140dbc673287949dd9ddf1",
+      "file_id": 9384680,
+      "state": "uploaded"
+    },
+    {
+      "project": "charms",
+      "project_id": 1776245,
+      "version": "0.2.2",
+      "platform": "forge",
+      "filename": "goety-charms-0.2.2-mc1.20.1-forge.jar",
+      "sha256": "ef56f8d85ba1643fc34df90987e213113c326c2f783a9a69736f48504bdbf511",
+      "file_id": 9384681,
+      "state": "uploaded"
+    },
+    {
+      "project": "instinct",
+      "project_id": 1776260,
+      "version": "0.1.5",
+      "platform": "neoforge",
+      "filename": "ars-instinct-0.1.5-mc1.21.1-neoforge.jar",
+      "sha256": "f681f28a309038e89717b7e8ab87b6a471e31d64aa22ae2fa7c15ec51d779267",
+      "file_id": 9384683,
+      "state": "uploaded"
+    },
+    {
+      "project": "instinct",
+      "project_id": 1776260,
+      "version": "0.1.5",
+      "platform": "forge",
+      "filename": "ars-instinct-0.1.5-mc1.20.1-forge.jar",
+      "sha256": "2f24a49325d5eb304af12c9b6d306fb6e86b2a8620446c24b4357131d58257a0",
+      "file_id": 9384684,
+      "state": "uploaded"
+    }
+  ]
+}

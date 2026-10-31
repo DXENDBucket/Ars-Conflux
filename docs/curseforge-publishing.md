@@ -15,6 +15,8 @@ Python 3.11+、PowerShell 与本地构建环境即可，不需要额外 Python �
 | goety | [Goety & Nouveau](https://www.curseforge.com/minecraft/mc-mods/goety-nouveau) | 1739392 | 双版本 |
 | bomd | [BOMD & Nouveau](https://www.curseforge.com/minecraft/mc-mods/bomd-nouveau) | 1739402 | 双版本 |
 | cataclysm | Cataclysm & Nouveau | 1767646 | 双版本 |
+| charms | Goety Charms | 1776245 | 双版本 |
+| instinct | Ars Instinct | 1776260 | 双版本 |
 
 从 [CurseForge 作者后台](https://authors.curseforge.com/) 的 API Tokens 页面生成 **上传 Token**，双击 `Set-CurseForge-Token.cmd`，或在本机执行：
 
@@ -248,3 +250,19 @@ Goety 0.1.9 and 0.1.10 were also accepted during this batch; 0.1.11 is the final
 BOMD 0.1.2 corresponding LGPL sources were accepted as additional files: NeoForge 9378234 (parent 9378164) and Forge 9378235 (parent 9378166). They include the full tracked BOMD / Conflux source snapshots, wrappers, build scripts, license notices, build instructions and local dependency hashes. Sources inherit parent version tags, following the [CurseForge Upload API](https://support.curseforge.com/support/solutions/articles/9000197321-curseforge-api).
 
 The shared Wanfa Guiyi instance received these eight latest NeoForge releases and local Abyss Trials 0.1.0-dev.24. Old jars were backed up outside `mods`; one active jar per updated mod ID and installed SHA-256 hashes were verified. Huanxing now has real unholy Curios, the updated Bulwark protection program, and all native staff qualifications. No Minecraft client, server or GameTest was launched; no Git push was performed.
+
+
+## Goety Charms / Ars Instinct initial releases — 2026-10-31
+
+The user supplied project IDs 1776245 and 1776260 and authorized connecting and uploading both projects. Example and local release configurations now include `charms` and `instinct`, plus their dependency aliases. Future builds use each project's real Forge jar/reobfJar tasks instead of the default jar-in-jar tasks.
+
+| Project | Version | NeoForge 1.21.1 file ID | Forge 1.20.1 file ID |
+| --- | --- | ---: | ---: |
+| Goety Charms | 0.2.2 | 9384680 | 9384681 |
+| Ars Instinct | 0.1.5 | 9384683 | 9384684 |
+
+All four ledger entries are `uploaded`. Release type is Release; publication is automatic after approval. API acceptance does not confirm moderation or public visibility. The previously verified JARs were reused; no mod build, client, server or GameTest was launched.
+
+The publisher now accepts the standard single-patch half-open Minecraft declarations `[1.21.1,1.21.2)` and `[1.20.1,1.20.2)` as well as exact declarations. Broader, exclusive-lower-bound and inclusive-next-patch ranges remain rejected; 25 mocked publisher tests pass. No game metadata or Core binary changed for this validation adjustment.
+
+Portable receipt: `docs/curseforge-charms-instinct-20261031.json`. Prepared snapshot: `build/curseforge/20261031-224147-ac68676c/plan.json`. Icons and project descriptions are prepared separately in the project `docs/curseforge/` directories; the existing file-upload tool does not set those website fields.

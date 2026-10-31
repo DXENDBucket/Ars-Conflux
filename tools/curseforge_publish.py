@@ -135,7 +135,12 @@ def inspect_jar(path, modid, version, platform, mapping):
     if expected_loader not in ids or other_loader in ids:
         raise PublishError(f"Loader declaration differs from {platform}: {path.name}")
     mc = next((dep for dep in deps if dep["modId"] == "minecraft"), {})
-    if mc.get("versionRange") != f"[{target['minecraft']}]":
+    # Some single-patch projects use a half-open interval ending at the next patch.
+    # Accept that equivalent declaration, but never silently tag a broader range.
+    version_prefix, patch = target["minecraft"].rsplit(".", 1)
+    next_patch = f"{version_prefix}.{int(patch) + 1}"
+    supported_ranges = {f"[{target['minecraft']}]", f"[{target['minecraft']},{next_patch})"}
+    if mc.get("versionRange") not in supported_ranges:
         raise PublishError(f"Minecraft version differs from {target['minecraft']}: {path.name}")
     relations = []
     for dep in deps:
