@@ -280,3 +280,20 @@ Portable receipt: `docs/curseforge-charms-instinct-20261031.json`. Prepared snap
 首次Goety请求被HTTP400/1018明确拒绝：项目goety-charms不可作为关系引用。核对1776245的项目元数据，slug正确但isAvailable=false/status=1。仅为本批生成临时发布配置，省略此可选CF关系；不更改永久依赖映射、不移除JAR原生可选依赖或公开功能说明。新计划四文件全部收到API文件ID，自动审核后发布；不代表已经审核公开。原失败计划保留，未重复上传任何成功文件。项目公开后如需补网站关系，可用官方文件元数据更新接口单独处理，无需重发JAR。
 
 成功计划：`build/curseforge/20261101-182926-2b4b8e4f/plan.json`；回执：`docs/curseforge-receipt-20261101.json`。深渊试炼未配置CF项目，不在本批上传范围。此次槽位配置只改实例COMMON配置，不属于上述模组发行包。
+
+## 2026-11-03: Core, Iron, Goety and Fusion updates
+
+用户授权上传有更新的项目。核对11个项目的22份当前发行包与上传台账，仅下列四个项目待发；八份文件均与既有验证记录中的SHA-256一致，复用产物，没有重建或重复游戏测试。
+
+| Project | Version | NeoForge 1.21.1 | Forge 1.20.1 |
+| --- | --- | ---: | ---: |
+| conflux | 0.1.49 | 9411626 | 9411627 |
+| iron | 0.17.43 | 9411628 | 9411629 |
+| goety | 0.1.14 | 9411631 | 9411632 |
+| fusion | 0.2.1 | 9411633 | 9411634 |
+
+全部八份文件获得API文件ID，台账状态为uploaded；Release类型，审核后自动发布。API接收不代表已经通过审核或公开。公开发行说明位于各项目对应的release-notes目录，包含距上次上传以来的中间版本变更。
+
+本批仍无法从公开接口确认Goety Charms项目的可用状态。沿用前批临时配置，只省略Goety Charms可选CF页面关系；JAR原生可选兼容声明与永久发布映射不变。未因关系问题删除任何成功上传回执。
+
+计划：`build/curseforge/20261103-060654-f2d22107/plan.json`；可移植回执：[curseforge-receipt-20261103.json](curseforge-receipt-20261103.json)。没有推送Git或改动实例；实例已安装这些最新版本。

@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-03",
+  "plan": "build/curseforge/20261103-060654-f2d22107/plan.json",
+  "entries": [
+    {
+      "project": "conflux",
+      "version": "0.1.49",
+      "platform": "neoforge",
+      "project_id": 1737308,
+      "filename": "ars-conflux-0.1.49-mc1.21.1-neoforge.jar",
+      "sha256": "171d410763d3671e469efa8a27a215d09241ba3226de14d628def07d97dd74a9",
+      "file_id": 9411626
+    },
+    {
+      "project": "conflux",
+      "version": "0.1.49",
+      "platform": "forge",
+      "project_id": 1737308,
+      "filename": "ars-conflux-0.1.49-mc1.20.1-forge.jar",
+      "sha256": "545c599c6e7591b3988f4ee13269b66f05e69909bb59cdd9520c4a5f372fbaaa",
+      "file_id": 9411627
+    },
+    {
+      "project": "iron",
+      "version": "0.17.43",
+      "platform": "neoforge",
+      "project_id": 1726248,
+      "filename": "irons-nouveau-0.17.43-mc1.21.1-neoforge.jar",
+      "sha256": "1df8c2e7a8d5ed2098c42666d5bd6d5dd9b267077fa1a0c5dc9600d4b612399c",
+      "file_id": 9411628
+    },
+    {
+      "project": "iron",
+      "version": "0.17.43",
+      "platform": "forge",
+      "project_id": 1726248,
+      "filename": "irons-nouveau-0.17.43-mc1.20.1-forge.jar",
+      "sha256": "77b3c3cb0ecaf3a835768fee45cfa11d9001b845ac4fd4755d6745e7ea5093b2",
+      "file_id": 9411629
+    },
+    {
+      "project": "goety",
+      "version": "0.1.14",
+      "platform": "neoforge",
+      "project_id": 1739392,
+      "filename": "goety-nouveau-0.1.14-mc1.21.1-neoforge.jar",
+      "sha256": "74ed94fcf79f81fc087cf341925d821cd31c6ec7ca631c56cdfa2c6d252f637e",
+      "file_id": 9411631
+    },
+    {
+      "project": "goety",
+      "version": "0.1.14",
+      "platform": "forge",
+      "project_id": 1739392,
+      "filename": "goety-nouveau-0.1.14-mc1.20.1-forge.jar",
+      "sha256": "442a5cfd4686514b5284e484e5e9a4b052fdb81727030caf2f18c89de250e19e",
+      "file_id": 9411632
+    },
+    {
+      "project": "fusion",
+      "version": "0.2.1",
+      "platform": "neoforge",
+      "project_id": 1773676,
+      "filename": "ars-fusion-0.2.1-mc1.21.1-neoforge.jar",
+      "sha256": "df2a849881033f165988fbb52d5e66d0b40371b74e46d7d05650429e5979af82",
+      "file_id": 9411633
+    },
+    {
+      "project": "fusion",
+      "version": "0.2.1",
+      "platform": "forge",
+      "project_id": 1773676,
+      "filename": "ars-fusion-0.2.1-mc1.20.1-forge.jar",
+      "sha256": "62c3f53a3d399767013846506c184b0eefec3a169bdfd763c0616eff495d33c5",
+      "file_id": 9411634
+    }
+  ],
+  "api_accepted": true,
+  "moderation_confirmed": false,
+  "manual_release": false,
+  "rebuilt_binaries": false,
+  "new_game_tests_run": false,
+  "optional_relation_exception": "Goety Charms (1776245) public availability could not be verified. As in the previous batch, omit only its optional CF relationship using a temporary config; retain native JAR compatibility declarations and the permanent publishing mapping."
+}
