@@ -109,3 +109,7 @@ tasks.named('sourcesJar') { from('THIRD_PARTY_NOTICES.md') }
 ['jar', 'sourcesJar'].each { archive ->
     tasks.named(archive) { from('licenses') { into 'licenses' } }
 }
+
+// Runtime glyph-name keys are namespaced by the owning addon.
+ext.glyphNameRoot = file('common/src/main/resources/assets/ars_conflux/lang')
+apply from: 'gradle/validate-glyph-names.gradle'

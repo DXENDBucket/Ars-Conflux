@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.49 Fixes the two new NEG propagator names by supplying the canonical ars_conflux.glyph_name keys read by Ars. Keeps existing compatibility keys and adds packaging-time canonical-name validation.
+
 0.1.48 adds optional NEG subforms for Nearby Allies and Carian Phalanx. They convert the remaining recipe using NEG's native propagation interface and delegate to the original cast methods. Source-form switches still apply; absent addons leave no glyphs or recipes. See [form propagators](docs/neg-form-propagators.md).
 
 0.1.47 修正 Ars 执行者朝向：读取生物头部视角，避免友军转头时吐息、冲刺或持续光束仍沿身体方向执行。使用 Conflux 0.1.47 的共用视角方法；位置执行保留固定方向和入射方向优先级。本批仅构建，未部署或进行客户端验证。详见 [跨附属朝向核对](docs/executor-facing-audit.md)。

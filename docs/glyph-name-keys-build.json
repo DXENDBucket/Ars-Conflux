@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-03",
+  "version": "0.1.49",
+  "previous_version": "0.1.48",
+  "source_base": "108706a2b8429935a91de214427b61bc956cac52",
+  "scope": "language-key aliases and build validation only; no Java gameplay changes",
+  "native_name_lookup": "<registry namespace>.glyph_name.<registry path> in installed Ars 5.13.3 and compiled Ars 5.13.1",
+  "validation": "Neo and Forge resource/source packages rebuilt; canonical English/Chinese keys, CRC/license/pack metadata, Forge declared refmap present; Core verifyDistributions passed",
+  "game_started": false,
+  "curseforge_uploaded": false,
+  "artifacts": [
+    {
+      "platform": "neoforge",
+      "kind": "binary",
+      "path": "C:\\Users\\57991\\Documents\\MinecraftDev\\Ars-Conflux\\build\\libs\\ars-conflux-0.1.49-mc1.21.1-neoforge.jar",
+      "sha256": "171d410763d3671e469efa8a27a215d09241ba3226de14d628def07d97dd74a9"
+    },
+    {
+      "platform": "neoforge",
+      "kind": "sources",
+      "path": "C:\\Users\\57991\\Documents\\MinecraftDev\\Ars-Conflux\\build\\libs\\ars-conflux-0.1.49-sources.jar",
+      "sha256": "6d2681fd17605e54b9b7ff907548e454ac37b18129e6790489706b39875dc05c"
+    },
+    {
+      "platform": "forge",
+      "kind": "binary",
+      "path": "C:\\Users\\57991\\Documents\\MinecraftDev\\Ars-Conflux\\forge\\build\\libs\\ars-conflux-0.1.49-mc1.20.1-forge.jar",
+      "sha256": "545c599c6e7591b3988f4ee13269b66f05e69909bb59cdd9520c4a5f372fbaaa"
+    },
+    {
+      "platform": "forge",
+      "kind": "sources",
+      "path": "C:\\Users\\57991\\Documents\\MinecraftDev\\Ars-Conflux\\forge\\build\\libs\\ars-conflux-0.1.49-sources.jar",
+      "sha256": "a7bc40252d2e0665710f2c382be19b0137797012137412db707592650a0a7d3f"
+    }
+  ]
+}

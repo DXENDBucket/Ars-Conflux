@@ -150,3 +150,7 @@ tasks.register('verifyDistributions') {
     doLast { verifyPackagedRefmap(tasks.named('jarJar').get().archiveFile.get().asFile) }
 }
 tasks.named('check') { dependsOn tasks.named('verifyDistributions') }
+
+// Runtime glyph-name keys are namespaced by the owning addon.
+ext.glyphNameRoot = file('../common/src/main/resources/assets/ars_conflux/lang')
+apply from: '../gradle/validate-glyph-names.gradle'

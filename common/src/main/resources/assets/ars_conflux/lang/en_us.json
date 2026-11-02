@@ -21,5 +21,7 @@
   "ars_nouveau.glyph_name.glyph_propagate_carian_phalanx": "Propagate Carian Phalanx",
   "item.ars_conflux.glyph_propagate_carian_phalanx": "Propagate Carian Phalanx",
   "ars_conflux.glyph_desc.glyph_propagate_carian_phalanx": "Converts the rest of the spell to Ars Elemental's Carian Phalanx around the original caster. Uses the original formation, targeting and five-projectile limit. Split adds projectiles.",
-  "ars_nouveau.augment_desc.glyph_propagate_carian_phalanx_glyph_split": "Summons one additional phalanx projectile."
+  "ars_nouveau.augment_desc.glyph_propagate_carian_phalanx_glyph_split": "Summons one additional phalanx projectile.",
+  "ars_conflux.glyph_name.glyph_propagate_nearby_allies": "Propagate Nearby Allies",
+  "ars_conflux.glyph_name.glyph_propagate_carian_phalanx": "Propagate Carian Phalanx"
 }
