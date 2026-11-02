@@ -13,5 +13,13 @@
   "commands.ars_conflux.schools.undeclared": "%s has no Conflux school declaration.",
   "attribute.ars_conflux.confluence_spell_power": "Confluence Spell Power",
   "attribute.ars_conflux.school_power_format": "%s School Spell Power",
-  "ars_conflux.tooltip.percentage_mana_discount": "Reduces mana costs by %s%%."
+  "ars_conflux.tooltip.percentage_mana_discount": "Reduces mana costs by %s%%.",
+  "ars_nouveau.glyph_name.glyph_propagate_nearby_allies": "Propagate Nearby Allies",
+  "item.ars_conflux.glyph_propagate_nearby_allies": "Propagate Nearby Allies",
+  "ars_conflux.glyph_desc.glyph_propagate_nearby_allies": "Converts the rest of the spell to Nearby Allies, centered on the original caster. Area of Effect extends the search radius. Ownership and payment stay with the original caster.",
+  "ars_nouveau.augment_desc.glyph_propagate_nearby_allies_glyph_aoe": "Increases the original form's search radius.",
+  "ars_nouveau.glyph_name.glyph_propagate_carian_phalanx": "Propagate Carian Phalanx",
+  "item.ars_conflux.glyph_propagate_carian_phalanx": "Propagate Carian Phalanx",
+  "ars_conflux.glyph_desc.glyph_propagate_carian_phalanx": "Converts the rest of the spell to Ars Elemental's Carian Phalanx around the original caster. Uses the original formation, targeting and five-projectile limit. Split adds projectiles.",
+  "ars_nouveau.augment_desc.glyph_propagate_carian_phalanx_glyph_split": "Summons one additional phalanx projectile."
 }

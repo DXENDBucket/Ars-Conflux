@@ -9,7 +9,7 @@ public final class ConfluxStartupConfig {
     public static final ForgeConfigSpec.BooleanValue AUGMENT_EXTENSIONS;
     public static final ForgeConfigSpec.BooleanValue MANA_ATTRIBUTE_LIMITS;
     public static final ForgeConfigSpec.IntValue MAXIMUM_MANA_ATTRIBUTE,MAXIMUM_MANA_REGENERATION_ATTRIBUTE;
-    private static final boolean EARLY_ALLIES=readEarly();
+    private static final boolean EARLY_ALLIES=readEarly("enable_nearby_allies",false), EARLY_PROPAGATORS=readEarly("enable_neg_form_propagators",true);
     static {
         var b=new ForgeConfigSpec.Builder();
         b.push("mana_attribute_limits");
@@ -18,6 +18,7 @@ public final class ConfluxStartupConfig {
         MAXIMUM_MANA_REGENERATION_ATTRIBUTE=b.comment("Upper bound allowed by the Ars mana-regeneration attribute, in mana per second.").defineInRange("maximum_regeneration",100000,0,Integer.MAX_VALUE);
         b.pop();b.push("optional_content");
         b.comment("Register Nearby Allies and its Scribe recipe. Requires restart; match client/server.").define("enable_nearby_allies",false);
+        b.comment("Register NEG form propagators when NEG and the corresponding optional cast method are enabled. Requires restart; match client/server.").define("enable_neg_form_propagators",true);
         b.pop();b.push("compatibility");
         AUGMENT_EXTENSIONS=b.comment("Enable optional AAP/NEG augment extensions and weighted Controle delays. Requires restart; match client and server.").define("enable_augment_extensions",true);
         b.pop();
@@ -27,13 +28,15 @@ public final class ConfluxStartupConfig {
                 .defineListAllowEmpty("power_attributes", java.util.List.of(), value -> value instanceof String text && net.minecraft.resources.ResourceLocation.tryParse(text)!=null);
         b.pop(); SPEC = b.build();
     }
-    private static boolean readEarly() {
+    private static boolean readEarly(String key,boolean fallback) {
         var file=FMLPaths.CONFIGDIR.get().resolve("ars_conflux-startup.toml");
-        if(!java.nio.file.Files.isRegularFile(file)) return false;
+        if(!java.nio.file.Files.isRegularFile(file)) return fallback;
         try(var config=CommentedFileConfig.builder(file).sync().build()) {
-            config.load();return Boolean.TRUE.equals(config.get("optional_content.enable_nearby_allies"));
+            config.load();Object value=config.get("optional_content."+key);return value instanceof Boolean enabled?enabled:fallback;
         }
     }
+    public static boolean negFormPropagators(){return EARLY_PROPAGATORS;}
+    public static boolean elementalPhalanx(){return ConfluxStartupConfig.class.getClassLoader().getResource("alexthw/ars_elemental/common/glyphs/MethodCarianPhalanx.class")!=null;}
     public static boolean nearbyAllies() {return EARLY_ALLIES;}
     public static boolean manaAttributeLimits(){return SPEC.isLoaded()?MANA_ATTRIBUTE_LIMITS.get():MANA_ATTRIBUTE_LIMITS.getDefault();}
     public static int maximumManaAttribute(){return SPEC.isLoaded()?MAXIMUM_MANA_ATTRIBUTE.get():MAXIMUM_MANA_ATTRIBUTE.getDefault();}

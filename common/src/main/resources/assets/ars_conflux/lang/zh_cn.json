@@ -13,5 +13,13 @@
   "commands.ars_conflux.schools.undeclared": "%s 未声明 Conflux 流派。",
   "attribute.ars_conflux.confluence_spell_power": "汇流法术强度",
   "attribute.ars_conflux.school_power_format": "“%s”流派法术强度",
-  "ars_conflux.tooltip.percentage_mana_discount": "魔力消耗降低 %s%%。"
+  "ars_conflux.tooltip.percentage_mana_discount": "魔力消耗降低 %s%%。",
+  "ars_nouveau.glyph_name.glyph_propagate_nearby_allies": "周围友军调态",
+  "item.ars_conflux.glyph_propagate_nearby_allies": "周围友军调态",
+  "ars_conflux.glyph_desc.glyph_propagate_nearby_allies": "将后续编排转为周围友军形态，以原施法者为中心筛选友军。扩散扩大搜索范围；施法归属和魔力来源不变。",
+  "ars_nouveau.augment_desc.glyph_propagate_nearby_allies_glyph_aoe": "扩大原形态的友军搜索范围。",
+  "ars_nouveau.glyph_name.glyph_propagate_carian_phalanx": "卡利亚圆阵调态",
+  "item.ars_conflux.glyph_propagate_carian_phalanx": "卡利亚圆阵调态",
+  "ars_conflux.glyph_desc.glyph_propagate_carian_phalanx": "将后续编排转为环绕原施法者的卡利亚圆阵。沿用原生阵型、索敌与五发上限；分裂增加弹体数量。",
+  "ars_nouveau.augment_desc.glyph_propagate_carian_phalanx_glyph_split": "增加一枚圆阵弹体。"
 }

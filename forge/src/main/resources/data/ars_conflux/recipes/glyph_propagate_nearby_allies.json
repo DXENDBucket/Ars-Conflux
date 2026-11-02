@@ -1,0 +1,29 @@
+{
+  "conditions": [
+    {
+      "type": "ars_conflux:glyph_registered",
+      "glyph": "ars_conflux:glyph_propagate_nearby_allies"
+    }
+  ],
+  "type": "ars_nouveau:glyph",
+  "exp": 160,
+  "inputItems": [
+    {
+      "item": {
+        "item": "ars_conflux:glyph_nearby_allies"
+      }
+    },
+    {
+      "item": {
+        "item": "ars_nouveau:conjuration_essence"
+      }
+    },
+    {
+      "item": {
+        "item": "ars_nouveau:source_gem"
+      }
+    }
+  ],
+  "output": "ars_conflux:glyph_propagate_nearby_allies",
+  "count": 1
+}

@@ -31,6 +31,7 @@ public final class ArsConflux {
         dev.arsconflux.api.glyph.GlyphConditions.declare(net.minecraft.resources.ResourceLocation.tryParse("ars_nouveau:glyph_heal"),(actor,target)->!target.isInvertedHealAndHarm());
         dev.arsconflux.glyph.OptionalGlyphs.register();
         net.minecraftforge.common.crafting.CraftingHelper.register(new dev.arsconflux.internal.content.NearbyAlliesCondition.Serializer());
+        net.minecraftforge.common.crafting.CraftingHelper.register(new dev.arsconflux.internal.content.RegisteredGlyphCondition.Serializer());
         BuiltinCarriers.register();
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent event) -> event.enqueueWork(() -> {
             dev.arsconflux.internal.adams.AdamsArsPlusCompat.register();

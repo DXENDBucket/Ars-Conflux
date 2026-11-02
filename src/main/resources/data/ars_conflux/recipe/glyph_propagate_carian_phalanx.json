@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ars_conflux:glyph_registered",
+      "glyph": "ars_conflux:glyph_propagate_carian_phalanx"
+    }
+  ],
+  "type": "ars_nouveau:glyph",
+  "exp": 160,
+  "inputs": [
+    {
+      "item": "ars_elemental:glyph_carian_phalanx"
+    },
+    {
+      "item": "ars_nouveau:manipulation_essence"
+    },
+    {
+      "item": "ars_nouveau:source_gem"
+    }
+  ],
+  "output": {
+    "id": "ars_conflux:glyph_propagate_carian_phalanx",
+    "count": 1
+  }
+}

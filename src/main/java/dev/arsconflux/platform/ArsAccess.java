@@ -6,6 +6,7 @@ import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 /** Ars version differences remain private to the loader implementation. */
 public final class ArsAccess {
     private ArsAccess() {}
+    public static boolean modLoaded(String id){return net.neoforged.fml.ModList.get().isLoaded(id);}
     public static void augmentDescription(AbstractSpellPart part, AbstractAugment augment, String key) {
         part.augmentDescriptions.put(augment, net.minecraft.network.chat.Component.translatable(key));
     }

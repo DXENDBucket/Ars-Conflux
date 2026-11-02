@@ -1,0 +1,66 @@
+{
+  "version": "0.1.48",
+  "source_base": "3d7a8bf675af973719b3c02d8021e3cb9201fc69",
+  "worktree": "C:/Users/57991/Documents/MinecraftDev/Ars-Conflux",
+  "branch": "main",
+  "scope": "NEG native propagator adapters for optional Nearby Allies and Carian Phalanx; no Iron dependency",
+  "upstream": [
+    {
+      "path": "libs/neg/not_enough_glyphs-1.21.1-4.6.2.jar",
+      "sha256": "efd90f8ed292fd1b6b08fc33330f4344b70ed1661ffbe3684a64b1b485856c12"
+    },
+    {
+      "path": "libs/elemental/ars_elemental-1.21.1-0.7.10.4.jar",
+      "sha256": "9ba4393c98228bb1647e3786c71c30c7eb97574b9e65baba14f34c92f7b86eb9"
+    },
+    {
+      "path": "forge/libs/neg/not-enough-glyphs-neg1201.jar",
+      "sha256": "db6e29a46abc6b47c69769213e92b6c23562c4b31a281661aef54d3420acfaa4"
+    },
+    {
+      "path": "forge/libs/elemental/ars-elemental-elemental1201.jar",
+      "sha256": "2172db18ab7a4f43da49a2bb245b3d90f1c6cd8f7ce7905870dbc60e3f5ad40b"
+    }
+  ],
+  "validation": {
+    "neoforge_with_neg_and_elemental": "3/3 passed: conditional registration/recipes/native marker, child fanout and attribution/account retention, real two-projectile split phalanx and carrier identity",
+    "forge_with_neg": "3/3 passed; phalanx execution skipped because this Elemental version has no implementation",
+    "neoforge_without_neg_or_elemental": "3/3 passed; two execution cases skipped; standalone startup and registration/recipe absence checked",
+    "final_packages": "Both runtimes/sources rebuilt: archive integrity, existing metadata, license/notices, models, localization, conditional recipes, Forge refmap, no bundled NEG/Sauce classes/API JAR or GameTests",
+    "commands": [
+      "Neo :runGameTestServer :jar :sourcesJar -PwithNeg=true -PwithElemental=true -PgameTestNamespaces=ars_conflux_form_propagators -PgameTestRunDir=run/propagators",
+      "Forge :runGameTestServer :jarJar :reobfJarJar :sourcesJar -PwithNeg=true -PgameTestNamespaces=ars_conflux_form_propagators -PgameTestRunDir=run/propagators",
+      "Neo :runGameTestServer :jar :sourcesJar -PgameTestNamespaces=ars_conflux_form_propagators -PgameTestRunDir=run/propagators-absent",
+      "Forge final :jarJar :reobfJarJar :sourcesJar. Offline, max-workers=1, no-parallel, no-daemon; final Gradle heap550m, game1000m."
+    ],
+    "logs": "build/propagators-20261102/{test-neoforge-final,test-forge,test-neoforge-absent,package-forge}.log",
+    "client": "not manually tested",
+    "deployed_pushed_published": false
+  },
+  "artifacts": [
+    {
+      "path": "build/libs/ars-conflux-0.1.48-mc1.21.1-neoforge.jar",
+      "platform": "neoforge",
+      "pack_format": 48,
+      "sha256": "04deacb59832e26a18108d65e155cb397e460147097867d0b82a257e90f3865f"
+    },
+    {
+      "path": "build/libs/ars-conflux-0.1.48-sources.jar",
+      "platform": "neoforge",
+      "pack_format": 48,
+      "sha256": "7e51ad0a60b2c7d4fed033f3da631b8572aa6fae5adc454cb19818f0fd9480bb"
+    },
+    {
+      "path": "forge/build/libs/ars-conflux-0.1.48-mc1.20.1-forge.jar",
+      "platform": "forge",
+      "pack_format": 15,
+      "sha256": "5229634c13da5f72a2bce09c05c3cf493360f075666f9608005ca4d12a5249d4"
+    },
+    {
+      "path": "forge/build/libs/ars-conflux-0.1.48-sources.jar",
+      "platform": "forge",
+      "pack_format": 15,
+      "sha256": "b39bb3bf4e42af37bbcb19f08993a754b5be742a345c781445e5ef25936f78ab"
+    }
+  ]
+}

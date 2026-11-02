@@ -6,5 +6,6 @@ public final class OptionalGlyphs {
     public static void register() {
         dev.arsconflux.api.glyph.GlyphVisuals.register("ars_conflux", part -> null);
         if(ConfluxStartupConfig.nearbyAllies()) GlyphRegistry.registerSpell(MethodNearbyAllies.INSTANCE);
+        if(dev.arsconflux.platform.ArsAccess.modLoaded("not_enough_glyphs"))dev.arsconflux.internal.neg.NegFormGlyphs.register();
     }
 }

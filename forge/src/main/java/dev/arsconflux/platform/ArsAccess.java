@@ -5,6 +5,7 @@ import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 
 public final class ArsAccess {
     private ArsAccess() {}
+    public static boolean modLoaded(String id){return net.minecraftforge.fml.ModList.get().isLoaded(id);}
     public static void augmentDescription(AbstractSpellPart part, AbstractAugment augment, String key) {
         // Ars 4 has no mutable augment description map; retain its standard augment descriptions.
     }

@@ -66,6 +66,7 @@ tasks.named('compileJava', JavaCompile) {
             .withPropertyName('mixinMappings')
 }
 dependencies {
+    compileOnly fg.deobf('local:not-enough-glyphs:neg1201')
     if (providers.gradleProperty('withAdamsArsPlus').getOrElse('false').toBoolean()) {
         runtimeOnly fg.deobf('local:adams-ars-plus:adams1201')
     }

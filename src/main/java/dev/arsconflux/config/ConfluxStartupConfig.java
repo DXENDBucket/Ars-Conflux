@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public final class ConfluxStartupConfig {
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.ConfigValue<java.util.List<? extends String>> SCHOOL_POWER_ATTRIBUTES;
-    public static final ModConfigSpec.BooleanValue ELEMENTAL_PHALANX, NEARBY_ALLIES, AUGMENT_EXTENSIONS;
+    public static final ModConfigSpec.BooleanValue ELEMENTAL_PHALANX, NEARBY_ALLIES, AUGMENT_EXTENSIONS, NEG_FORM_PROPAGATORS;
     public static final ModConfigSpec.BooleanValue ZERO, ZERO_FIXES, ZERO_TEMPORAL;
     public static final ModConfigSpec.BooleanValue MANA_ATTRIBUTE_LIMITS;
     public static final ModConfigSpec.IntValue MAXIMUM_MANA_ATTRIBUTE,MAXIMUM_MANA_REGENERATION_ATTRIBUTE;
@@ -24,6 +24,7 @@ public final class ConfluxStartupConfig {
                 "False preserves Elemental's own registration policy. Requires a restart; match client and server.")
                 .define("enable_elemental_phalanx", false);
         NEARBY_ALLIES=builder.comment("Register the nonstandard Nearby Allies cast method and Scribe recipe. Requires restart; match client and server.").define("enable_nearby_allies", false);
+        NEG_FORM_PROPAGATORS=builder.comment("Register NEG form propagators when NEG and the corresponding optional cast method are enabled. Requires restart; match client/server.").define("enable_neg_form_propagators",true);
         builder.pop();
         builder.push("compatibility");
         AUGMENT_EXTENSIONS=builder.comment("Enable optional AAP/NEG augment extensions and weighted Controle delays. Requires restart; match client and server.").define("enable_augment_extensions",true);
@@ -37,6 +38,7 @@ public final class ConfluxStartupConfig {
                 .defineListAllowEmpty("power_attributes", java.util.List.of(), value -> value instanceof String text && net.minecraft.resources.ResourceLocation.tryParse(text)!=null);
         builder.pop(); SPEC = builder.build();
     }
+    public static boolean negFormPropagators(){return SPEC.isLoaded()?NEG_FORM_PROPAGATORS.get():NEG_FORM_PROPAGATORS.getDefault();}
     public static boolean nearbyAllies() {return SPEC.isLoaded()?NEARBY_ALLIES.get():NEARBY_ALLIES.getDefault();}
     public static boolean manaAttributeLimits(){return SPEC.isLoaded()?MANA_ATTRIBUTE_LIMITS.get():MANA_ATTRIBUTE_LIMITS.getDefault();}
     public static int maximumManaAttribute(){return SPEC.isLoaded()?MAXIMUM_MANA_ATTRIBUTE.get():MAXIMUM_MANA_ATTRIBUTE.getDefault();}

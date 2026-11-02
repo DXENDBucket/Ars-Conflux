@@ -41,6 +41,7 @@ public final class ArsConflux {
         var conditions = net.neoforged.neoforge.registries.DeferredRegister.create(
                 net.neoforged.neoforge.registries.NeoForgeRegistries.CONDITION_SERIALIZERS, MOD_ID);
         conditions.register("elemental_phalanx_enabled", () -> dev.arsconflux.internal.elemental.PhalanxRecipeCondition.CODEC);
+        conditions.register("glyph_registered", () -> dev.arsconflux.internal.content.RegisteredGlyphCondition.CODEC);
         conditions.register("nearby_allies_enabled", () -> dev.arsconflux.internal.content.NearbyAlliesCondition.CODEC);
         conditions.register(bus);
         bus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {

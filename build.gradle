@@ -45,7 +45,14 @@ neoForge {
     }
     mods { ars_conflux { sourceSet sourceSets.main; sourceSet sourceSets.gameTest } }
 }
+def negJar=fileTree(dir:'libs/neg',include:'*.jar').singleFile
+def negCompileApi=tasks.register('extractNegCompileApi',Copy){
+    from(zipTree(negJar)){include 'META-INF/jarjar/sauce-*.jar';eachFile{path='sauce.jar'};includeEmptyDirs=false}
+    into layout.buildDirectory.dir('neg-compile-api')
+}
 dependencies {
+    compileOnly files(negJar)
+    compileOnly files(layout.buildDirectory.file('neg-compile-api/sauce.jar')).builtBy(negCompileApi)
     compileOnly fileTree(dir: 'libs/compile-only', include: '*.jar')
     compileOnly fileTree(dir: 'libs/zero', include: '*.jar')
     if (providers.gradleProperty('withZero').getOrElse('false').toBoolean()) {
