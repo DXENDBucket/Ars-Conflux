@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-01",
+  "plan": "build\\curseforge\\20261101-182926-2b4b8e4f\\plan.json",
+  "entries": [
+    {
+      "project": "goety",
+      "version": "0.1.13",
+      "platform": "neoforge",
+      "project_id": 1739392,
+      "file_id": 9393669,
+      "sha256": "38060475ccae4b3aa3cb17205b4a50cebc86335cc86e4623efe699fa70d4841f"
+    },
+    {
+      "project": "goety",
+      "version": "0.1.13",
+      "platform": "forge",
+      "project_id": 1739392,
+      "file_id": 9393671,
+      "sha256": "512555438096b474ce59769316180a7b88584361820fa1f970a83aefaf4ef11d"
+    },
+    {
+      "project": "fusion",
+      "version": "0.2.0",
+      "platform": "neoforge",
+      "project_id": 1773676,
+      "file_id": 9393672,
+      "sha256": "ee6e30ee2a8d2a551c1f995be8a6e9fa4eb07a478f39a0c724e178a10b6ed2a5"
+    },
+    {
+      "project": "fusion",
+      "version": "0.2.0",
+      "platform": "forge",
+      "project_id": 1773676,
+      "file_id": 9393673,
+      "sha256": "0f4e351544b10bc993aad927938c368cc5f3954ef6f3d7d41c5b63b2bd2cfb38"
+    }
+  ],
+  "api_accepted": true,
+  "moderation_confirmed": false,
+  "manual_release": false,
+  "rebuilt_binaries": false,
+  "new_game_tests_run": false,
+  "optional_relation_exception": "Goety Charms 1776245 is not publicly available; omitted only optional CF relation for this batch. Native JAR dependency retained. Permanent publishing dependency mapping unchanged."
+}

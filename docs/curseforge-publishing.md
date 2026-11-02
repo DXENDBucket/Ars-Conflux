@@ -266,3 +266,17 @@ All four ledger entries are `uploaded`. Release type is Release; publication is 
 The publisher now accepts the standard single-patch half-open Minecraft declarations `[1.21.1,1.21.2)` and `[1.20.1,1.20.2)` as well as exact declarations. Broader, exclusive-lower-bound and inclusive-next-patch ranges remain rejected; 25 mocked publisher tests pass. No game metadata or Core binary changed for this validation adjustment.
 
 Portable receipt: `docs/curseforge-charms-instinct-20261031.json`. Prepared snapshot: `build/curseforge/20261031-224147-ac68676c/plan.json`. Icons and project descriptions are prepared separately in the project `docs/curseforge/` directories; the existing file-upload tool does not set those website fields.
+
+
+## 2026-11-01: Goety 0.1.13 / Fusion 0.2.0
+
+用户授权上传近期未发版本。比较全部11个已配置项目的22份当前发行包哈希与上传台账后，仅Goety 0.1.13和Fusion 0.2.0待发。复用与既有构建记录哈希一致的产物，补齐公开发行说明，不重建或重复启动测试。
+
+- goety 0.1.13 / neoforge: file ID `9393669`, SHA-256 `38060475ccae4b3aa3cb17205b4a50cebc86335cc86e4623efe699fa70d4841f`.
+- goety 0.1.13 / forge: file ID `9393671`, SHA-256 `512555438096b474ce59769316180a7b88584361820fa1f970a83aefaf4ef11d`.
+- fusion 0.2.0 / neoforge: file ID `9393672`, SHA-256 `ee6e30ee2a8d2a551c1f995be8a6e9fa4eb07a478f39a0c724e178a10b6ed2a5`.
+- fusion 0.2.0 / forge: file ID `9393673`, SHA-256 `0f4e351544b10bc993aad927938c368cc5f3954ef6f3d7d41c5b63b2bd2cfb38`.
+
+首次Goety请求被HTTP400/1018明确拒绝：项目goety-charms不可作为关系引用。核对1776245的项目元数据，slug正确但isAvailable=false/status=1。仅为本批生成临时发布配置，省略此可选CF关系；不更改永久依赖映射、不移除JAR原生可选依赖或公开功能说明。新计划四文件全部收到API文件ID，自动审核后发布；不代表已经审核公开。原失败计划保留，未重复上传任何成功文件。项目公开后如需补网站关系，可用官方文件元数据更新接口单独处理，无需重发JAR。
+
+成功计划：`build/curseforge/20261101-182926-2b4b8e4f/plan.json`；回执：`docs/curseforge-receipt-20261101.json`。深渊试炼未配置CF项目，不在本批上传范围。此次槽位配置只改实例COMMON配置，不属于上述模组发行包。
