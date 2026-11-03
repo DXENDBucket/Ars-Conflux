@@ -297,3 +297,16 @@ Portable receipt: `docs/curseforge-charms-instinct-20261031.json`. Prepared snap
 本批仍无法从公开接口确认Goety Charms项目的可用状态。沿用前批临时配置，只省略Goety Charms可选CF页面关系；JAR原生可选兼容声明与永久发布映射不变。未因关系问题删除任何成功上传回执。
 
 计划：`build/curseforge/20261103-060654-f2d22107/plan.json`；可移植回执：[curseforge-receipt-20261103.json](curseforge-receipt-20261103.json)。没有推送Git或改动实例；实例已安装这些最新版本。
+
+## 2026-11-03: Iron 0.17.44 Forge owner-mapping hotfix
+
+用户授权上传修复版。两平台二进制与 Iron 构建回执 SHA-256 一致，复用已有发行产物，不重建、不启动游戏。
+
+| Platform | File ID |
+| --- | ---: |
+| neoforge | 9412963 |
+| forge | 9412964 |
+
+两份文件均为 uploaded，Release 类型，审核后自动发布；API 接收不表示已经审核公开。修复 Forge AbilityDaggerMixin 中继承的 setOwner 调用映射，保留必需注入检查。两平台共各20项能力注入点静态核对通过；未做实际游戏启动验证。
+
+公开说明：[0.17.44](../release-notes/iron/0.17.44.md)；回执：[curseforge-iron-0.17.44-20261103.json](curseforge-iron-0.17.44-20261103.json)。此次仅发布 Iron，无实例部署或 Git 推送。

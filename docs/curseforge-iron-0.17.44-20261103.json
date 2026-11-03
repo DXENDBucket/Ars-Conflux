@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-03",
+  "plan": "build/curseforge/20261103-081338-544c8666/plan.json",
+  "entries": [
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "version": "0.17.44",
+      "platform": "neoforge",
+      "filename": "irons-nouveau-0.17.44-mc1.21.1-neoforge.jar",
+      "sha256": "1af3ba651c4bf5304f193f4c58abba234dc4332a1de1b1c79a55bdec692012c5",
+      "file_id": 9412963
+    },
+    {
+      "project": "iron",
+      "project_id": 1726248,
+      "version": "0.17.44",
+      "platform": "forge",
+      "filename": "irons-nouveau-0.17.44-mc1.20.1-forge.jar",
+      "sha256": "909291d08f88cc4ec20e4a63d1e501a665ae36aaa2f63a9024d12f2b1dcfdc84",
+      "file_id": 9412964
+    }
+  ],
+  "api_accepted": true,
+  "moderation_confirmed": false,
+  "manual_release": false,
+  "rebuilt_binaries": false,
+  "new_game_tests_run": false
+}
