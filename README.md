@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.50 keeps glyph categories contiguous even when no addon registers a presentation provider. NEG subforms no longer interleave with ordinary effects in a Core + NEG installation. Native glyph semantics, casting, costs and Spectra visuals are unchanged.
+
 0.1.49 Fixes the two new NEG propagator names by supplying the canonical ars_conflux.glyph_name keys read by Ars. Keeps existing compatibility keys and adds packaging-time canonical-name validation.
 
 0.1.48 adds optional NEG subforms for Nearby Allies and Carian Phalanx. They convert the remaining recipe using NEG's native propagation interface and delegate to the original cast methods. Source-form switches still apply; absent addons leave no glyphs or recipes. See [form propagators](docs/neg-form-propagators.md).

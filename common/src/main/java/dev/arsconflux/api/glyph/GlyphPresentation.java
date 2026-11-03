@@ -51,7 +51,8 @@ public final class GlyphPresentation {
     public static <K> Comparator<AbstractSpellPart> withinCategories(List<AbstractSpellPart> values,
             Comparator<AbstractSpellPart> original, Function<AbstractSpellPart, K> category,
             ToIntFunction<AbstractSpellPart> rank, ToIntFunction<K> categoryOrder) {
-        if (PROVIDERS.isEmpty()) return original;
+        // Category specialization (e.g. NEG subforms) is independent of provider opt-in.
+        // Without providers, sourceOrder still preserves the native order within each category.
         return DisplayOrder.categories(values, sourceOrder(original, Function.identity()), category, rank, categoryOrder);
     }
 }
