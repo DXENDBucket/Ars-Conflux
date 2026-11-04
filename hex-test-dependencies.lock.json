@@ -19,15 +19,15 @@
   },
   {
     "platform": "neoforge",
-    "path": "libs/hex-link/hexcasting-neoforge-1.21.1-0.12.0-devel-pre-53.jar",
-    "url": "https://ci.blamejared.com/job/petrakat/job/Hexcasting/job/1.21/53/artifact/Neoforge/build/libs/hexcasting-neoforge-1.21.1-0.12.0-devel-pre-53.jar",
-    "sha256": "5363e5697a4a63599c80f6a40ae259ce6347e6a2590ed59307da5f0edded2d72"
+    "path": "libs/hex-link/hexcasting-neoforge-1.21.1-0.12.0-devel-pre-67.jar",
+    "url": "https://ci.blamejared.com/job/petrakat/job/Hexcasting/job/1.21/67/artifact/Neoforge/build/libs/hexcasting-neoforge-1.21.1-0.12.0-devel-pre-67.jar",
+    "sha256": "afe3487aee09b5e587c14739d0f034f1b379d957ab190f92225fbfc4b98feb9f"
   },
   {
     "platform": "neoforge",
-    "path": "libs/hex-link/hex_ars_link-1.21.1-0.9.5.2.pre53.fix2.jar",
-    "url": "https://cdn.modrinth.com/data/Yntfg3XG/versions/MqfW7JIe/hex_ars_link-1.21.1-0.9.5.2.pre53.fix2.jar",
-    "sha256": "2a6e67493ee6cb8013d46b2ea51cfea6e8bfc703c0aaa618a1d626e52ec56d06"
+    "path": "libs/hex-link/hex_ars_link-1.21.1-0.9.5.2.pre67.jar",
+    "url": "https://cdn.modrinth.com/data/Yntfg3XG/versions/7Vh5Wayc/hex_ars_link-1.21.1-0.9.5.2.pre67.jar",
+    "sha256": "2cf1be996a00fe7909dac33f4ff99e565b5ae33adcd0886aac9dfc9bfe8cfc11"
   },
   {
     "platform": "neoforge",

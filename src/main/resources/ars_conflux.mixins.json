@@ -89,6 +89,7 @@
     "defaultRequire": 1
   },
   "client": [
+    "client.OptionalHexClientServicesMixin",
     "client.SchoolPowerLanguageMixin",
     "client.OptionalZeroGlyphLayoutMixin",
     "GlyphFormatterOrderMixin",

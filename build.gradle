@@ -25,7 +25,13 @@ neoForge {
     runs {
         client {
             type = 'client'
-            gameDirectory = file(providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() ? 'run/glyph-state-preview' : 'run/client')
+            def hexSmoke = providers.gradleProperty('hexClientSmoke').getOrElse('false').toBoolean()
+            gameDirectory = file(hexSmoke ? 'run/hex-client-smoke' : providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() ? 'run/glyph-state-preview' : 'run/client')
+            if (hexSmoke) {
+                systemProperty 'arsconflux.hex_client_smoke', 'true'
+                jvmArgument '-Xmx768m'
+                programArguments.addAll('--width', '640', '--height', '360')
+            }
             if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
                 systemProperty 'arsconflux.glyph_state_preview', 'true'
                 programArguments.addAll('--width', '1100', '--height', '800')

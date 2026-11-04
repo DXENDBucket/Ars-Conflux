@@ -13,6 +13,12 @@ public final class AnsMixinPlugin implements IMixinConfigPlugin {
     public void onLoad(String mixinPackage) {}
     public String getRefMapperConfig() { return null; }
     public boolean shouldApplyMixin(String target, String mixin) {
+        if (mixin.endsWith(".OptionalHexClientServicesMixin")) {
+            try {
+                return (boolean) Class.forName("dev.arsconflux.internal.hex.HexClientServicesSupport")
+                        .getMethod("supported", String.class).invoke(null, target);
+            } catch (ReflectiveOperationException unavailable) { return false; }
+        }
         if (mixin.contains(".OptionalZero")) {
             try {
                 return (boolean) Class.forName("dev.arsconflux.internal.zero.ZeroMixinSupport")
