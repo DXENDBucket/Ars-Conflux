@@ -130,6 +130,14 @@ tasks.named('sourcesJar') { from('../THIRD_PARTY_NOTICES.md') }
 
 def verifyPackagedRefmap = { File archive ->
     new java.util.zip.ZipFile(archive).withCloseable { zip ->
+        // Ars 4 has no AbstractAugment.getTypeName; this Ars 5 hook must never ship here.
+        def mixins = zip.getInputStream(zip.getEntry('ars_conflux.mixins.json')).withCloseable { stream ->
+            new groovy.json.JsonSlurper().parse(stream, 'UTF-8')
+        }
+        if ((mixins.mixins + (mixins.client ?: [])).contains('ProjectileGlyphTypeMixin')
+                || zip.getEntry('dev/arsconflux/mixin/ProjectileGlyphTypeMixin.class') != null) {
+            throw new GradleException("Ars 5-only ProjectileGlyphTypeMixin leaked into ${archive.name}")
+        }
         def entry = zip.getEntry('ars_conflux.refmap.json')
         if (entry == null) throw new GradleException("Missing ars_conflux.refmap.json in ${archive.name}")
         def refmap = zip.getInputStream(entry).withCloseable { stream ->

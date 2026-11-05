@@ -54,8 +54,7 @@
     "OptionalAdamsResolverMixin",
     "OptionalFlattenAugmentsMixin",
     "OptionalPreciseDelayAugmentsMixin",
-    "OptionalDivineSmiteAugmentsMixin",
-    "ProjectileGlyphTypeMixin"
+    "OptionalDivineSmiteAugmentsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

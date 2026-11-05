@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.53 fixes Forge 1.20.1 startup with Ars Nouveau 4.12.7: the Ars 5-only `getTypeName` hook is now NeoForge-only. Forge retains its existing category headers, frames and wheel previews. Distribution checks reject this hook if it leaks into Forge again.
+
 0.1.52 adds a dedicated Projectile Replacement category between forms and augments, with charcoal Ars frames and a recolored augment category icon. The native spell wheel now previews the first projectile payload, including Orbit recipes. Existing phrase parsing and addon IDs remain unchanged. See [projectile glyph presentation](docs/projectile-glyph-category.md).
 
 0.1.51 absorbs the optional NeoForge Hex pre53/pre64/pre67 client service-loader fix. It uses Hex's own service class loader, skips unknown versions or changed upstream code, and yields to the old standalone patch if installed. Hex and Linker remain optional; Forge behavior is unchanged. See [Hex compatibility](docs/hex-ars-linker.md).
