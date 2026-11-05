@@ -21,3 +21,13 @@ Forge 的 jar/jarJar/verifyDistributions 校验现在同时拒绝包含或注册
 - `build/libs/ars-conflux-0.1.53-mc1.21.1-neoforge.jar`: `5bf2e5fd32f3f31161865d00ae564bea8392f90f67dd39cbe3a6f9d2d2d57172`
 
 - `forge/build/libs/ars-conflux-0.1.53-mc1.20.1-forge.jar`: `e97171d2b591122a20dc3b18d763ae8fc1a09a422cdbfe66252a0b877f7a2817`
+
+## 发布前同类复查
+
+`tools/audit-mixin-entrypoints.py` 使用实际依赖JAR的类文件方法表，解析已注册Mixin的目标与方法选择器；Forge同时解析最终refmap。检查74处Forge／128处NeoForge入口，无缺失。常规Minecraft目标、无对应可选依赖类、未解析注解不能据此声称通过；这是入口存在性检查，不验证所有调用指令匹配与运行行为。详单在 `build/mixin-target-audit.json`。
+
+其中近期新增的两版法术书分类、候选校验、轮盘预览与Neo类型名称入口均覆盖。无额外代码缺陷需要改变0.1.53产物。
+
+## CurseForge 上传回执
+
+2026-11-06，用户授权上传后，两份0.1.53发行包已被Upload API接收：NeoForge文件9456917，Forge文件9456918，项目1737308。计划 `build/curseforge/20261106-020717-6fd6b088/plan.json`。审核通过后自动发布；API接收不代表已经审核公开。本次未替换整合包内的Core。
