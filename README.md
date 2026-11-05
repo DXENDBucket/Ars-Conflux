@@ -1,5 +1,7 @@
 # Ars Conflux
 
+0.1.52 adds a dedicated Projectile Replacement category between forms and augments, with charcoal Ars frames and a recolored augment category icon. The native spell wheel now previews the first projectile payload, including Orbit recipes. Existing phrase parsing and addon IDs remain unchanged. See [projectile glyph presentation](docs/projectile-glyph-category.md).
+
 0.1.51 absorbs the optional NeoForge Hex pre53/pre64/pre67 client service-loader fix. It uses Hex's own service class loader, skips unknown versions or changed upstream code, and yields to the old standalone patch if installed. Hex and Linker remain optional; Forge behavior is unchanged. See [Hex compatibility](docs/hex-ars-linker.md).
 
 0.1.50 keeps glyph categories contiguous even when no addon registers a presentation provider. NEG subforms no longer interleave with ordinary effects in a Core + NEG installation. Native glyph semantics, casting, costs and Spectra visuals are unchanged.
@@ -41,14 +43,14 @@
 
 为 Ars Nouveau 魔符附属提供共享的执行、触发计费和弹射物兼容 API。首个接入者为 Iron & Nouveau；未来其他法术附属可以独立依赖 Conflux，不必安装 Iron，也不必为彼此重复实现 Ars 载体兼容。
 
-Mod ID：`ars_conflux`。作者 EndXiom，代码使用 [MIT 许可证](LICENSE)，附属译文单独保留 LGPL-3.0 声明。当前版本 **0.1.51**。
+Mod ID：`ars_conflux`。作者 EndXiom，代码使用 [MIT 许可证](LICENSE)，附属译文单独保留 LGPL-3.0 声明。当前版本 **0.1.52**。
 
 本地更新工具：双击 `Publish-CurseForge.cmd` 可构建并上传 Core 与附属的双版本发行包，设置方法见 [CurseForge 发布说明](docs/curseforge-publishing.md)。
 
 | 游戏版本 | 加载器 | Java | 发行文件 |
 | --- | --- | --- | --- |
-| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.51-mc1.21.1-neoforge.jar` |
-| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.51-mc1.20.1-forge.jar` |
+| 1.21.1 | NeoForge 21.1.250 | 21 | `ars-conflux-0.1.52-mc1.21.1-neoforge.jar` |
+| 1.20.1 | Forge 47.4.0 | 17 | `ars-conflux-0.1.52-mc1.20.1-forge.jar` |
 
 需要 Ars Nouveau 及其前置。Iron、Goety、Not Enough Glyphs、Ars Elemental、Ars Controle、Ars Additions 都不是 Core 的必需依赖。
 

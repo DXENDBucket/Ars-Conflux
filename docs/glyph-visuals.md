@@ -13,6 +13,7 @@ uniform_color = "#B79F69"
 shape_color = "#B045E5"
 augment_color = "#DC9613"
 effect_color = "#1C919A"
+projectile_color = "#202020"
 ```
 
 - `frame_enabled`：引用 Ars 原版底板与分类边框。
@@ -20,6 +21,7 @@ effect_color = "#1C919A"
 - `center_scale`：有外框时的中心缩放，0.1–1；无外框恢复完整尺寸。
 - `color_mode`：`ARS_TYPE` 引用原版分类边框像素，`UNIFORM` 使用统一颜色，`CUSTOM` 使用分类颜色。只重染彩色边缘，保留深浅和纸张。
 - 颜色为六位十六进制 RGB，可有 `#` 前缀。
+- 0.1.52 的弹射物替换独立使用 `projectile_color`，默认深黑，在 `ARS_TYPE` 下也生效；统一色模式仍遵循 `uniform_color`。见 [分类与轮盘预览](projectile-glyph-category.md)。
 
 两个开关同时关闭恢复之前外观。仅为客户端配置，服务器无需同值；F3+T 从当前资源包重新读取素材。实际载入的新配置影响后续 GUI 绘制。
 

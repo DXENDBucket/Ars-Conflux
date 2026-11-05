@@ -25,7 +25,7 @@ public final class GlyphGuiRenderer {
         if (icon != null && icon.texture() != null
                 && Minecraft.getInstance().getResourceManager().getResource(icon.texture()).isEmpty()) icon = null;
         if (!style.enabled() && icon == null) return false;
-        var category = part instanceof AbstractCastMethod ? GlyphFrameStyle.Category.SHAPE
+        var category = GlyphCategories.projectile(part) ? GlyphFrameStyle.Category.PROJECTILE : part instanceof AbstractCastMethod ? GlyphFrameStyle.Category.SHAPE
                 : part instanceof AbstractAugment ? GlyphFrameStyle.Category.AUGMENT : GlyphFrameStyle.Category.EFFECT;
         var frame = style.enabled() ? GlyphFrameTextures.frame(style, category) : null;
         if (frame == null && icon == null) return false;

@@ -12,7 +12,7 @@ final class GlyphFrameTextures {
     private static boolean warned;
     static ResourceLocation frame(GlyphFrameStyle style,GlyphFrameStyle.Category category) {
         String key=category+"/"+style.mode()+"/"+style.color(category);var cached=CACHE.get(key);if(cached!=null)return cached;
-        var client=Minecraft.getInstance();String reference=switch(category){case SHAPE->"self";case AUGMENT->"amplify";case EFFECT->"harm";};
+        var client=Minecraft.getInstance();String reference=switch(category){case SHAPE->"self";case AUGMENT,PROJECTILE->"amplify";case EFFECT->"harm";};
         try(var baseStream=client.getResourceManager().getResourceOrThrow(CarrierRegistry.id("ars_nouveau:textures/item/glyph_template.png")).open();
             var borderStream=client.getResourceManager().getResourceOrThrow(CarrierRegistry.id("ars_nouveau:textures/item/"+reference+".png")).open();
             var base=NativeImage.read(baseStream);var border=NativeImage.read(borderStream)) {
@@ -20,8 +20,8 @@ final class GlyphFrameTextures {
             for(int y=0;y<h;y++)for(int x=0;x<w;x++) {
                 if(x>=Math.max(1,w/8) && x<w-Math.max(1,w/8) && y>=Math.max(1,h/8) && y<h-Math.max(1,h/8))continue;
                 int nativePixel=border.getPixelRGBA(x*border.getWidth()/w,y*border.getHeight()/h);
-                if(style.mode()!=GlyphFrameStyle.Mode.ARS_TYPE && nativePixel!=base.getPixelRGBA(x,y) && (nativePixel>>>24)!=0) {
-                    int nativeColor=GlyphFrameStyle.nativeColor(category),target=style.color(category);
+                if((style.mode()!=GlyphFrameStyle.Mode.ARS_TYPE||category==GlyphFrameStyle.Category.PROJECTILE) && nativePixel!=base.getPixelRGBA(x,y) && (nativePixel>>>24)!=0) {
+                    int nativeColor=GlyphFrameStyle.nativeColor(category==GlyphFrameStyle.Category.PROJECTILE?GlyphFrameStyle.Category.AUGMENT:category),target=style.color(category);
                     double brightness=Math.max(nativePixel&255,Math.max(nativePixel>>8&255,nativePixel>>16&255))
                         /(double)Math.max(nativeColor>>16&255,Math.max(nativeColor>>8&255,nativeColor&255));
                     int red=Math.min(255,(int)Math.round((target>>16&255)*brightness));

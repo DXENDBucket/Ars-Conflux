@@ -25,8 +25,9 @@ public final class ZeroGlyphCatalog {
             ResourceLocation.fromNamespaceAndPath("ars_nouveau","subform"),ZeroGlyphCatalog::propagates,
             Component.translatable("ars_nouveau.subform_icon_tooltip"),
             new DocAssets.BlitInfo(StaffGuiTextures.GLYPH_CATEGORY_PROPAGATE_FILTER,18,16));
-    private static int rank(AbstractSpellPart part) { return part instanceof AbstractAugment?3:part.getTypeIndex(); }
+    private static int rank(AbstractSpellPart part) { return dev.arsconflux.api.glyph.GlyphCategories.rank(part); }
     public static List<CategoryGlyphPages.Page<AbstractSpellPart,GlyphFormatter.Category>> pages(List<AbstractSpellPart> glyphs) {
+        dev.arsconflux.client.ProjectileGlyphCategory.prepare();
         var categories=new ArrayList<>(GlyphFormatter.CATEGORIES);
         if(!categories.contains(SUBFORM))categories.add(SUBFORM);
         var fallback=categories.stream().filter(c->c.id().toString().equals("ars_nouveau:effect")).findFirst().orElse(SUBFORM);
@@ -42,9 +43,10 @@ public final class ZeroGlyphCatalog {
         }
         Comparator<AbstractSpellPart> base=Comparator.comparingInt(ZeroGlyphCatalog::rank)
                 .thenComparing(AbstractSpellPart::getLocaleName).thenComparing(p->p.getRegistryName().toString());
-        var providerOrder=GlyphPresentation.withinCategories(values,base,groups::get,ZeroGlyphCatalog::rank,categories::indexOf);
+        java.util.function.ToIntFunction<AbstractSpellPart> rank=dev.arsconflux.api.glyph.GlyphCategories::rank;
+        var providerOrder=GlyphPresentation.withinCategories(values,base,groups::get,rank,categories::indexOf);
         // Contiguity is required even without opt-in presentation providers.
-        values.sort(DisplayOrder.categories(values,providerOrder,groups::get,ZeroGlyphCatalog::rank,categories::indexOf));
+        values.sort(DisplayOrder.categories(values,providerOrder,groups::get,rank,categories::indexOf));
         return CategoryGlyphPages.arrange(values,14,5,AbstractSpellPart::getRegistryName,groups::get);
     }
     public static GuiImageButton heading(int x,int y,GlyphFormatter.Category category) {

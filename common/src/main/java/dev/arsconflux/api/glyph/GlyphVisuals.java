@@ -16,7 +16,7 @@ public final class GlyphVisuals {
     }
     public static boolean applies(AbstractSpellPart part) {
         String namespace = part.getRegistryName().getNamespace();
-        return PROVIDERS.containsKey(namespace) || GlyphPresentation.isProvider(namespace);
+        return GlyphCategories.projectile(part) || PROVIDERS.containsKey(namespace) || GlyphPresentation.isProvider(namespace);
     }
     /** Null keeps the glyph's existing item model, including its native custom renderer. */
     public static GlyphIcon icon(AbstractSpellPart part) {

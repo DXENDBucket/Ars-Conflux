@@ -25,8 +25,13 @@ neoForge {
     runs {
         client {
             type = 'client'
+            if(providers.gradleProperty('projectileCategoryPreview').getOrElse('false').toBoolean()){
+                systemProperty 'arsconflux.projectile_category_preview','true'
+                jvmArgument '-Xmx1000m'
+                programArguments.addAll('--width','1100','--height','800')
+            }
             def hexSmoke = providers.gradleProperty('hexClientSmoke').getOrElse('false').toBoolean()
-            gameDirectory = file(hexSmoke ? 'run/hex-client-smoke' : providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() ? 'run/glyph-state-preview' : 'run/client')
+            gameDirectory = file(providers.gradleProperty('projectileCategoryPreview').getOrElse('false').toBoolean()?'run/projectile-category-preview':hexSmoke ? 'run/hex-client-smoke' : providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() ? 'run/glyph-state-preview' : 'run/client')
             if (hexSmoke) {
                 systemProperty 'arsconflux.hex_client_smoke', 'true'
                 jvmArgument '-Xmx768m'
@@ -77,7 +82,7 @@ dependencies {
         runtimeOnly fileTree(dir: 'libs/ars-n-spells', include: '*.jar')
     }
     compileOnly fileTree(dir: 'libs', include: '*.jar')
-    if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean()) {
+    if (providers.gradleProperty('glyphStatePreview').getOrElse('false').toBoolean() || providers.gradleProperty('projectileCategoryPreview').getOrElse('false').toBoolean()) {
         runtimeOnly fileTree(dir: 'libs/glyph-state-preview', include: '*.jar')
     }
     runtimeOnly fileTree(dir: 'libs', include: '*.jar', excludes:

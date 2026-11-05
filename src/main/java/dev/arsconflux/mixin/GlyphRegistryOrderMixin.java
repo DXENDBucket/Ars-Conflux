@@ -23,9 +23,9 @@ public abstract class GlyphRegistryOrderMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void conflux$groupProviders(CallbackInfo ci) {
         Function<RecipeHolder<GlyphRecipe>, AbstractSpellPart> part = holder -> holder.value().getSpellPart();
-        COMPARE_GLYPH_BY_TYPE = GlyphPresentation.afterPeers(COMPARE_GLYPH_BY_TYPE, part, AbstractSpellPart::getTypeIndex);
-        COMPARE_TYPE_THEN_NAME = GlyphPresentation.afterPeers(COMPARE_TYPE_THEN_NAME, part, AbstractSpellPart::getTypeIndex);
-        COMPARE_TIER_THEN_NAME = GlyphPresentation.afterPeers(COMPARE_TIER_THEN_NAME, part, AbstractSpellPart::getTypeIndex);
-        COMPARE_SPELL_TYPE_NAME = GlyphPresentation.afterPeers(COMPARE_SPELL_TYPE_NAME, Function.identity(), AbstractSpellPart::getTypeIndex);
+        COMPARE_GLYPH_BY_TYPE = GlyphPresentation.afterPeers(COMPARE_GLYPH_BY_TYPE, part, dev.arsconflux.api.glyph.GlyphCategories::rank);
+        COMPARE_TYPE_THEN_NAME = GlyphPresentation.afterPeers(COMPARE_TYPE_THEN_NAME, part, dev.arsconflux.api.glyph.GlyphCategories::rank);
+        COMPARE_TIER_THEN_NAME = GlyphPresentation.afterPeers(COMPARE_TIER_THEN_NAME, part, dev.arsconflux.api.glyph.GlyphCategories::rank);
+        COMPARE_SPELL_TYPE_NAME = GlyphPresentation.afterPeers(COMPARE_SPELL_TYPE_NAME, Function.identity(), dev.arsconflux.api.glyph.GlyphCategories::rank);
     }
 }

@@ -54,7 +54,8 @@
     "OptionalAdamsResolverMixin",
     "OptionalFlattenAugmentsMixin",
     "OptionalPreciseDelayAugmentsMixin",
-    "OptionalDivineSmiteAugmentsMixin"
+    "OptionalDivineSmiteAugmentsMixin",
+    "ProjectileGlyphTypeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -68,7 +69,8 @@
     "client.GlyphRenderTypeAccess",
     "client.GlyphCompositeStateAccess",
     "client.GlyphTextureStateAccess",
-    "GlyphCandidatePreviewMixin"
+    "GlyphCandidatePreviewMixin",
+    "client.ProjectileRadialPreviewMixin"
   ],
   "plugin": "dev.arsconflux.internal.ans.AnsMixinPlugin"
 }

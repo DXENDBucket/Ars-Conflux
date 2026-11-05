@@ -6,7 +6,7 @@ public final class ConfluxClientConfig {
     private static final ForgeConfigSpec.BooleanValue ENABLED,PROVIDER_ICONS;
     private static final ForgeConfigSpec.DoubleValue SCALE;
     private static final ForgeConfigSpec.EnumValue<GlyphFrameStyle.Mode> MODE;
-    private static final ForgeConfigSpec.ConfigValue<String> UNIFORM,SHAPE,AUGMENT,EFFECT;
+    private static final ForgeConfigSpec.ConfigValue<String> UNIFORM,SHAPE,AUGMENT,EFFECT,PROJECTILE;
     static {
         var b=new ForgeConfigSpec.Builder();b.push("glyph_icons");
         ENABLED=b.comment("Use Ars' original glyph base and type border for registered Conflux addon GUI icons.").define("frame_enabled",true);
@@ -17,12 +17,13 @@ public final class ConfluxClientConfig {
         SHAPE=b.define("shape_color","#B045E5",GlyphFrameStyle::validColor);
         AUGMENT=b.define("augment_color","#DC9613",GlyphFrameStyle::validColor);
         EFFECT=b.define("effect_color","#1C919A",GlyphFrameStyle::validColor);
+        PROJECTILE=b.comment("Border and category icon color for projectile replacement glyphs; also used in ARS_TYPE mode.").define("projectile_color","#202020",GlyphFrameStyle::validColor);
         b.pop();SPEC=b.build();
     }
     public static GlyphFrameStyle style() {
         if(!SPEC.isLoaded())return new GlyphFrameStyle(true,true,.75,GlyphFrameStyle.Mode.ARS_TYPE,0xB79F69,0xB045E5,0xDC9613,0x1C919A);
         return new GlyphFrameStyle(ENABLED.get(),PROVIDER_ICONS.get(),SCALE.get(),MODE.get(),
-            GlyphFrameStyle.parseColor(UNIFORM.get()),GlyphFrameStyle.parseColor(SHAPE.get()),GlyphFrameStyle.parseColor(AUGMENT.get()),GlyphFrameStyle.parseColor(EFFECT.get()));
+            GlyphFrameStyle.parseColor(UNIFORM.get()),GlyphFrameStyle.parseColor(SHAPE.get()),GlyphFrameStyle.parseColor(AUGMENT.get()),GlyphFrameStyle.parseColor(EFFECT.get()),GlyphFrameStyle.parseColor(PROJECTILE.get()));
     }
     private ConfluxClientConfig(){}
 }

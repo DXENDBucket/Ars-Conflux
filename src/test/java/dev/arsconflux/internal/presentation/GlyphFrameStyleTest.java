@@ -28,4 +28,11 @@ class GlyphFrameStyleTest {
             assertFalse(GlyphFrameStyle.validColor(value));
         assertThrows(IllegalArgumentException.class, () -> GlyphFrameStyle.parseColor("#GG0000"));
     }
+    @Test void payloadDefaultsToCharcoalAndHasIndependentConfiguration(){
+        assertEquals(0x202020,style(GlyphFrameStyle.Mode.ARS_TYPE).color(GlyphFrameStyle.Category.PROJECTILE));
+        assertEquals(0x202020,style(GlyphFrameStyle.Mode.CUSTOM).color(GlyphFrameStyle.Category.PROJECTILE));
+        var custom=new GlyphFrameStyle(true,true,.75,GlyphFrameStyle.Mode.ARS_TYPE,1,2,3,4,0x333333);
+        assertEquals(0x333333,custom.color(GlyphFrameStyle.Category.PROJECTILE));
+        assertEquals(0xDC9613,custom.color(GlyphFrameStyle.Category.AUGMENT));
+    }
 }

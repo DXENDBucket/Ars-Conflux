@@ -8,6 +8,7 @@
 - 根目录维护 NeoForge 1.21.1 / Java 21，`forge/` 维护 Forge 1.20.1 / Java 17，共享版本来自 `VERSION`。
 - 用户希望减少频繁测试。按实际改动选必要验证，收拢后执行；通过后不无理由重复全矩阵。
 - 不把服务端 GameTest 或资源路径检查说成客户端外观已验证。
+- 弹射物替换通过 `ProjectileForm` 进入独立展示分类；不要为界面分类修改其增强继承或存档类型索引。轮盘只替换第一段有效果的载荷图标，后段载荷不覆盖前段效果。见 [分类与验证](docs/projectile-glyph-category.md)。
 - 只提交自己本任务的文件；外部推送、发布和共享实例部署依任务授权，不由本约定自动授权。
 
 - School declarations are optional and per effect/payload, not per whole CastContext. Preserve native Ars School membership and DamageSource; only explicit namespaced weight declarations participate. Core provides no preset schools. Default damage rules off. Data reload is atomic, empty overrides mask code defaults, and delayed native payloads carry immutable snapshots through NativeSpellDamage overloads.

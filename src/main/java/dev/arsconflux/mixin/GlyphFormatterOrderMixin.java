@@ -11,9 +11,13 @@ import java.util.List;
 import java.util.IdentityHashMap;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = GlyphFormatter.class, remap = false)
 public abstract class GlyphFormatterOrderMixin {
+    @Inject(method="buildSortedWidgets",at=@At("HEAD"))
+    private void conflux$category(List<AbstractSpellPart> glyphs,CallbackInfo ci){dev.arsconflux.client.ProjectileGlyphCategory.prepare();}
     @WrapOperation(method = "buildSortedWidgets", at = @At(value = "INVOKE", target = "Ljava/util/List;sort(Ljava/util/Comparator;)V"))
     private void conflux$groupProviders(List<AbstractSpellPart> glyphs, Comparator<AbstractSpellPart> comparator, Operation<Void> original) {
         var categories = List.copyOf(GlyphFormatter.CATEGORIES);
@@ -26,6 +30,6 @@ public abstract class GlyphFormatterOrderMixin {
             groups.put(glyph, group);
         }
         original.call(glyphs, GlyphPresentation.withinCategories(glyphs, comparator, groups::get,
-                part -> part instanceof AbstractAugment ? 3 : part.getTypeIndex(), group -> group));
+                dev.arsconflux.api.glyph.GlyphCategories::rank, group -> group));
     }
 }

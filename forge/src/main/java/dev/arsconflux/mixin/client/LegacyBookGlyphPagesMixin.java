@@ -52,7 +52,7 @@ public abstract class LegacyBookGlyphPagesMixin extends BaseBook {
             sorted.sort(conflux$order);
             conflux$pages = LegacyGlyphPages.arrange(sorted,
                     part -> part.getRegistryName() != null ? part.getRegistryName() : part,
-                    part -> part instanceof AbstractCastMethod ? "form"
+                    part -> dev.arsconflux.api.glyph.GlyphCategories.projectile(part) ? "projectile" : part instanceof AbstractCastMethod ? "form"
                             : part instanceof AbstractAugment ? "augment"
                             : part instanceof AbstractEffect ? "effect" : null);
         }
@@ -101,7 +101,7 @@ public abstract class LegacyBookGlyphPagesMixin extends BaseBook {
                                      float partialTicks, CallbackInfo ci) {
         var pages = conflux$pages();
         for (var heading : pages.get(Math.max(0, Math.min(page, pages.size() - 1))).headings()) {
-            graphics.drawString(font, Component.translatable("ars_nouveau.spell_book_gui." + heading.category()),
+            graphics.drawString(font, Component.translatable((heading.category().equals("projectile")?"ars_conflux":"ars_nouveau")+".spell_book_gui." + heading.category()),
                     20 + heading.side() * 134, 23 + heading.row() * 18, -8355712, false);
         }
     }
