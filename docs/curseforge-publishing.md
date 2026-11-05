@@ -310,3 +310,17 @@ Portable receipt: `docs/curseforge-charms-instinct-20261031.json`. Prepared snap
 两份文件均为 uploaded，Release 类型，审核后自动发布；API 接收不表示已经审核公开。修复 Forge AbilityDaggerMixin 中继承的 setOwner 调用映射，保留必需注入检查。两平台共各20项能力注入点静态核对通过；未做实际游戏启动验证。
 
 公开说明：[0.17.44](../release-notes/iron/0.17.44.md)；回执：[curseforge-iron-0.17.44-20261103.json](curseforge-iron-0.17.44-20261103.json)。此次仅发布 Iron，无实例部署或 Git 推送。
+
+
+## 2026-11-05: projectile glyph category and Wind manual integration
+
+The user authorized uploading Conflux 0.1.52 and Iron & Nouveau 0.17.45 for both loaders. All four artifacts matched the prior verified build hashes; no rebuild or game test was repeated. The Upload API accepted:
+
+| Project | Version | NeoForge 1.21.1 | Forge 1.20.1 |
+| --- | --- | ---: | ---: |
+| Ars Conflux | 0.1.52 | 9448790 | 9448791 |
+| Iron & Nouveau | 0.17.45 | 9448793 | 9448794 |
+
+All four ledger entries are `uploaded`, with Release type and automatic publication after approval. API acceptance does not establish completed moderation or public availability. Core was uploaded first.
+
+Plan: `build/curseforge/20261105-120233-31f091ce/plan.json`. Portable receipts: `docs/curseforge-projectile-category-wind-20261105.json`. Public notes: `release-notes/conflux/0.1.52.md` and `release-notes/iron/0.17.45.md`. This publication step did not change game-instance files or push Git.

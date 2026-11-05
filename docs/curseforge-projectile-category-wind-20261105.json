@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-05",
+  "plan": "build/curseforge/20261105-120233-31f091ce/plan.json",
+  "manual_release": false,
+  "api_acceptance_only": true,
+  "receipts": [
+    {
+      "project_id": 1737308,
+      "sha256": "5fb70796676265197fafb2a171214385e1433549a65a6f6ef7217fa25a2632e5",
+      "state": "uploaded",
+      "filename": "ars-conflux-0.1.52-mc1.21.1-neoforge.jar",
+      "time": 1793851373.7110124,
+      "file_id": 9448790
+    },
+    {
+      "project_id": 1737308,
+      "sha256": "6ce7adf2ee587a82e648d5c7f34874512105f6fd704cdedcf5cc458d15cf168a",
+      "state": "uploaded",
+      "filename": "ars-conflux-0.1.52-mc1.20.1-forge.jar",
+      "time": 1793851375.944756,
+      "file_id": 9448791
+    },
+    {
+      "project_id": 1726248,
+      "sha256": "0b0e475602076cb1f70be99a95baeb91a85244232ba237ecb53b8421894b2173",
+      "state": "uploaded",
+      "filename": "irons-nouveau-0.17.45-mc1.21.1-neoforge.jar",
+      "time": 1793851378.9909005,
+      "file_id": 9448793
+    },
+    {
+      "project_id": 1726248,
+      "sha256": "f3538dce9bf967f3ad0964a654b943e7222b12658d86cf05034af12488dfeed8",
+      "state": "uploaded",
+      "filename": "irons-nouveau-0.17.45-mc1.20.1-forge.jar",
+      "time": 1793851381.8148782,
+      "file_id": 9448794
+    }
+  ]
+}
